@@ -144,7 +144,7 @@ function UILib:CreateWindow(options)
 
                     dropdownButton.MouseButton1Click:Connect(function()
                         dropdownList.Visible = not dropdownList.Visible
-                        dropdownFrame.Size = dropdownList.Visible and UDim2.new(0, 200, 0, 50 + #dropdownOptions.Items * 30) or UDim2.new(0, 200, 0, 50)
+                        dropdownList.Position = UDim2.new(0, 0, 1, 0)
                         layout:ApplyLayout()
                     end)
 
@@ -164,7 +164,6 @@ function UILib:CreateWindow(options)
                             dropdownButton.Text = item
                             dropdownOptions.Callback(item)
                             dropdownList.Visible = false
-                            dropdownFrame.Size = UDim2.new(0, 200, 0, 50)
                             layout:ApplyLayout()
                         end)
                     end
