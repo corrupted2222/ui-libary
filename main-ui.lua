@@ -49,8 +49,9 @@ function UILib:CreateWindow(options)
     contentFrame.Position = UDim2.new(0, 0, 0, 100)
     contentFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     contentFrame.BorderSizePixel = 0
-    contentFrame.CanvasSize = UDim2.new(0, 0, 2, 0) -- Initial canvas size
+    contentFrame.CanvasSize = UDim2.new(0, 0, 0, 0) -- Initial canvas size
     contentFrame.ScrollBarThickness = 10
+    contentFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
 
     local tabs = {}
 
