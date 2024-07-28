@@ -3,7 +3,7 @@ local UILib = {}
 function UILib:CreateWindow(options)
     local screenGui = Instance.new("ScreenGui")
     screenGui.Name = options.Title or "UI Window"
-    screenGui.Parent = game.Players.LocalPlayer.PlayerGui
+    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
     local window = Instance.new("Frame")
     window.Name = "MainWindow"
@@ -113,7 +113,7 @@ function UILib:CreateWindow(options)
                     dropdown.Name = dropdownOptions.Title or "Dropdown"
                     dropdown.Parent = tabContent
                     dropdown.Position = dropdownOptions.Position or UDim2.new(0.5, -50, 0, nextPositionY)
-                    dropdown.Size = dropdownOptions.Size or UDim2.new(0, 100, 0, 50)
+                    dropdown.Size = dropdownOptions.Size or UDim2.new(0, 200, 0, 50)
                     dropdown.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
                     dropdown.BorderSizePixel = 0
 
@@ -132,26 +132,24 @@ function UILib:CreateWindow(options)
                     dropdownList.Name = "DropdownList"
                     dropdownList.Parent = dropdown
                     dropdownList.Position = UDim2.new(0, 0, 1, 0)
-                    dropdownList.Size = UDim2.new(1, 0, 0, 0)
+                    dropdownList.Size = UDim2.new(1, 0, 0, #dropdownOptions.Items * 30)
                     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                     dropdownList.BorderSizePixel = 0
                     dropdownList.ClipsDescendants = true
+                    dropdownList.Visible = false
 
                     local function toggleDropdown()
-                        if dropdownList.Size.Y.Offset == 0 then
-                            dropdownList:TweenSize(UDim2.new(1, 0, #dropdownOptions.Items * 30, 0), "Out", "Quad", 0.2, true)
-                        else
-                            dropdownList:TweenSize(UDim2.new(1, 0, 0, 0), "Out", "Quad", 0.2, true)
-                        end
+                        dropdownList.Visible = not dropdownList.Visible
                     end
 
                     dropdownButton.MouseButton1Click:Connect(toggleDropdown)
 
-                    for _, item in ipairs(dropdownOptions.Items) do
+                    for index, item in ipairs(dropdownOptions.Items) do
                         local itemButton = Instance.new("TextButton")
                         itemButton.Name = item
                         itemButton.Parent = dropdownList
                         itemButton.Size = UDim2.new(1, 0, 0, 30)
+                        itemButton.Position = UDim2.new(0, 0, 0, (index - 1) * 30)
                         itemButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                         itemButton.Text = item
                         itemButton.Font = Enum.Font.Arial
@@ -166,7 +164,7 @@ function UILib:CreateWindow(options)
                         end)
                     end
 
-                    nextPositionY = nextPositionY + dropdownList.Size.Y.Offset
+                    nextPositionY = nextPositionY + dropdown.Size.Y.Offset + dropdownList.Size.Y.Offset
                 end,
 
                 AddToggle = function(self, toggleOptions)
