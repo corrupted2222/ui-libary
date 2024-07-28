@@ -81,21 +81,23 @@ function UILib:CreateWindow(options)
             tabContent.BorderSizePixel = 0
             tabContent.Visible = false
 
+            local layout = Instance.new("UIListLayout")
+            layout.Parent = tabContent
+            layout.SortOrder = Enum.SortOrder.LayoutOrder
+            layout.Padding = UDim.new(0, 10)
+
             tabButton.MouseButton1Click:Connect(function()
                 switchTab({ button = tabButton, content = tabContent })
             end)
 
             table.insert(tabs, { button = tabButton, content = tabContent })
 
-            local nextPositionY = 0
-
             return {
                 AddButton = function(self, buttonOptions)
                     local button = Instance.new("TextButton")
                     button.Name = buttonOptions.Title or "Button"
                     button.Parent = tabContent
-                    button.Position = buttonOptions.Position or UDim2.new(0.5, -50, 0, nextPositionY)
-                    button.Size = buttonOptions.Size or UDim2.new(0, 100, 0, 50)
+                    button.Size = buttonOptions.Size or UDim2.new(0, 200, 0, 50)
                     button.BackgroundColor3 = buttonOptions.Color or Color3.fromRGB(0, 170, 255)
                     button.Text = buttonOptions.Title or "Button"
                     button.Font = Enum.Font.ArialBold
@@ -104,22 +106,19 @@ function UILib:CreateWindow(options)
                     button.BorderSizePixel = 0
 
                     button.MouseButton1Click:Connect(buttonOptions.Callback or function() end)
-                    
-                    nextPositionY = nextPositionY + 60
                 end,
 
                 AddDropdown = function(self, dropdownOptions)
-                    local dropdown = Instance.new("Frame")
-                    dropdown.Name = dropdownOptions.Title or "Dropdown"
-                    dropdown.Parent = tabContent
-                    dropdown.Position = dropdownOptions.Position or UDim2.new(0.5, -50, 0, nextPositionY)
-                    dropdown.Size = dropdownOptions.Size or UDim2.new(0, 200, 0, 50)
-                    dropdown.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
-                    dropdown.BorderSizePixel = 0
+                    local dropdownFrame = Instance.new("Frame")
+                    dropdownFrame.Name = dropdownOptions.Title or "Dropdown"
+                    dropdownFrame.Parent = tabContent
+                    dropdownFrame.Size = dropdownOptions.Size or UDim2.new(0, 200, 0, 50)
+                    dropdownFrame.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
+                    dropdownFrame.BorderSizePixel = 0
 
                     local dropdownButton = Instance.new("TextButton")
                     dropdownButton.Name = "DropdownButton"
-                    dropdownButton.Parent = dropdown
+                    dropdownButton.Parent = dropdownFrame
                     dropdownButton.Size = UDim2.new(1, 0, 1, 0)
                     dropdownButton.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
                     dropdownButton.Text = dropdownOptions.Title or "Dropdown"
@@ -130,26 +129,33 @@ function UILib:CreateWindow(options)
 
                     local dropdownList = Instance.new("Frame")
                     dropdownList.Name = "DropdownList"
-                    dropdownList.Parent = dropdown
+                    dropdownList.Parent = dropdownFrame
                     dropdownList.Position = UDim2.new(0, 0, 1, 0)
                     dropdownList.Size = UDim2.new(1, 0, 0, #dropdownOptions.Items * 30)
                     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                     dropdownList.BorderSizePixel = 0
-                    dropdownList.ClipsDescendants = true
                     dropdownList.Visible = false
+
+                    local listLayout = Instance.new("UIListLayout")
+                    listLayout.Parent = dropdownList
+                    listLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
                     local function toggleDropdown()
                         dropdownList.Visible = not dropdownList.Visible
+                        if dropdownList.Visible then
+                            dropdownFrame.Size = UDim2.new(0, 200, 0, 50 + dropdownList.Size.Y.Offset)
+                        else
+                            dropdownFrame.Size = UDim2.new(0, 200, 0, 50)
+                        end
                     end
 
                     dropdownButton.MouseButton1Click:Connect(toggleDropdown)
 
-                    for index, item in ipairs(dropdownOptions.Items) do
+                    for _, item in ipairs(dropdownOptions.Items) do
                         local itemButton = Instance.new("TextButton")
                         itemButton.Name = item
                         itemButton.Parent = dropdownList
                         itemButton.Size = UDim2.new(1, 0, 0, 30)
-                        itemButton.Position = UDim2.new(0, 0, 0, (index - 1) * 30)
                         itemButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                         itemButton.Text = item
                         itemButton.Font = Enum.Font.Arial
@@ -163,16 +169,13 @@ function UILib:CreateWindow(options)
                             toggleDropdown()
                         end)
                     end
-
-                    nextPositionY = nextPositionY + dropdown.Size.Y.Offset + dropdownList.Size.Y.Offset
                 end,
 
                 AddToggle = function(self, toggleOptions)
                     local toggle = Instance.new("Frame")
                     toggle.Name = toggleOptions.Title or "Toggle"
                     toggle.Parent = tabContent
-                    toggle.Position = toggleOptions.Position or UDim2.new(0.5, -50, 0, nextPositionY)
-                    toggle.Size = toggleOptions.Size or UDim2.new(0, 100, 0, 50)
+                    toggle.Size = toggleOptions.Size or UDim2.new(0, 200, 0, 50)
                     toggle.BackgroundColor3 = toggleOptions.Color or Color3.fromRGB(45, 45, 45)
                     toggle.BorderSizePixel = 0
 
@@ -204,14 +207,12 @@ function UILib:CreateWindow(options)
                     end)
 
                     updateToggle()
-                    nextPositionY = nextPositionY + 60
                 end,
 
                 AddSlider = function(self, sliderOptions)
                     local slider = Instance.new("Frame")
                     slider.Name = sliderOptions.Title or "Slider"
                     slider.Parent = tabContent
-                    slider.Position = sliderOptions.Position or UDim2.new(0.5, -100, 0, nextPositionY)
                     slider.Size = sliderOptions.Size or UDim2.new(0, 200, 0, 50)
                     slider.BackgroundColor3 = sliderOptions.Color or Color3.fromRGB(45, 45, 45)
                     slider.BorderSizePixel = 0
@@ -272,7 +273,6 @@ function UILib:CreateWindow(options)
                     end)
 
                     updateSlider((sliderValue - sliderOptions.Min) / (maxValue - sliderOptions.Min))
-                    nextPositionY = nextPositionY + 60
                 end
             }
         end
