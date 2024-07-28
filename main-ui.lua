@@ -60,19 +60,17 @@ function UILib:CreateWindow(options)
             tabButton.content.Visible = false
         end
         tab.content.Visible = true
+        titleLabel.Text = "zygarde | " .. tab.title
     end
 
     return {
         AddTab = function(self, tabOptions)
-            local tabButton = Instance.new("TextButton")
+            local tabButton = Instance.new("ImageButton")
             tabButton.Name = tabOptions.Title or "Tab"
             tabButton.Parent = tabFrame
             tabButton.Size = UDim2.new(0, 100, 1, 0)
             tabButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-            tabButton.Text = tabOptions.Title or "Tab"
-            tabButton.Font = Enum.Font.ArialBold
-            tabButton.TextSize = 14
-            tabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            tabButton.Image = tabOptions.Icon or ""
             tabButton.BorderSizePixel = 0
             tabButton.Position = UDim2.new(#tabs * 0.2, 0, 0, 0)
 
@@ -90,7 +88,7 @@ function UILib:CreateWindow(options)
             layout.Padding = UDim.new(0, 10)
 
             tabButton.MouseButton1Click:Connect(function()
-                switchTab({ button = tabButton, content = tabContent })
+                switchTab({ button = tabButton, content = tabContent, title = tabOptions.Title or "Tab" })
             end)
 
             table.insert(tabs, { button = tabButton, content = tabContent })
