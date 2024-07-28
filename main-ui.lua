@@ -112,7 +112,7 @@ function UILib:CreateWindow(options)
                     local dropdownFrame = Instance.new("Frame")
                     dropdownFrame.Name = dropdownOptions.Title or "Dropdown"
                     dropdownFrame.Parent = tabContent
-                    dropdownFrame.Size = dropdownOptions.Size or UDim2.new(0, 200, 0, 50)
+                    dropdownFrame.Size = UDim2.new(0, 200, 0, 50)
                     dropdownFrame.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
                     dropdownFrame.BorderSizePixel = 0
 
@@ -142,11 +142,6 @@ function UILib:CreateWindow(options)
 
                     local function toggleDropdown()
                         dropdownList.Visible = not dropdownList.Visible
-                        if dropdownList.Visible then
-                            dropdownFrame.Size = UDim2.new(0, 200, 0, 50 + dropdownList.Size.Y.Offset)
-                        else
-                            dropdownFrame.Size = UDim2.new(0, 200, 0, 50)
-                        end
                     end
 
                     dropdownButton.MouseButton1Click:Connect(toggleDropdown)
