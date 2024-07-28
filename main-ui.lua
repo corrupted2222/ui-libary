@@ -142,6 +142,11 @@ function UILib:CreateWindow(options)
 
                     local function toggleDropdown()
                         dropdownList.Visible = not dropdownList.Visible
+                        if dropdownList.Visible then
+                            dropdownFrame.Size = UDim2.new(0, 200, 0, 50 + #dropdownOptions.Items * 30)
+                        else
+                            dropdownFrame.Size = UDim2.new(0, 200, 0, 50)
+                        end
                     end
 
                     dropdownButton.MouseButton1Click:Connect(toggleDropdown)
