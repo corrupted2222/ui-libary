@@ -129,9 +129,8 @@ function UILib:CreateWindow(options)
 
                     local dropdownList = Instance.new("Frame")
                     dropdownList.Name = "DropdownList"
-                    dropdownList.Parent = dropdownFrame
-                    dropdownList.Position = UDim2.new(0, 0, 1, 0)
-                    dropdownList.Size = UDim2.new(1, 0, 0, #dropdownOptions.Items * 30)
+                    dropdownList.Parent = tabContent
+                    dropdownList.Size = UDim2.new(0, 200, 0, #dropdownOptions.Items * 30)
                     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                     dropdownList.BorderSizePixel = 0
                     dropdownList.Visible = false
@@ -140,16 +139,11 @@ function UILib:CreateWindow(options)
                     listLayout.Parent = dropdownList
                     listLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-                    local function toggleDropdown()
+                    dropdownButton.MouseButton1Click:Connect(function()
                         dropdownList.Visible = not dropdownList.Visible
-                        if dropdownList.Visible then
-                            dropdownFrame.Size = UDim2.new(0, 200, 0, 50 + #dropdownOptions.Items * 30)
-                        else
-                            dropdownFrame.Size = UDim2.new(0, 200, 0, 50)
-                        end
-                    end
-
-                    dropdownButton.MouseButton1Click:Connect(toggleDropdown)
+                        dropdownFrame.Size = dropdownList.Visible and UDim2.new(0, 200, 0, 50 + #dropdownOptions.Items * 30) or UDim2.new(0, 200, 0, 50)
+                        layout:ApplyLayout()
+                    end)
 
                     for _, item in ipairs(dropdownOptions.Items) do
                         local itemButton = Instance.new("TextButton")
@@ -166,7 +160,9 @@ function UILib:CreateWindow(options)
                         itemButton.MouseButton1Click:Connect(function()
                             dropdownButton.Text = item
                             dropdownOptions.Callback(item)
-                            toggleDropdown()
+                            dropdownList.Visible = false
+                            dropdownFrame.Size = UDim2.new(0, 200, 0, 50)
+                            layout:ApplyLayout()
                         end)
                     end
                 end,
