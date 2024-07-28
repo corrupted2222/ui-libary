@@ -43,12 +43,14 @@ function UILib:CreateWindow(options)
     tabFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     tabFrame.BorderSizePixel = 0
 
-    local contentFrame = Instance.new("Frame")
+    local contentFrame = Instance.new("ScrollingFrame")
     contentFrame.Parent = window
     contentFrame.Size = UDim2.new(1, 0, 1, -100)
     contentFrame.Position = UDim2.new(0, 0, 0, 100)
     contentFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     contentFrame.BorderSizePixel = 0
+    contentFrame.CanvasSize = UDim2.new(0, 0, 2, 0) -- Initial canvas size
+    contentFrame.ScrollBarThickness = 10
 
     local tabs = {}
 
@@ -179,7 +181,7 @@ function UILib:CreateWindow(options)
                     toggleButton.Name = "ToggleButton"
                     toggleButton.Parent = toggle
                     toggleButton.Size = UDim2.new(1, 0, 1, 0)
-                    toggleButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+                    toggleButton.BackgroundColor3 = toggleOptions.Color or Color3.fromRGB(45, 45, 45)
                     toggleButton.Text = toggleOptions.Title or "Toggle"
                     toggleButton.Font = Enum.Font.ArialBold
                     toggleButton.TextSize = 14
