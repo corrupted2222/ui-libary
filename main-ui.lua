@@ -69,7 +69,7 @@ function UILib:CreateWindow(options)
     toggleButton.Size = UDim2.new(0, 50, 0, 50)
     toggleButton.Position = UDim2.new(0, 10, 0, 10)
     toggleButton.BackgroundTransparency = 1
-    toggleButton.Image = "rbxassetid://PLACEHOLDER"
+    toggleButton.Image = "rbxassetid://PLACEHOLDER" -- Placeholder for the image
 
     local windowVisible = true
 
@@ -143,31 +143,30 @@ function UILib:CreateWindow(options)
                     dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
                     dropdownButton.BorderSizePixel = 0
 
-                    local gapFrame = Instance.new("Frame")
-                    gapFrame.Name = "GapFrame"
-                    gapFrame.Parent = dropdownButton
-                    gapFrame.Size = UDim2.new(0, 200, 0, 10)
-                    gapFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-                    gapFrame.BorderSizePixel = 0
-                    gapFrame.Visible = false
-
-                    local dropdownList = Instance.new("Frame")
+                    local dropdownList = Instance.new("ScrollingFrame")
                     dropdownList.Name = "DropdownList"
-                    dropdownList.Parent = tabContent
-                    dropdownList.Size = UDim2.new(0, 200, 0, #dropdownOptions.Items * 30)
+                    dropdownList.Parent = dropdownFrame
+                    dropdownList.Size = UDim2.new(1, 0, 0, 200)
+                    dropdownList.Position = UDim2.new(0, 0, 1, 0)
                     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                     dropdownList.BorderSizePixel = 0
                     dropdownList.Visible = false
+                    dropdownList.ScrollingDirection = Enum.ScrollingDirection.Y
+                    dropdownList.CanvasSize = UDim2.new(0, 0, 0, 0)
+                    dropdownList.ScrollBarThickness = 10
 
                     local listLayout = Instance.new("UIListLayout")
                     listLayout.Parent = dropdownList
                     listLayout.SortOrder = Enum.SortOrder.LayoutOrder
+                    listLayout.Padding = UDim.new(0, 5)
 
                     dropdownButton.MouseButton1Click:Connect(function()
-                        local isVisible = not dropdownList.Visible
-                        dropdownList.Visible = isVisible
-                        gapFrame.Visible = isVisible
+                        dropdownList.Visible = not dropdownList.Visible
                         dropdownList.Position = UDim2.new(0, 0, 1, 0)
+                        dropdownList.CanvasSize = UDim2.new(0, 0, 0, dropdownList.UIListLayout.AbsoluteContentSize.Y)
+                        if dropdownList.Visible then
+                            dropdownList:ScrollToPosition(Vector2.new(0, dropdownList.CanvasSize.Y.Offset))
+                        end
                     end)
 
                     for _, item in ipairs(dropdownOptions.Items) do
@@ -186,8 +185,6 @@ function UILib:CreateWindow(options)
                             dropdownButton.Text = item
                             dropdownOptions.Callback(item)
                             dropdownList.Visible = false
-                            gapFrame.Visible = false
-                            layout:ApplyLayout()
                         end)
                     end
                 end,
