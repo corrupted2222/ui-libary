@@ -63,6 +63,21 @@ function UILib:CreateWindow(options)
         titleLabel.Text = "zygarde | " .. tab.title
     end
 
+    local toggleButton = Instance.new("ImageButton")
+    toggleButton.Name = "ToggleButton"
+    toggleButton.Parent = screenGui
+    toggleButton.Size = UDim2.new(0, 50, 0, 50)
+    toggleButton.Position = UDim2.new(0, 10, 0, 10)
+    toggleButton.BackgroundTransparency = 1
+    toggleButton.Image = "rbxassetid://PLACEHOLDER" -- Placeholder for the image
+
+    local windowVisible = true
+
+    toggleButton.MouseButton1Click:Connect(function()
+        windowVisible = not windowVisible
+        window.Visible = windowVisible
+    end)
+
     return {
         AddTab = function(self, tabOptions)
             local tabButton = Instance.new("ImageButton")
@@ -271,6 +286,10 @@ function UILib:CreateWindow(options)
                     updateSlider((sliderValue - sliderOptions.Min) / (maxValue - sliderOptions.Min))
                 end
             }
+        end,
+
+        SetToggleButtonImage = function(self, assetId)
+            toggleButton.Image = assetId
         end
     }
 end
