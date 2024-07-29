@@ -143,6 +143,14 @@ function UILib:CreateWindow(options)
                     dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
                     dropdownButton.BorderSizePixel = 0
 
+                    local gap = Instance.new("Frame")
+                    gap.Name = "DropdownList"
+                    gap.Parent = dropdownList
+                    gap.Size = UDim2.new(0, 200, 0, 30)
+                    gap.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+                    gap.BorderSizePixel = 0
+                    gap.Visible = false
+
                     local dropdownList = Instance.new("Frame")
                     dropdownList.Name = "DropdownList"
                     dropdownList.Parent = tabContent
