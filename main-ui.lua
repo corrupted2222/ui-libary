@@ -147,9 +147,15 @@ function UILib:CreateWindow(options)
                     dropdownList.Name = "DropdownList"
                     dropdownList.Parent = tabContent
                     dropdownList.Size = UDim2.new(0, 200, 0, #dropdownOptions.Items * 30)
+                    dropdownList.Position = UDim2.new(0, 0, 1, 0)
                     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                     dropdownList.BorderSizePixel = 0
                     dropdownList.Visible = false
+
+                    local listLayout = Instance.new("UIListLayout")
+                    listLayout.Parent = dropdownList
+                    listLayout.SortOrder = Enum.SortOrder.LayoutOrder
+                    listLayout.Padding = UDim.new(0, 10)
 
                     local gapFrame = Instance.new("Frame")
                     gapFrame.Name = "GapFrame"
@@ -158,16 +164,12 @@ function UILib:CreateWindow(options)
                     gapFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                     gapFrame.BorderSizePixel = 0
 
-                    local listLayout = Instance.new("UIListLayout")
-                    listLayout.Parent = dropdownList
-                    listLayout.SortOrder = Enum.SortOrder.LayoutOrder
-
                     dropdownButton.MouseButton1Click:Connect(function()
                         local isVisible = not dropdownList.Visible
                         dropdownList.Visible = isVisible
                         gapFrame.Visible = isVisible
-                        dropdownList.Position = UDim2.new(0, 0, 1, 0)
-                        layout:ApplyLayout()
+                        dropdownList.Position = UDim2.new(0, 0, 1, 10)  -- Adjusted position to fill gap
+                        listLayout:ApplyLayout()
                     end)
 
                     for _, item in ipairs(dropdownOptions.Items) do
@@ -184,10 +186,9 @@ function UILib:CreateWindow(options)
 
                         itemButton.MouseButton1Click:Connect(function()
                             dropdownButton.Text = item
-                            dropdownOptions.Callback(item)
                             dropdownList.Visible = false
                             gapFrame.Visible = false
-                            layout:ApplyLayout()
+                            dropdownOptions.Callback(item)
                         end)
                     end
                 end,
