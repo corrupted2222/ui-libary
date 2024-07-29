@@ -1,9 +1,15 @@
 local UILib = {}
 
 function UILib:CreateWindow(options)
+    local player = game.Players.LocalPlayer
+    if not player then
+        warn("No LocalPlayer found. Make sure this script runs on the client.")
+        return
+    end
+
     local screenGui = Instance.new("ScreenGui")
     screenGui.Name = options.Title or "UI Window"
-    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    screenGui.Parent = player:WaitForChild("PlayerGui")
 
     local window = Instance.new("Frame")
     window.Name = "MainWindow"
@@ -60,7 +66,6 @@ function UILib:CreateWindow(options)
             tabButton.content.Visible = false
         end
         tab.content.Visible = true
-        titleLabel.Text = "zygarde | " .. tab.title
     end
 
     local toggleButton = Instance.new("ImageButton")
@@ -69,7 +74,7 @@ function UILib:CreateWindow(options)
     toggleButton.Size = UDim2.new(0, 50, 0, 50)
     toggleButton.Position = UDim2.new(0, 10, 0, 10)
     toggleButton.BackgroundTransparency = 1
-    toggleButton.Image = "rbxassetid://PLACEHOLDER" -- Placeholder for the image
+    toggleButton.Image = "rbxassetid://17376881029" -- Default image
 
     local windowVisible = true
 
@@ -103,7 +108,7 @@ function UILib:CreateWindow(options)
             layout.Padding = UDim.new(0, 10)
 
             tabButton.MouseButton1Click:Connect(function()
-                switchTab({ button = tabButton, content = tabContent, title = tabOptions.Title or "Tab" })
+                switchTab({ button = tabButton, content = tabContent })
             end)
 
             table.insert(tabs, { button = tabButton, content = tabContent })
@@ -170,8 +175,11 @@ function UILib:CreateWindow(options)
 
                     dropdownButton.MouseButton1Click:Connect(function()
                         dropdownList.Visible = not dropdownList.Visible
-                        dropdownList.Size = UDim2.new(1, 0, 0, dropdownList.UIListLayout.AbsoluteContentSize.Y)
-                        dropdownFrame.Size = UDim2.new(0, 200, 0, dropdownList.Size.Y.Offset + 30)  -- Adjust frame size
+                        if dropdownList.Visible then
+                            dropdownList.Size = UDim2.new(1, 0, 0, dropdownList.UIListLayout.AbsoluteContentSize.Y)
+                        else
+                            dropdownList.Size = UDim2.new(1, 0, 0, 0)
+                        end
                     end)
 
                     for _, item in ipairs(dropdownOptions.Items) do
@@ -190,10 +198,100 @@ function UILib:CreateWindow(options)
                             dropdownTitle.Text = item
                             dropdownOptions.Callback(item)
                             dropdownList.Visible = false
-                            dropdownFrame.Size = UDim2.new(0, 200, 0, 50)  -- Reset frame size
+                            dropdownFrame.Size = UDim2.new(0, 200, 0, 50) -- Reset frame size
                         end)
                     end
-                end
+                end,
+
+                AddToggle = function(self, toggleOptions)
+                    local toggleFrame = Instance.new("Frame")
+                    toggleFrame.Name = toggleOptions.Title or "Toggle"
+                    toggleFrame.Parent = tabContent
+                    toggleFrame.Size = UDim2.new(0, 200, 0, 50)
+                    toggleFrame.BackgroundColor3 = toggleOptions.Color or Color3.fromRGB(45, 45, 45)
+                    toggleFrame.BorderSizePixel = 0
+
+                    local toggleLabel = Instance.new("TextLabel")
+                    toggleLabel.Name = "ToggleLabel"
+                    toggleLabel.Parent = toggleFrame
+                    toggleLabel.Size = UDim2.new(0, 150, 0, 50)
+                    toggleLabel.BackgroundColor3 = toggleOptions.Color or Color3.fromRGB(45, 45, 45)
+                    toggleLabel.Text = toggleOptions.Title or "Toggle"
+                    toggleLabel.Font = Enum.Font.ArialBold
+                    toggleLabel.TextSize = 14
+                    toggleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    toggleLabel.BorderSizePixel = 0
+
+                    local toggleButton = Instance.new("TextButton")
+                    toggleButton.Name = "ToggleButton"
+                    toggleButton.Parent = toggleFrame
+                    toggleButton.Size = UDim2.new(0, 50, 0, 50)
+                    toggleButton.Position = UDim2.new(1, -50, 0, 0)
+                    toggleButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+                    toggleButton.Text = ""
+                    toggleButton.Font = Enum.Font.SourceSans
+                    toggleButton.TextSize = 14
+                    toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    toggleButton.BorderSizePixel = 0
+
+                    local toggled = false
+
+                    toggleButton.MouseButton1Click:Connect(function()
+                        toggled = not toggled
+                        toggleButton.BackgroundColor3 = toggled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(100, 100, 100)
+                        toggleOptions.Callback(toggled)
+                    end)
+                end,
+
+                AddSlider = function(self, sliderOptions)
+                    local sliderFrame = Instance.new("Frame")
+                    sliderFrame.Name = sliderOptions.Title or "Slider"
+                    sliderFrame.Parent = tabContent
+                    sliderFrame.Size = UDim2.new(0, 200, 0, 50)
+                    sliderFrame.BackgroundColor3 = sliderOptions.Color or Color3.fromRGB(45, 45, 45)
+                    sliderFrame.BorderSizePixel = 0
+
+                    local sliderLabel = Instance.new("TextLabel")
+                    sliderLabel.Name = "SliderLabel"
+                    sliderLabel.Parent = sliderFrame
+                    sliderLabel.Size = UDim2.new(1, -50, 0, 50)
+                    sliderLabel.BackgroundColor3 = sliderOptions.Color or Color3.fromRGB(45, 45, 45)
+                    sliderLabel.Text = sliderOptions.Title or "Slider"
+                    sliderLabel.Font = Enum.Font.ArialBold
+                    sliderLabel.TextSize = 14
+                    sliderLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    sliderLabel.BorderSizePixel = 0
+
+                    local sliderButton = Instance.new("TextButton")
+                    sliderButton.Name = "SliderButton"
+                    sliderButton.Parent = sliderFrame
+                    sliderButton.Size = UDim2.new(0, 50, 1, 0)
+                    sliderButton.Position = UDim2.new(1, -50, 0, 0)
+                    sliderButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+                    sliderButton.Text = ""
+                    sliderButton.Font = Enum.Font.SourceSans
+                    sliderButton.TextSize = 14
+                    sliderButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    sliderButton.BorderSizePixel = 0
+
+                    local minValue = sliderOptions.Min or 0
+                    local maxValue = sliderOptions.Max or 100
+                    local currentValue = minValue
+
+                    sliderButton.MouseButton1Click:Connect(function()
+                        -- Handle slider movement and value change
+                        -- Example implementation: setting value based on mouse position
+                        local mouse = game.Players.LocalPlayer:GetMouse()
+                        local sliderPos = mouse.X - sliderFrame.AbsolutePosition.X
+                        currentValue = math.clamp(math.round((sliderPos / sliderFrame.AbsoluteSize.X) * (maxValue - minValue) + minValue), minValue, maxValue)
+                        sliderButton.Position = UDim2.new(currentValue / maxValue, -25, 0, 0)
+                        sliderOptions.Callback(currentValue)
+                    end)
+                end,
+
+                SetToggleButtonImage = function(self, imageId)
+                    toggleButton.Image = imageId
+                end,
             }
         end
     }
