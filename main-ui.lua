@@ -143,7 +143,6 @@ function UILib:CreateWindow(options)
                     dropdownButton.TextSize = 14
                     dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
                     dropdownButton.BorderSizePixel = 0
-                    dropdownButton.ZIndex = 2
 
                     local dropdownList = Instance.new("Frame")
                     dropdownList.Name = "DropdownList"
@@ -153,7 +152,6 @@ function UILib:CreateWindow(options)
                     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                     dropdownList.BorderSizePixel = 0
                     dropdownList.Visible = false
-                    dropdownList.ZIndex = 1
 
                     local listLayout = Instance.new("UIListLayout")
                     listLayout.Parent = dropdownList
@@ -162,10 +160,13 @@ function UILib:CreateWindow(options)
                     dropdownButton.MouseButton1Click:Connect(function()
                         dropdownList.Visible = not dropdownList.Visible
                         if dropdownList.Visible then
-                            contentFrame.CanvasSize = UDim2.new(0, 0, 0, tabContent.AbsoluteContentSize.Y)
+                            local newSize = UDim2.new(1, 0, 0, listLayout.AbsoluteContentSize.Y)
+                            dropdownList.Size = newSize
+                            tabContent.Size = UDim2.new(1, 0, 1, -newSize.Y.Offset)
                         else
-                            contentFrame.CanvasSize = UDim2.new(0, 0, 0, tabContent.AbsoluteContentSize.Y)
+                            tabContent.Size = UDim2.new(1, 0, 1, 0)
                         end
+                        contentFrame.CanvasSize = UDim2.new(0, 0, 0, tabContent.AbsoluteContentSize.Y)
                     end)
 
                     for _, item in ipairs(dropdownOptions.Items) do
@@ -184,9 +185,15 @@ function UILib:CreateWindow(options)
                             dropdownButton.Text = item
                             dropdownOptions.Callback(item)
                             dropdownList.Visible = false
-                            contentFrame.CanvasSize = UDim2.new(0, 0, 0, tabContent.AbsoluteContentSize.Y)
+                            tabContent.Size = UDim2.new(1, 0, 1, 0)
                         end)
                     end
+
+                    local dropdownHeight = 0
+                    for _, item in ipairs(dropdownOptions.Items) do
+                        dropdownHeight = dropdownHeight + 30
+                    end
+                    dropdownList.Size = UDim2.new(1, 0, 0, dropdownHeight)
                 end,
 
                 AddToggle = function(self, toggleOptions)
