@@ -15,7 +15,7 @@ function UILib:CreateWindow(config)
     title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
     title.TextColor3 = Color3.fromRGB(255, 255, 255)
     title.TextScaled = true
-
+    
     local subtitle = Instance.new("TextLabel", window)
     subtitle.Text = config.SubTitle or ""
     subtitle.Size = UDim2.new(1, 0, 0, 20)
@@ -23,8 +23,6 @@ function UILib:CreateWindow(config)
     subtitle.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
     subtitle.TextColor3 = Color3.fromRGB(200, 200, 200)
     subtitle.TextScaled = true
-    
-    window.Name = "MainWindow"
 
     local tabContainer = Instance.new("Frame")
     tabContainer.Size = UDim2.new(1, 0, 1, -50)
@@ -37,7 +35,13 @@ function UILib:CreateWindow(config)
     tabButtons.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
     tabButtons.Parent = window
 
+    local currentTab = nil
+
     window.Tabs = {}
+
+    function window:SetTitle(tabTitle)
+        title.Text = "zygrade | " .. tabTitle
+    end
 
     function window:AddTab(config)
         local tab = Instance.new("Frame")
@@ -47,23 +51,26 @@ function UILib:CreateWindow(config)
         tab.Visible = false
         tab.Parent = tabContainer
 
-        local tabButton = Instance.new("TextButton")
-        tabButton.Text = config.Title or "Tab"
+        local tabButton = Instance.new("ImageButton")
+        tabButton.Image = config.Icon or ""
         tabButton.Size = UDim2.new(1 / #window.Tabs, 0, 1, 0)
         tabButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-        tabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
         tabButton.Parent = tabButtons
-        
-        if #window.Tabs == 0 then
-            tab.Visible = true
-        end
 
         tabButton.MouseButton1Click:Connect(function()
-            for _, t in pairs(tabContainer:GetChildren()) do
-                t.Visible = false
+            if currentTab then
+                currentTab.Visible = false
             end
             tab.Visible = true
+            window:SetTitle(config.Title or "Tab")
+            currentTab = tab
         end)
+
+        if #window.Tabs == 0 then
+            tab.Visible = true
+            currentTab = tab
+            window:SetTitle(config.Title or "Tab")
+        end
 
         table.insert(window.Tabs, tab)
 
