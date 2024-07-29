@@ -186,6 +186,9 @@ AddDropdown = function(self, dropdownOptions)
         dropdownList.Visible = dropdownVisible
 
         if dropdownVisible then
+            -- Wait for the list layout to update
+            wait(0.1)  -- Adjust delay if needed
+
             -- Calculate total height of dropdown items
             local totalHeight = listLayout.AbsoluteContentSize.Y
             dropdownList.Size = UDim2.new(1, 0, 0, totalHeight)
@@ -201,9 +204,10 @@ AddDropdown = function(self, dropdownOptions)
             dropdownList.Size = UDim2.new(1, 0, 0, 0)
             
             -- Reset positions of elements below the dropdown
+            local totalHeight = listLayout.AbsoluteContentSize.Y
             for _, element in pairs(tabContent:GetChildren()) do
                 if element:IsA("Frame") and element ~= dropdownFrame then
-                    element.Position = element.Position - UDim2.new(0, 0, 0, listLayout.AbsoluteContentSize.Y)
+                    element.Position = element.Position - UDim2.new(0, 0, 0, totalHeight)
                 end
             end
         end
@@ -228,14 +232,16 @@ AddDropdown = function(self, dropdownOptions)
             dropdownList.Size = UDim2.new(1, 0, 0, 0)
             
             -- Reset positions of elements below the dropdown
+            local totalHeight = listLayout.AbsoluteContentSize.Y
             for _, element in pairs(tabContent:GetChildren()) do
                 if element:IsA("Frame") and element ~= dropdownFrame then
-                    element.Position = element.Position - UDim2.new(0, 0, 0, listLayout.AbsoluteContentSize.Y)
+                    element.Position = element.Position - UDim2.new(0, 0, 0, totalHeight)
                 end
             end
         end)
     end
 end,
+
 
 
                 AddSlider = function(self, sliderOptions)
