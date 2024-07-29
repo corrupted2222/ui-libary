@@ -159,13 +159,9 @@ function UILib:CreateWindow(options)
 
                     dropdownButton.MouseButton1Click:Connect(function()
                         dropdownList.Visible = not dropdownList.Visible
-                        if dropdownList.Visible then
-                            local newSize = UDim2.new(1, 0, 0, listLayout.AbsoluteContentSize.Y)
-                            dropdownList.Size = newSize
-                            tabContent.Size = UDim2.new(1, 0, 1, -newSize.Y.Offset)
-                        else
-                            tabContent.Size = UDim2.new(1, 0, 1, 0)
-                        end
+                        local newSize = UDim2.new(1, 0, 0, dropdownList.AbsoluteContentSize.Y)
+                        dropdownList.Size = dropdownList.Visible and newSize or UDim2.new(1, 0, 0, 0)
+                        tabContent.Size = dropdownList.Visible and UDim2.new(1, 0, 1, -newSize.Y.Offset) or UDim2.new(1, 0, 1, 0)
                         contentFrame.CanvasSize = UDim2.new(0, 0, 0, tabContent.AbsoluteContentSize.Y)
                     end)
 
@@ -185,15 +181,8 @@ function UILib:CreateWindow(options)
                             dropdownButton.Text = item
                             dropdownOptions.Callback(item)
                             dropdownList.Visible = false
-                            tabContent.Size = UDim2.new(1, 0, 1, 0)
                         end)
                     end
-
-                    local dropdownHeight = 0
-                    for _, item in ipairs(dropdownOptions.Items) do
-                        dropdownHeight = dropdownHeight + 30
-                    end
-                    dropdownList.Size = UDim2.new(1, 0, 0, dropdownHeight)
                 end,
 
                 AddToggle = function(self, toggleOptions)
