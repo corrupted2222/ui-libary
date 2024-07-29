@@ -155,9 +155,8 @@ AddDropdown = function(self, dropdownOptions)
     local listLayout = Instance.new("UIListLayout")
     listLayout.Parent = dropdownList
     listLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    listLayout.Padding = UDim.new(0, 0) -- Adjust padding if needed
+    listLayout.Padding = UDim.new(0, 0)
 
-    -- Helper function to update the positions of other elements
     local function updateTabContentPosition()
         local totalHeight = 0
         for _, child in ipairs(tabContent:GetChildren()) do
@@ -165,7 +164,8 @@ AddDropdown = function(self, dropdownOptions)
                 totalHeight = totalHeight + child.Size.Y.Offset
             end
         end
-        tabContent.Size = UDim2.new(1, 0, 1, totalHeight + (dropdownList.Visible and dropdownList.Size.Y.Offset or 0))
+        -- Update content frame size and position
+        contentFrame.CanvasSize = UDim2.new(0, 0, 0, totalHeight + (dropdownList.Visible and dropdownList.Size.Y.Offset or 0))
     end
 
     dropdownButton.MouseButton1Click:Connect(function()
@@ -192,8 +192,10 @@ AddDropdown = function(self, dropdownOptions)
             updateTabContentPosition()
         end)
     end
-end,
 
+    updateTabContentPosition()
+end,
+                
                 AddToggle = function(self, toggleOptions)
                     local toggle = Instance.new("Frame")
                     toggle.Name = toggleOptions.Title or "Toggle"
