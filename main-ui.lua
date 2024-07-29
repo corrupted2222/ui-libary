@@ -49,7 +49,7 @@ function UILib:CreateWindow(options)
     contentFrame.Position = UDim2.new(0, 0, 0, 100)
     contentFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     contentFrame.BorderSizePixel = 0
-    contentFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+    contentFrame.CanvasSize = UDim2.new(0, 0, 0, 0) -- Initial canvas size
     contentFrame.ScrollBarThickness = 10
     contentFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
 
@@ -69,7 +69,7 @@ function UILib:CreateWindow(options)
     toggleButton.Size = UDim2.new(0, 50, 0, 50)
     toggleButton.Position = UDim2.new(0, 10, 0, 10)
     toggleButton.BackgroundTransparency = 1
-    toggleButton.Image = "rbxassetid://PLACEHOLDER"
+    toggleButton.Image = "rbxassetid://PLACEHOLDER" -- Placeholder for the image
 
     local windowVisible = true
 
@@ -128,14 +128,14 @@ function UILib:CreateWindow(options)
                     local dropdownFrame = Instance.new("Frame")
                     dropdownFrame.Name = dropdownOptions.Title or "Dropdown"
                     dropdownFrame.Parent = tabContent
+                    dropdownFrame.Size = UDim2.new(0, 200, 0, 50)
                     dropdownFrame.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
                     dropdownFrame.BorderSizePixel = 0
-                    dropdownFrame.AutomaticSize = Enum.AutomaticSize.Y
 
                     local dropdownButton = Instance.new("TextButton")
                     dropdownButton.Name = "DropdownButton"
                     dropdownButton.Parent = dropdownFrame
-                    dropdownButton.Size = UDim2.new(1, 0, 0, 50)
+                    dropdownButton.Size = UDim2.new(1, 0, 1, 0)
                     dropdownButton.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
                     dropdownButton.Text = dropdownOptions.Title or "Dropdown"
                     dropdownButton.Font = Enum.Font.ArialBold
@@ -145,8 +145,8 @@ function UILib:CreateWindow(options)
 
                     local dropdownList = Instance.new("Frame")
                     dropdownList.Name = "DropdownList"
-                    dropdownList.Parent = dropdownFrame
-                    dropdownList.Size = UDim2.new(1, 0, 0, #dropdownOptions.Items * 30)
+                    dropdownList.Parent = tabContent
+                    dropdownList.Size = UDim2.new(0, 200, 0, #dropdownOptions.Items * 30)
                     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                     dropdownList.BorderSizePixel = 0
                     dropdownList.Visible = false
@@ -157,6 +157,7 @@ function UILib:CreateWindow(options)
 
                     dropdownButton.MouseButton1Click:Connect(function()
                         dropdownList.Visible = not dropdownList.Visible
+                        dropdownList.Position = UDim2.new(0, 0, 1, 0)
                         layout:ApplyLayout()
                     end)
 
