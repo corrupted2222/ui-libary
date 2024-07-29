@@ -1,4 +1,4 @@
-vvvvvvvvvvvvvvvvvvvlocal UILib = {}
+local UILib = {}
 
 function UILib:CreateWindow(options)
     local player = game.Players.LocalPlayer
