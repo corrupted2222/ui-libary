@@ -158,7 +158,7 @@ function UILib:CreateWindow(options)
 
                     dropdownButton.MouseButton1Click:Connect(function()
                         dropdownList.Visible = not dropdownList.Visible
-                        layout:ApplyLayout()
+                        contentFrame.CanvasSize = UDim2.new(0, 0, 0, tabContent.AbsoluteContentSize.Y)
                     end)
 
                     for _, item in ipairs(dropdownOptions.Items) do
@@ -177,7 +177,7 @@ function UILib:CreateWindow(options)
                             dropdownButton.Text = item
                             dropdownOptions.Callback(item)
                             dropdownList.Visible = false
-                            layout:ApplyLayout()
+                            contentFrame.CanvasSize = UDim2.new(0, 0, 0, tabContent.AbsoluteContentSize.Y)
                         end)
                     end
                 end,
