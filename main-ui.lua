@@ -150,7 +150,7 @@ function UILib:CreateWindow(options)
                     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                     dropdownList.BorderSizePixel = 0
                     dropdownList.Visible = false
-                    dropdownList.Position = UDim2.new(0, 0, 1, 0) -- Aligns list directly below the button
+                    dropdownList.Position = UDim2.new(0, 0, 1, 0) -- Position directly below the button
                     dropdownList.ZIndex = 2 -- Ensure dropdown list is above other elements
 
                     local listLayout = Instance.new("UIListLayout")
