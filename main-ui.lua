@@ -53,6 +53,11 @@ function UILib:CreateWindow(options)
     contentFrame.ScrollBarThickness = 10
     contentFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
 
+    local layout = Instance.new("UIListLayout")
+    layout.Parent = contentFrame
+    layout.SortOrder = Enum.SortOrder.LayoutOrder
+    layout.Padding = UDim.new(0, 10)
+
     local tabs = {}
 
     local function switchTab(tab)
@@ -186,13 +191,12 @@ function UILib:CreateWindow(options)
 
                         itemButton.MouseButton1Click:Connect(function()
                             dropdownButton.Text = item
-                            dropdownOptions.Callback(item)
                             dropdownList.Visible = false
+                            dropdownOptions.Callback(item)
                             updateContentFrameSize()
                         end)
                     end
 
-                    -- Initial call to ensure size is correct
                     updateContentFrameSize()
                 end,
 
