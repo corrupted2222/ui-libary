@@ -149,7 +149,7 @@ function UILib:CreateWindow(options)
                     dropdownList.Size = UDim2.new(1, 0, 0, #dropdownOptions.Items * 30)
                     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                     dropdownList.BorderSizePixel = 0
-                    dropdownList.Position = UDim2.new(0, 0, 0, 50)
+                    dropdownList.Position = UDim2.new(0, 0, 1, 0)
                     dropdownList.Visible = false
 
                     local listLayout = Instance.new("UIListLayout")
