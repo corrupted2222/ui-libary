@@ -168,7 +168,6 @@ function UILib:CreateWindow(options)
                         dropdownList.Visible = isVisible
                         gapFrame.Visible = isVisible
                         dropdownList.Position = UDim2.new(0, 0, 1, 0)
-                        layout:ApplyLayout()
                     end)
 
                     for _, item in ipairs(dropdownOptions.Items) do
