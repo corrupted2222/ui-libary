@@ -151,6 +151,7 @@ function UILib:CreateWindow(options)
                     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                     dropdownList.BorderSizePixel = 0
                     dropdownList.Visible = false
+                    dropdownList.ZIndex = 2 -- Ensure it appears above other elements
 
                     local listLayout = Instance.new("UIListLayout")
                     listLayout.Parent = dropdownList
@@ -183,9 +184,6 @@ function UILib:CreateWindow(options)
                             dropdownOptions.Callback(item)
                         end)
                     end
-
-                    -- Update the dropdownList size when items are added
-                    dropdownList.Size = UDim2.new(1, 0, 0, listLayout.AbsoluteContentSize.Y)
                 end,
 
                 AddToggle = function(self, toggleOptions)
