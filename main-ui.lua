@@ -153,11 +153,10 @@ function UILib:CreateWindow(options)
 
                     local gapFrame = Instance.new("Frame")
                     gapFrame.Name = "GapFrame"
-                    gapFrame.Parent = tabContent
+                    gapFrame.Parent = dropdownList
                     gapFrame.Size = UDim2.new(0, 200, 0, 10)
                     gapFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                     gapFrame.BorderSizePixel = 0
-                    gapFrame.Visible = false
 
                     local listLayout = Instance.new("UIListLayout")
                     listLayout.Parent = dropdownList
