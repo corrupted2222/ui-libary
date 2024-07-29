@@ -151,6 +151,7 @@ function UILib:CreateWindow(options)
                     dropdownList.BorderSizePixel = 0
                     dropdownList.Visible = false
                     dropdownList.Position = UDim2.new(0, 0, 1, 0) -- Aligns list directly below the button
+                    dropdownList.ZIndex = 2 -- Ensure dropdown list is above other elements
 
                     local listLayout = Instance.new("UIListLayout")
                     listLayout.Parent = dropdownList
@@ -207,6 +208,10 @@ function UILib:CreateWindow(options)
                     end)
                 end
             }
+        end,
+
+        SetToggleButtonImage = function(self, assetId)
+            toggleButton.Image = assetId
         end
     }
 end
