@@ -143,6 +143,14 @@ function UILib:CreateWindow(options)
                     dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
                     dropdownButton.BorderSizePixel = 0
 
+                    local gapFrame = Instance.new("Frame")
+                    gapFrame.Name = "GapFrame"
+                    gapFrame.Parent = dropdownButton
+                    gapFrame.Size = UDim2.new(0, 200, 0, 10)
+                    gapFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+                    gapFrame.BorderSizePixel = 0
+                    gapFrame.Visible = false
+
                     local dropdownList = Instance.new("Frame")
                     dropdownList.Name = "DropdownList"
                     dropdownList.Parent = tabContent
@@ -150,14 +158,6 @@ function UILib:CreateWindow(options)
                     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                     dropdownList.BorderSizePixel = 0
                     dropdownList.Visible = false
-
-                    local gapFrame = Instance.new("Frame")
-                    gapFrame.Name = "GapFrame"
-                    gapFrame.Parent = tabContent
-                    gapFrame.Size = UDim2.new(0, 200, 0, 10)
-                    gapFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-                    gapFrame.BorderSizePixel = 0
-                    gapFrame.Visible = false
 
                     local listLayout = Instance.new("UIListLayout")
                     listLayout.Parent = dropdownList
