@@ -129,7 +129,8 @@ function UILib:CreateWindow(options)
                     button.MouseButton1Click:Connect(buttonOptions.Callback or function() end)
                 end,
 
-                        AddDropdown = function(self, dropdownOptions)
+                   
+        AddDropdown = function(self, dropdownOptions)
             local dropdownFrame = Instance.new("Frame")
             dropdownFrame.Name = dropdownOptions.Title or "Dropdown"
             dropdownFrame.Parent = tabContent
@@ -175,13 +176,15 @@ function UILib:CreateWindow(options)
             listLayout.Padding = UDim.new(0, 5)
 
             dropdownButton.MouseButton1Click:Connect(function()
-                dropdownList.Visible = not dropdownList.Visible
-                if dropdownList.Visible then
+                local dropdownVisible = not dropdownList.Visible
+                dropdownList.Visible = dropdownVisible
+
+                if dropdownVisible then
                     -- Calculate total height of dropdown items
                     local totalHeight = listLayout.AbsoluteContentSize.Y
                     dropdownList.Size = UDim2.new(1, 0, 0, totalHeight)
                     
-                    -- Move elements below the dropdown
+                    -- Reposition elements below the dropdown
                     local offset = dropdownList.Size.Y.Offset
                     for _, element in pairs(tabContent:GetChildren()) do
                         if element:IsA("Frame") and element ~= dropdownFrame then
@@ -190,6 +193,13 @@ function UILib:CreateWindow(options)
                     end
                 else
                     dropdownList.Size = UDim2.new(1, 0, 0, 0)
+                    
+                    -- Reset positions of elements below the dropdown
+                    for _, element in pairs(tabContent:GetChildren()) do
+                        if element:IsA("Frame") and element ~= dropdownFrame then
+                            element.Position = element.Position - UDim2.new(0, 0, 0, listLayout.AbsoluteContentSize.Y)
+                        end
+                    end
                 end
             end)
 
@@ -211,7 +221,7 @@ function UILib:CreateWindow(options)
                     dropdownList.Visible = false
                     dropdownList.Size = UDim2.new(1, 0, 0, 0)
                     
-                    -- Reset elements below the dropdown
+                    -- Reset positions of elements below the dropdown
                     for _, element in pairs(tabContent:GetChildren()) do
                         if element:IsA("Frame") and element ~= dropdownFrame then
                             element.Position = element.Position - UDim2.new(0, 0, 0, listLayout.AbsoluteContentSize.Y)
