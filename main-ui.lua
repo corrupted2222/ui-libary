@@ -85,7 +85,7 @@ function UILib:CreateWindow(options)
             tabButton.Parent = tabFrame
             tabButton.Size = UDim2.new(0, 100, 1, 0)
             tabButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-            tabButton.Image = tabOptions.Icon or ""
+            tabButton.Image = "rbxassetid://" .. (tabOptions.Icon or "PLACEHOLDER")
             tabButton.BorderSizePixel = 0
             tabButton.Position = UDim2.new(#tabs * 0.2, 0, 0, 0)
 
@@ -161,8 +161,9 @@ function UILib:CreateWindow(options)
                         dropdownList.Visible = not dropdownList.Visible
                         local newSize = UDim2.new(1, 0, 0, dropdownList.AbsoluteContentSize.Y)
                         dropdownList.Size = dropdownList.Visible and newSize or UDim2.new(1, 0, 0, 0)
-                        tabContent.Size = dropdownList.Visible and UDim2.new(1, 0, 1, -newSize.Y.Offset) or UDim2.new(1, 0, 1, 0)
-                        contentFrame.CanvasSize = UDim2.new(0, 0, 0, tabContent.AbsoluteContentSize.Y)
+                        local newContentSize = UDim2.new(1, 0, 0, tabContent.AbsoluteContentSize.Y + (dropdownList.Visible and newSize.Y.Offset or 0))
+                        tabContent.Size = newContentSize
+                        contentFrame.CanvasSize = UDim2.new(0, 0, 0, newContentSize.Y.Offset)
                     end)
 
                     for _, item in ipairs(dropdownOptions.Items) do
@@ -179,8 +180,8 @@ function UILib:CreateWindow(options)
 
                         itemButton.MouseButton1Click:Connect(function()
                             dropdownButton.Text = item
-                            dropdownOptions.Callback(item)
                             dropdownList.Visible = false
+                            dropdownOptions.Callback(item)
                         end)
                     end
                 end,
