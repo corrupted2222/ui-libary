@@ -177,12 +177,19 @@ function UILib:CreateWindow(options)
                         dropdownList.Visible = not dropdownList.Visible
                         if dropdownList.Visible then
                             dropdownList.Size = UDim2.new(1, 0, 0, dropdownList.UIListLayout.AbsoluteContentSize.Y)
+                            -- Move elements below the dropdown
+                            local offset = dropdownList.Size.Y.Offset
+                            for _, element in pairs(tabContent:GetChildren()) do
+                                if element:IsA("Frame") and element ~= dropdownFrame then
+                                    element.Position = element.Position + UDim2.new(0, 0, 0, offset)
+                                end
+                            end
                         else
                             dropdownList.Size = UDim2.new(1, 0, 0, 0)
                         end
                     end)
 
-                    for _, item in ipairs(dropdownOptions.Items) do
+                    for _, item in pairs(dropdownOptions.Items or {}) do
                         local itemButton = Instance.new("TextButton")
                         itemButton.Name = item
                         itemButton.Parent = dropdownList
@@ -198,7 +205,13 @@ function UILib:CreateWindow(options)
                             dropdownTitle.Text = item
                             dropdownOptions.Callback(item)
                             dropdownList.Visible = false
-                            dropdownFrame.Size = UDim2.new(0, 200, 0, 50) -- Reset frame size
+                            dropdownList.Size = UDim2.new(1, 0, 0, 0)
+                            -- Reset elements below the dropdown
+                            for _, element in pairs(tabContent:GetChildren()) do
+                                if element:IsA("Frame") and element ~= dropdownFrame then
+                                    element.Position = element.Position - UDim2.new(0, 0, 0, dropdownList.UIListLayout.AbsoluteContentSize.Y)
+                                end
+                            end
                         end)
                     end
                 end,
