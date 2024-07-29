@@ -129,148 +129,105 @@ function UILib:CreateWindow(options)
                     button.MouseButton1Click:Connect(buttonOptions.Callback or function() end)
                 end,
 
-                   
-AddDropdown = function(self, dropdownOptions)
-    local dropdownFrame = Instance.new("Frame")
-    dropdownFrame.Name = dropdownOptions.Title or "Dropdown"
-    dropdownFrame.Parent = tabContent
-    dropdownFrame.Size = UDim2.new(0, 200, 0, 50)
-    dropdownFrame.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
-    dropdownFrame.BorderSizePixel = 0
+                AddDropdown = function(self, dropdownOptions)
+                    local dropdownFrame = Instance.new("Frame")
+                    dropdownFrame.Name = dropdownOptions.Title or "Dropdown"
+                    dropdownFrame.Parent = tabContent
+                    dropdownFrame.Size = UDim2.new(0, 200, 0, 50)
+                    dropdownFrame.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
+                    dropdownFrame.BorderSizePixel = 0
 
-    local dropdownTitle = Instance.new("TextLabel")
-    dropdownTitle.Name = "DropdownTitle"
-    dropdownTitle.Parent = dropdownFrame
-    dropdownTitle.Size = UDim2.new(1, 0, 0, 30)
-    dropdownTitle.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
-    dropdownTitle.Text = dropdownOptions.Title or "Dropdown"
-    dropdownTitle.Font = Enum.Font.ArialBold
-    dropdownTitle.TextSize = 14
-    dropdownTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-    dropdownTitle.BorderSizePixel = 0
+                    local dropdownTitle = Instance.new("TextLabel")
+                    dropdownTitle.Name = "DropdownTitle"
+                    dropdownTitle.Parent = dropdownFrame
+                    dropdownTitle.Size = UDim2.new(1, 0, 0, 30)
+                    dropdownTitle.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
+                    dropdownTitle.Text = dropdownOptions.Title or "Dropdown"
+                    dropdownTitle.Font = Enum.Font.ArialBold
+                    dropdownTitle.TextSize = 14
+                    dropdownTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    dropdownTitle.BorderSizePixel = 0
 
-    local dropdownButton = Instance.new("TextButton")
-    dropdownButton.Name = "DropdownButton"
-    dropdownButton.Parent = dropdownFrame
-    dropdownButton.Size = UDim2.new(1, 0, 1, 0)
-    dropdownButton.Position = UDim2.new(0, 0, 0, 30)
-    dropdownButton.BackgroundTransparency = 1
-    dropdownButton.Text = ""
-    dropdownButton.Font = Enum.Font.SourceSans
-    dropdownButton.TextSize = 14
-    dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    dropdownButton.BorderSizePixel = 0
+                    local dropdownButton = Instance.new("TextButton")
+                    dropdownButton.Name = "DropdownButton"
+                    dropdownButton.Parent = dropdownFrame
+                    dropdownButton.Size = UDim2.new(1, 0, 1, 0)
+                    dropdownButton.Position = UDim2.new(0, 0, 0, 30)
+                    dropdownButton.BackgroundTransparency = 1
+                    dropdownButton.Text = ""
+                    dropdownButton.Font = Enum.Font.SourceSans
+                    dropdownButton.TextSize = 14
+                    dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    dropdownButton.BorderSizePixel = 0
 
-    local dropdownList = Instance.new("Frame")
-    dropdownList.Name = "DropdownList"
-    dropdownList.Parent = dropdownFrame
-    dropdownList.Size = UDim2.new(1, 0, 0, 0)
-    dropdownList.Position = UDim2.new(0, 0, 1, 0)
-    dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    dropdownList.BorderSizePixel = 0
-    dropdownList.Visible = false
+                    local dropdownList = Instance.new("Frame")
+                    dropdownList.Name = "DropdownList"
+                    dropdownList.Parent = dropdownFrame
+                    dropdownList.Size = UDim2.new(1, 0, 0, 0)
+                    dropdownList.Position = UDim2.new(0, 0, 1, 0)
+                    dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+                    dropdownList.BorderSizePixel = 0
+                    dropdownList.Visible = false
 
-    local gridLayout = Instance.new("UIGridLayout")
-    gridLayout.Parent = dropdownList
-    gridLayout.CellSize = UDim2.new(1, 0, 0, 30)
-    gridLayout.FillDirection = Enum.FillDirection.Vertical
-    gridLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    gridLayout.Padding = UDim2.new(0, 5, 0, 5)
+                    local listLayout = Instance.new("UIListLayout")
+                    listLayout.Parent = dropdownList
+                    listLayout.SortOrder = Enum.SortOrder.LayoutOrder
+                    listLayout.Padding = UDim.new(0, 5)
 
-    dropdownButton.MouseButton1Click:Connect(function()
-        local dropdownVisible = not dropdownList.Visible
-        dropdownList.Visible = dropdownVisible
+                    dropdownButton.MouseButton1Click:Connect(function()
+                        local dropdownVisible = not dropdownList.Visible
+                        dropdownList.Visible = dropdownVisible
 
-        if dropdownVisible then
-            -- Calculate total height of dropdown items
-            local totalHeight = gridLayout.AbsoluteContentSize.Y
-            dropdownList.Size = UDim2.new(1, 0, 0, totalHeight)
-            
-            -- Reposition elements below the dropdown
-            local offset = dropdownList.Size.Y.Offset
-            for _, element in pairs(tabContent:GetChildren()) do
-                if element:IsA("Frame") and element ~= dropdownFrame then
-                    element.Position = element.Position + UDim2.new(0, 0, 0, offset)
-                end
-            end
-        else
-            dropdownList.Size = UDim2.new(1, 0, 0, 0)
-            
-            -- Reset positions of elements below the dropdown
-            for _, element in pairs(tabContent:GetChildren()) do
-                if element:IsA("Frame") and element ~= dropdownFrame then
-                    element.Position = element.Position - UDim2.new(0, 0, 0, gridLayout.AbsoluteContentSize.Y)
-                end
-            end
-        end
-    end)
-
-    for _, item in pairs(dropdownOptions.Items or {}) do
-        local itemButton = Instance.new("TextButton")
-        itemButton.Name = item
-        itemButton.Parent = dropdownList
-        itemButton.Size = UDim2.new(1, 0, 1, 0)
-        itemButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-        itemButton.Text = item
-        itemButton.Font = Enum.Font.Arial
-        itemButton.TextSize = 14
-        itemButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-        itemButton.BorderSizePixel = 0
-
-        itemButton.MouseButton1Click:Connect(function()
-            dropdownTitle.Text = item
-            dropdownOptions.Callback(item)
-            dropdownList.Visible = false
-            dropdownList.Size = UDim2.new(1, 0, 0, 0)
-            
-            -- Reset positions of elements below the dropdown
-            for _, element in pairs(tabContent:GetChildren()) do
-                if element:IsA("Frame") and element ~= dropdownFrame then
-                    element.Position = element.Position - UDim2.new(0, 0, 0, gridLayout.AbsoluteContentSize.Y)
-                end
-            end
-        end)
-    end
-end,
-
-                AddToggle = function(self, toggleOptions)
-                    local toggleFrame = Instance.new("Frame")
-                    toggleFrame.Name = toggleOptions.Title or "Toggle"
-                    toggleFrame.Parent = tabContent
-                    toggleFrame.Size = UDim2.new(0, 200, 0, 50)
-                    toggleFrame.BackgroundColor3 = toggleOptions.Color or Color3.fromRGB(45, 45, 45)
-                    toggleFrame.BorderSizePixel = 0
-
-                    local toggleLabel = Instance.new("TextLabel")
-                    toggleLabel.Name = "ToggleLabel"
-                    toggleLabel.Parent = toggleFrame
-                    toggleLabel.Size = UDim2.new(0, 150, 0, 50)
-                    toggleLabel.BackgroundColor3 = toggleOptions.Color or Color3.fromRGB(45, 45, 45)
-                    toggleLabel.Text = toggleOptions.Title or "Toggle"
-                    toggleLabel.Font = Enum.Font.ArialBold
-                    toggleLabel.TextSize = 14
-                    toggleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    toggleLabel.BorderSizePixel = 0
-
-                    local toggleButton = Instance.new("TextButton")
-                    toggleButton.Name = "ToggleButton"
-                    toggleButton.Parent = toggleFrame
-                    toggleButton.Size = UDim2.new(0, 50, 0, 50)
-                    toggleButton.Position = UDim2.new(1, -50, 0, 0)
-                    toggleButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-                    toggleButton.Text = ""
-                    toggleButton.Font = Enum.Font.SourceSans
-                    toggleButton.TextSize = 14
-                    toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    toggleButton.BorderSizePixel = 0
-
-                    local toggled = false
-
-                    toggleButton.MouseButton1Click:Connect(function()
-                        toggled = not toggled
-                        toggleButton.BackgroundColor3 = toggled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(100, 100, 100)
-                        toggleOptions.Callback(toggled)
+                        if dropdownVisible then
+                            -- Calculate total height of dropdown items
+                            local totalHeight = listLayout.AbsoluteContentSize.Y
+                            dropdownList.Size = UDim2.new(1, 0, 0, totalHeight)
+                            
+                            -- Reposition elements below the dropdown
+                            local offset = dropdownList.Size.Y.Offset
+                            for _, element in pairs(tabContent:GetChildren()) do
+                                if element:IsA("Frame") and element ~= dropdownFrame then
+                                    element.Position = element.Position + UDim2.new(0, 0, 0, offset)
+                                end
+                            end
+                        else
+                            dropdownList.Size = UDim2.new(1, 0, 0, 0)
+                            
+                            -- Reset positions of elements below the dropdown
+                            for _, element in pairs(tabContent:GetChildren()) do
+                                if element:IsA("Frame") and element ~= dropdownFrame then
+                                    element.Position = element.Position - UDim2.new(0, 0, 0, listLayout.AbsoluteContentSize.Y)
+                                end
+                            end
+                        end
                     end)
+
+                    for _, item in pairs(dropdownOptions.Items or {}) do
+                        local itemButton = Instance.new("TextButton")
+                        itemButton.Name = item
+                        itemButton.Parent = dropdownList
+                        itemButton.Size = UDim2.new(1, 0, 0, 30)
+                        itemButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+                        itemButton.Text = item
+                        itemButton.Font = Enum.Font.Arial
+                        itemButton.TextSize = 14
+                        itemButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                        itemButton.BorderSizePixel = 0
+
+                        itemButton.MouseButton1Click:Connect(function()
+                            dropdownTitle.Text = item
+                            dropdownOptions.Callback(item)
+                            dropdownList.Visible = false
+                            dropdownList.Size = UDim2.new(1, 0, 0, 0)
+                            
+                            -- Reset positions of elements below the dropdown
+                            for _, element in pairs(tabContent:GetChildren()) do
+                                if element:IsA("Frame") and element ~= dropdownFrame then
+                                    element.Position = element.Position - UDim2.new(0, 0, 0, listLayout.AbsoluteContentSize.Y)
+                                end
+                            end
+                        end)
+                    end
                 end,
 
                 AddSlider = function(self, sliderOptions)
@@ -281,47 +238,58 @@ end,
                     sliderFrame.BackgroundColor3 = sliderOptions.Color or Color3.fromRGB(45, 45, 45)
                     sliderFrame.BorderSizePixel = 0
 
-                    local sliderLabel = Instance.new("TextLabel")
-                    sliderLabel.Name = "SliderLabel"
-                    sliderLabel.Parent = sliderFrame
-                    sliderLabel.Size = UDim2.new(1, -50, 0, 50)
-                    sliderLabel.BackgroundColor3 = sliderOptions.Color or Color3.fromRGB(45, 45, 45)
-                    sliderLabel.Text = sliderOptions.Title or "Slider"
-                    sliderLabel.Font = Enum.Font.ArialBold
-                    sliderLabel.TextSize = 14
-                    sliderLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    sliderLabel.BorderSizePixel = 0
+                    local sliderTitle = Instance.new("TextLabel")
+                    sliderTitle.Name = "SliderTitle"
+                    sliderTitle.Parent = sliderFrame
+                    sliderTitle.Size = UDim2.new(1, 0, 0, 20)
+                    sliderTitle.BackgroundColor3 = sliderOptions.Color or Color3.fromRGB(45, 45, 45)
+                    sliderTitle.Text = sliderOptions.Title or "Slider"
+                    sliderTitle.Font = Enum.Font.ArialBold
+                    sliderTitle.TextSize = 14
+                    sliderTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    sliderTitle.BorderSizePixel = 0
 
-                    local sliderButton = Instance.new("TextButton")
-                    sliderButton.Name = "SliderButton"
-                    sliderButton.Parent = sliderFrame
-                    sliderButton.Size = UDim2.new(0, 50, 1, 0)
-                    sliderButton.Position = UDim2.new(1, -50, 0, 0)
-                    sliderButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-                    sliderButton.Text = ""
-                    sliderButton.Font = Enum.Font.SourceSans
-                    sliderButton.TextSize = 14
-                    sliderButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    sliderButton.BorderSizePixel = 0
+                    local sliderBar = Instance.new("Frame")
+                    sliderBar.Name = "SliderBar"
+                    sliderBar.Parent = sliderFrame
+                    sliderBar.Size = UDim2.new(1, -20, 0, 10)
+                    sliderBar.Position = UDim2.new(0, 10, 0, 30)
+                    sliderBar.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+                    sliderBar.BorderSizePixel = 0
 
-                    local minValue = sliderOptions.Min or 0
-                    local maxValue = sliderOptions.Max or 100
-                    local currentValue = minValue
+                    local sliderHandle = Instance.new("Frame")
+                    sliderHandle.Name = "SliderHandle"
+                    sliderHandle.Parent = sliderBar
+                    sliderHandle.Size = UDim2.new(0, 20, 1, 0)
+                    sliderHandle.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+                    sliderHandle.BorderSizePixel = 0
 
-                    sliderButton.MouseButton1Click:Connect(function()
-                        -- Handle slider movement and value change
-                        -- Example implementation: setting value based on mouse position
-                        local mouse = game.Players.LocalPlayer:GetMouse()
-                        local sliderPos = mouse.X - sliderFrame.AbsolutePosition.X
-                        currentValue = math.clamp(math.round((sliderPos / sliderFrame.AbsoluteSize.X) * (maxValue - minValue) + minValue), minValue, maxValue)
-                        sliderButton.Position = UDim2.new(currentValue / maxValue, -25, 0, 0)
-                        sliderOptions.Callback(currentValue)
+                    local dragging = false
+
+                    sliderHandle.InputBegan:Connect(function(input)
+                        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                            dragging = true
+                        end
                     end)
-                end,
 
-                SetToggleButtonImage = function(self, imageId)
-                    toggleButton.Image = imageId
-                end,
+                    sliderHandle.InputEnded:Connect(function(input)
+                        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                            dragging = false
+                        end
+                    end)
+
+                    game:GetService("UserInputService").InputChanged:Connect(function(input)
+                        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+                            local mouseX = input.Position.X
+                            local barX = sliderBar.AbsolutePosition.X
+                            local barWidth = sliderBar.AbsoluteSize.X
+                            local newPos = math.clamp(mouseX - barX, 0, barWidth)
+                            sliderHandle.Position = UDim2.new(0, newPos, 0, 0)
+                            local value = (newPos / barWidth) * (sliderOptions.Max or 100)
+                            sliderOptions.Callback(value)
+                        end
+                    end)
+                end
             }
         end
     }
