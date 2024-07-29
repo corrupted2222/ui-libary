@@ -132,28 +132,36 @@ function UILib:CreateWindow(options)
                     dropdownFrame.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
                     dropdownFrame.BorderSizePixel = 0
 
+                    local dropdownTitle = Instance.new("TextLabel")
+                    dropdownTitle.Name = "DropdownTitle"
+                    dropdownTitle.Parent = dropdownFrame
+                    dropdownTitle.Size = UDim2.new(1, 0, 0, 30)
+                    dropdownTitle.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
+                    dropdownTitle.Text = dropdownOptions.Title or "Dropdown"
+                    dropdownTitle.Font = Enum.Font.ArialBold
+                    dropdownTitle.TextSize = 14
+                    dropdownTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    dropdownTitle.BorderSizePixel = 0
+
                     local dropdownButton = Instance.new("TextButton")
                     dropdownButton.Name = "DropdownButton"
                     dropdownButton.Parent = dropdownFrame
                     dropdownButton.Size = UDim2.new(1, 0, 1, 0)
-                    dropdownButton.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
-                    dropdownButton.Text = dropdownOptions.Title or "Dropdown"
-                    dropdownButton.Font = Enum.Font.ArialBold
+                    dropdownButton.BackgroundTransparency = 1
+                    dropdownButton.Text = ""
+                    dropdownButton.Font = Enum.Font.SourceSans
                     dropdownButton.TextSize = 14
                     dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
                     dropdownButton.BorderSizePixel = 0
 
-                    local dropdownList = Instance.new("ScrollingFrame")
+                    local dropdownList = Instance.new("Frame")
                     dropdownList.Name = "DropdownList"
                     dropdownList.Parent = dropdownFrame
-                    dropdownList.Size = UDim2.new(1, 0, 0, 200)
+                    dropdownList.Size = UDim2.new(1, 0, 0, 0)
                     dropdownList.Position = UDim2.new(0, 0, 1, 0)
                     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                     dropdownList.BorderSizePixel = 0
                     dropdownList.Visible = false
-                    dropdownList.ScrollingDirection = Enum.ScrollingDirection.Y
-                    dropdownList.CanvasSize = UDim2.new(0, 0, 0, 0)
-                    dropdownList.ScrollBarThickness = 10
 
                     local listLayout = Instance.new("UIListLayout")
                     listLayout.Parent = dropdownList
@@ -162,11 +170,8 @@ function UILib:CreateWindow(options)
 
                     dropdownButton.MouseButton1Click:Connect(function()
                         dropdownList.Visible = not dropdownList.Visible
-                        dropdownList.Position = UDim2.new(0, 0, 1, 0)
-                        dropdownList.CanvasSize = UDim2.new(0, 0, 0, dropdownList.UIListLayout.AbsoluteContentSize.Y)
-                        if dropdownList.Visible then
-                            dropdownList:ScrollToPosition(Vector2.new(0, dropdownList.CanvasSize.Y.Offset))
-                        end
+                        dropdownList.Size = UDim2.new(1, 0, 0, dropdownList.UIListLayout.AbsoluteContentSize.Y)
+                        dropdownFrame.Size = UDim2.new(0, 200, 0, dropdownList.Size.Y.Offset + 30)  -- Adjust frame size
                     end)
 
                     for _, item in ipairs(dropdownOptions.Items) do
@@ -182,13 +187,17 @@ function UILib:CreateWindow(options)
                         itemButton.BorderSizePixel = 0
 
                         itemButton.MouseButton1Click:Connect(function()
-                            dropdownButton.Text = item
+                            dropdownTitle.Text = item
                             dropdownOptions.Callback(item)
                             dropdownList.Visible = false
+                            dropdownFrame.Size = UDim2.new(0, 200, 0, 50)  -- Reset frame size
                         end)
                     end
-                end,
-
+                end
+            }
+        end
+    }
+end,
                 AddToggle = function(self, toggleOptions)
                     local toggle = Instance.new("Frame")
                     toggle.Name = toggleOptions.Title or "Toggle"
