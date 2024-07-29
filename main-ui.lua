@@ -158,8 +158,15 @@ AddDropdown = function(self, dropdownOptions)
     listLayout.Padding = UDim.new(0, 0) -- Adjust padding if needed
 
     dropdownButton.MouseButton1Click:Connect(function()
-        dropdownList.Visible = not dropdownList.Visible
-        dropdownList.Position = UDim2.new(0, 0, 1, 0) -- Ensure the dropdown list is positioned below the button
+        local isVisible = dropdownList.Visible
+        dropdownList.Visible = not isVisible
+        if dropdownList.Visible then
+            -- Increase tabContent size to accommodate dropdownList
+            tabContent.Size = UDim2.new(1, 0, 1, dropdownList.Size.Y.Offset)
+        else
+            -- Reset tabContent size when dropdownList is hidden
+            tabContent.Size = UDim2.new(1, 0, 1, -100) -- Adjust based on your layout needs
+        end
     end)
 
     for _, item in ipairs(dropdownOptions.Items) do
@@ -178,6 +185,8 @@ AddDropdown = function(self, dropdownOptions)
             dropdownButton.Text = item
             dropdownOptions.Callback(item)
             dropdownList.Visible = false
+            -- Reset tabContent size when dropdownList is hidden
+            tabContent.Size = UDim2.new(1, 0, 1, -100) -- Adjust based on your layout needs
         end)
     end
 end,
