@@ -148,7 +148,7 @@ function UILib:CreateWindow(options)
                     gap.Parent = dropdownList
                     gap.Size = UDim2.new(0, 200, 0, 30)
                     gap.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-                    gap.Position = UDim2.new(0.5, 0, 0, 0)
+                    gap.Position = UDim2.new(-5, 0, 0, 0)
                     gap.BorderSizePixel = 0
                     gap.Visible = false
 
