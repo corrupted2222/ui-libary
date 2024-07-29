@@ -145,25 +145,20 @@ function UILib:CreateWindow(options)
 
                     local dropdownList = Instance.new("Frame")
                     dropdownList.Name = "DropdownList"
-                    dropdownList.Parent = dropdownFrame
-                    dropdownList.Size = UDim2.new(1, 0, 0, #dropdownOptions.Items * 30)
-                    dropdownList.Position = UDim2.new(0, 0, 1, 0)  -- Positioned directly below the button
+                    dropdownList.Parent = tabContent
+                    dropdownList.Size = UDim2.new(0, 200, 0, #dropdownOptions.Items * 30)
                     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                     dropdownList.BorderSizePixel = 0
                     dropdownList.Visible = false
-                    dropdownList.ZIndex = 2 -- Ensure it appears above other elements
 
                     local listLayout = Instance.new("UIListLayout")
                     listLayout.Parent = dropdownList
                     listLayout.SortOrder = Enum.SortOrder.LayoutOrder
-                    listLayout.Padding = UDim.new(0, 0)  -- No padding between items
-
-                    local padding = Instance.new("UIPadding")
-                    padding.Parent = dropdownList
-                    padding.PaddingTop = UDim.new(0, 0)  -- Adjust if needed
 
                     dropdownButton.MouseButton1Click:Connect(function()
                         dropdownList.Visible = not dropdownList.Visible
+                        dropdownList.Position = UDim2.new(0, 0, 0, 0)
+                        layout:ApplyLayout()
                     end)
 
                     for _, item in ipairs(dropdownOptions.Items) do
@@ -180,24 +175,25 @@ function UILib:CreateWindow(options)
 
                         itemButton.MouseButton1Click:Connect(function()
                             dropdownButton.Text = item
-                            dropdownList.Visible = false
                             dropdownOptions.Callback(item)
+                            dropdownList.Visible = false
+                            layout:ApplyLayout()
                         end)
                     end
                 end,
 
                 AddToggle = function(self, toggleOptions)
-                    local toggleFrame = Instance.new("Frame")
-                    toggleFrame.Name = toggleOptions.Title or "Toggle"
-                    toggleFrame.Parent = tabContent
-                    toggleFrame.Size = UDim2.new(0, 200, 0, 50)
-                    toggleFrame.BackgroundColor3 = toggleOptions.Color or Color3.fromRGB(45, 45, 45)
-                    toggleFrame.BorderSizePixel = 0
+                    local toggle = Instance.new("Frame")
+                    toggle.Name = toggleOptions.Title or "Toggle"
+                    toggle.Parent = tabContent
+                    toggle.Size = toggleOptions.Size or UDim2.new(0, 200, 0, 50)
+                    toggle.BackgroundColor3 = toggleOptions.Color or Color3.fromRGB(45, 45, 45)
+                    toggle.BorderSizePixel = 0
 
                     local toggleButton = Instance.new("TextButton")
                     toggleButton.Name = "ToggleButton"
-                    toggleButton.Parent = toggleFrame
-                    toggleButton.Size = UDim2.new(0, 200, 0, 50)
+                    toggleButton.Parent = toggle
+                    toggleButton.Size = UDim2.new(1, 0, 1, 0)
                     toggleButton.BackgroundColor3 = toggleOptions.Color or Color3.fromRGB(45, 45, 45)
                     toggleButton.Text = toggleOptions.Title or "Toggle"
                     toggleButton.Font = Enum.Font.ArialBold
@@ -205,78 +201,95 @@ function UILib:CreateWindow(options)
                     toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
                     toggleButton.BorderSizePixel = 0
 
-                    local toggleState = Instance.new("BoolValue")
-                    toggleState.Name = "State"
-                    toggleState.Parent = toggleFrame
-                    toggleState.Value = false
+                    local toggleState = false
+
+                    local function updateToggle()
+                        if toggleState then
+                            toggleButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+                        else
+                            toggleButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+                        end
+                    end
 
                     toggleButton.MouseButton1Click:Connect(function()
-                        toggleState.Value = not toggleState.Value
-                        toggleButton.TextColor3 = toggleState.Value and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-                        toggleOptions.Callback(toggleState.Value)
+                        toggleState = not toggleState
+                        updateToggle()
+                        toggleOptions.Callback(toggleState)
                     end)
+
+                    updateToggle()
                 end,
 
                 AddSlider = function(self, sliderOptions)
-                    local sliderFrame = Instance.new("Frame")
-                    sliderFrame.Name = sliderOptions.Title or "Slider"
-                    sliderFrame.Parent = tabContent
-                    sliderFrame.Size = UDim2.new(0, 200, 0, 50)
-                    sliderFrame.BackgroundColor3 = sliderOptions.Color or Color3.fromRGB(45, 45, 45)
-                    sliderFrame.BorderSizePixel = 0
-
-                    local sliderLabel = Instance.new("TextLabel")
-                    sliderLabel.Name = "SliderLabel"
-                    sliderLabel.Parent = sliderFrame
-                    sliderLabel.Size = UDim2.new(1, 0, 0, 20)
-                    sliderLabel.BackgroundColor3 = sliderOptions.Color or Color3.fromRGB(45, 45, 45)
-                    sliderLabel.Text = sliderOptions.Title or "Slider"
-                    sliderLabel.Font = Enum.Font.ArialBold
-                    sliderLabel.TextSize = 14
-                    sliderLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    sliderLabel.BorderSizePixel = 0
+                    local slider = Instance.new("Frame")
+                    slider.Name = sliderOptions.Title or "Slider"
+                    slider.Parent = tabContent
+                    slider.Size = sliderOptions.Size or UDim2.new(0, 200, 0, 50)
+                    slider.BackgroundColor3 = sliderOptions.Color or Color3.fromRGB(45, 45, 45)
+                    slider.BorderSizePixel = 0
 
                     local sliderBar = Instance.new("Frame")
                     sliderBar.Name = "SliderBar"
-                    sliderBar.Parent = sliderFrame
-                    sliderBar.Size = UDim2.new(1, 0, 0, 10)
-                    sliderBar.Position = UDim2.new(0, 0, 0, 30)
-                    sliderBar.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+                    sliderBar.Parent = slider
+                    sliderBar.Size = UDim2.new(1, -20, 0, 10)
+                    sliderBar.Position = UDim2.new(0.5, -90, 0.5, -5)
+                    sliderBar.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
                     sliderBar.BorderSizePixel = 0
 
-                    local sliderIndicator = Instance.new("Frame")
-                    sliderIndicator.Name = "SliderIndicator"
-                    sliderIndicator.Parent = sliderBar
-                    sliderIndicator.Size = UDim2.new(0, 0, 1, 0)
-                    sliderIndicator.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-                    sliderIndicator.BorderSizePixel = 0
-                    sliderIndicator.AnchorPoint = Vector2.new(0.5, 0.5)
-                    sliderIndicator.Position = UDim2.new(0, 0, 0.5, 0)
+                    local sliderButton = Instance.new("ImageButton")
+                    sliderButton.Name = "SliderButton"
+                    sliderButton.Parent = sliderBar
+                    sliderButton.Size = UDim2.new(0, 20, 0, 20)
+                    sliderButton.Position = UDim2.new(0, -10, 0.5, -10)
+                    sliderButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+                    sliderButton.Image = "rbxassetid://6031091008"
+                    sliderButton.BorderSizePixel = 0
 
-                    local dragging = false
+                    local sliderLine = Instance.new("Frame")
+                    sliderLine.Name = "SliderLine"
+                    sliderLine.Parent = sliderBar
+                    sliderLine.Size = UDim2.new(0, 0, 0, 10)
+                    sliderLine.Position = UDim2.new(0, 0, 0.5, -5)
+                    sliderLine.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+                    sliderLine.BorderSizePixel = 0
 
-                    sliderBar.InputBegan:Connect(function(input)
-                        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                            dragging = true
-                        end
+                    local sliderValue = sliderOptions.Min or 0
+                    local maxValue = sliderOptions.Max or 100
+
+                    local function updateSlider(position)
+                        local relativePos = math.clamp(position, 0, 1)
+                        sliderButton.Position = UDim2.new(relativePos, -10, 0.5, -10)
+                        sliderLine.Size = UDim2.new(relativePos, 0, 0, 10)
+                        sliderValue = math.floor(relativePos * (maxValue - sliderOptions.Min) + sliderOptions.Min)
+                        sliderOptions.Callback(sliderValue)
+                    end
+
+                    sliderButton.MouseButton1Down:Connect(function()
+                        local moveConnection
+                        local releaseConnection
+
+                        moveConnection = game:GetService("UserInputService").InputChanged:Connect(function(input)
+                            if input.UserInputType == Enum.UserInputType.MouseMovement then
+                                local relativePos = (input.Position.X - sliderBar.AbsolutePosition.X) / sliderBar.AbsoluteSize.X
+                                updateSlider(relativePos)
+                            end
+                        end)
+
+                        releaseConnection = game:GetService("UserInputService").InputEnded:Connect(function(input)
+                            if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                                moveConnection:Disconnect()
+                                releaseConnection:Disconnect()
+                            end
+                        end)
                     end)
 
-                    sliderBar.InputEnded:Connect(function(input)
-                        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                            dragging = false
-                        end
-                    end)
-
-                    sliderBar.InputChanged:Connect(function(input)
-                        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-                            local xPos = math.clamp(input.Position.X - sliderBar.AbsolutePosition.X, 0, sliderBar.AbsoluteSize.X)
-                            sliderIndicator.Size = UDim2.new(0, xPos, 1, 0)
-                            local value = math.round((xPos / sliderBar.AbsoluteSize.X) * (sliderOptions.MaxValue or 100))
-                            sliderOptions.Callback(value)
-                        end
-                    end)
+                    updateSlider((sliderValue - sliderOptions.Min) / (maxValue - sliderOptions.Min))
                 end
             }
+        end,
+
+        SetToggleButtonImage = function(self, assetId)
+            toggleButton.Image = assetId
         end
     }
 end
