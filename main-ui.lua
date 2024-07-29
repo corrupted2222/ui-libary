@@ -1,3 +1,4 @@
+-- UILib module
 local UILib = {}
 
 -- Create Window
@@ -24,28 +25,48 @@ function UILib:CreateWindow(config)
     subtitle.TextScaled = true
     
     window.Name = "MainWindow"
-    
+
+    local tabContainer = Instance.new("Frame")
+    tabContainer.Size = UDim2.new(1, 0, 1, -50)
+    tabContainer.Position = UDim2.new(0, 0, 0, 50)
+    tabContainer.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    tabContainer.Parent = window
+
+    local tabButtons = Instance.new("Frame")
+    tabButtons.Size = UDim2.new(1, 0, 0, 50)
+    tabButtons.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    tabButtons.Parent = window
+
     window.Tabs = {}
 
     function window:AddTab(config)
         local tab = Instance.new("Frame")
-        tab.Size = UDim2.new(1, 0, 1, -50)
+        tab.Size = UDim2.new(1, 0, 1, 0)
         tab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-        tab.Position = UDim2.new(0, 0, 0, 50)
         tab.Name = config.Title or "Tab"
-
-        local tabTitle = Instance.new("TextLabel", tab)
-        tabTitle.Text = config.Title or "Tab"
-        tabTitle.Size = UDim2.new(1, 0, 0, 40)
-        tabTitle.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-        tabTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-        tabTitle.TextScaled = true
-        
-        tab.Icon = config.Icon
-        
         tab.Visible = false
+        tab.Parent = tabContainer
+
+        local tabButton = Instance.new("TextButton")
+        tabButton.Text = config.Title or "Tab"
+        tabButton.Size = UDim2.new(1 / #window.Tabs, 0, 1, 0)
+        tabButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+        tabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        tabButton.Parent = tabButtons
         
+        if #window.Tabs == 0 then
+            tab.Visible = true
+        end
+
+        tabButton.MouseButton1Click:Connect(function()
+            for _, t in pairs(tabContainer:GetChildren()) do
+                t.Visible = false
+            end
+            tab.Visible = true
+        end)
+
         table.insert(window.Tabs, tab)
+
         return {
             AddButton = function(buttonConfig)
                 local button = Instance.new("TextButton")
