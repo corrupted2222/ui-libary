@@ -157,16 +157,20 @@ AddDropdown = function(self, dropdownOptions)
     listLayout.SortOrder = Enum.SortOrder.LayoutOrder
     listLayout.Padding = UDim.new(0, 0) -- Adjust padding if needed
 
-    dropdownButton.MouseButton1Click:Connect(function()
-        local isVisible = dropdownList.Visible
-        dropdownList.Visible = not isVisible
-        if dropdownList.Visible then
-            -- Increase tabContent size to accommodate dropdownList
-            tabContent.Size = UDim2.new(1, 0, 1, dropdownList.Size.Y.Offset)
-        else
-            -- Reset tabContent size when dropdownList is hidden
-            tabContent.Size = UDim2.new(1, 0, 1, -100) -- Adjust based on your layout needs
+    -- Helper function to update the positions of other elements
+    local function updateTabContentPosition()
+        local totalHeight = 0
+        for _, child in ipairs(tabContent:GetChildren()) do
+            if child:IsA("Frame") and child ~= dropdownFrame then
+                totalHeight = totalHeight + child.Size.Y.Offset
+            end
         end
+        tabContent.Size = UDim2.new(1, 0, 1, totalHeight + (dropdownList.Visible and dropdownList.Size.Y.Offset or 0))
+    end
+
+    dropdownButton.MouseButton1Click:Connect(function()
+        dropdownList.Visible = not dropdownList.Visible
+        updateTabContentPosition()
     end)
 
     for _, item in ipairs(dropdownOptions.Items) do
@@ -185,8 +189,7 @@ AddDropdown = function(self, dropdownOptions)
             dropdownButton.Text = item
             dropdownOptions.Callback(item)
             dropdownList.Visible = false
-            -- Reset tabContent size when dropdownList is hidden
-            tabContent.Size = UDim2.new(1, 0, 1, -100) -- Adjust based on your layout needs
+            updateTabContentPosition()
         end)
     end
 end,
