@@ -39,13 +39,14 @@ function UILib:CreateWindow(options)
         local GameTitle = Instance.new("TextLabel")
         GameTitle.Parent = Header
         GameTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-        GameTitle.Size = UDim2.new(0, 200, 0, 30)
         GameTitle.Position = UDim2.new(0.592, 0, 0.09, 0)
         GameTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
         GameTitle.TextSize = 14
         GameTitle.Text = options.Game or "Game Name"
         GameTitle.Font = Enum.Font.ArialBold
         GameTitle.BackgroundTransparency = 0
+        
+        GameTitle.Size = UDim2.new(0, GameTitle.TextBounds.X + 10, 0, 30) -- Add padding of 10
         
         local GameTitleCorners = Instance.new("UICorner")
         GameTitleCorners.CornerRadius = UDim.new(0, 4)
