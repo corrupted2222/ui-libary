@@ -1,8 +1,7 @@
--- UILibrary.lua
+-- main-ui.lua
 
 local UILibrary = {}
 
--- Function to create a window
 function UILibrary:CreateWindow(options)
     local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
@@ -42,7 +41,6 @@ function UILibrary:CreateWindow(options)
     contentFrame.Name = "ContentFrame"
     contentFrame.Parent = tabContainer
 
-    -- Open/Close Button
     local toggleButton = Instance.new("TextButton")
     toggleButton.Size = UDim2.new(0, 100, 0, 30)
     toggleButton.Position = UDim2.new(0.5, -50, 0, 10)
@@ -178,7 +176,7 @@ function UILibrary:CreateWindow(options)
                     button.MouseButton1Click:Connect(function()
                         buttonOptions.callback()
                     end)
-                end
+                end,
             }
         end
     }
