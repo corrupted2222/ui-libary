@@ -46,8 +46,15 @@ function UILib:CreateWindow(options)
         GameTitle.Font = Enum.Font.ArialBold
         GameTitle.BackgroundTransparency = 0
         
+        -- Use options for size if provided
+        local gameTitleWidth = options.GameTitleWidth or GameTitle.TextBounds.X + 10
+        local gameTitleHeight = 30
+        GameTitle.Size = UDim2.new(0, gameTitleWidth, 0, gameTitleHeight)
+        
         GameTitle:GetPropertyChangedSignal("TextBounds"):Connect(function()
-            GameTitle.Size = UDim2.new(0, GameTitle.TextBounds.X + 10, 0, 30) -- Add padding of 10
+            if not options.GameTitleWidth then
+                GameTitle.Size = UDim2.new(0, GameTitle.TextBounds.X + 10, 0, gameTitleHeight) -- Add padding of 10
+            end
         end)
         
         GameTitle.Text = options.Game or "Game Name" -- This triggers the TextBounds update
