@@ -22,6 +22,7 @@ function UILibrary:CreateWindow(options)
     titleLabel.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
     titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     titleLabel.TextScaled = true
+    titleLabel.TextStrokeTransparency = 0.5
     titleLabel.Parent = mainFrame
 
     local tabContainer = Instance.new("Frame")
@@ -49,6 +50,7 @@ function UILibrary:CreateWindow(options)
     toggleButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
     toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     toggleButton.TextScaled = true
+    toggleButton.TextStrokeTransparency = 0.5
     toggleButton.Parent = playerGui
 
     toggleButton.MouseButton1Click:Connect(function()
@@ -65,6 +67,7 @@ function UILibrary:CreateWindow(options)
             tabButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
             tabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
             tabButton.TextScaled = true
+            tabButton.TextStrokeTransparency = 0.5
             tabButton.Parent = tabList
 
             local tabFrame = Instance.new("Frame")
@@ -91,6 +94,7 @@ function UILibrary:CreateWindow(options)
                     toggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
                     toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
                     toggleButton.TextScaled = true
+                    toggleButton.TextStrokeTransparency = 0.5
                     toggleButton.Position = UDim2.new(0, 10, 0, (#tabFrame:GetChildren() * 35) + 10)
                     toggleButton.Parent = tabFrame
 
@@ -109,6 +113,7 @@ function UILibrary:CreateWindow(options)
                     slider.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
                     slider.TextColor3 = Color3.fromRGB(255, 255, 255)
                     slider.TextScaled = true
+                    slider.TextStrokeTransparency = 0.5
                     slider.Position = UDim2.new(0, 10, 0, (#tabFrame:GetChildren() * 35) + 10)
                     slider.Parent = tabFrame
 
@@ -139,6 +144,7 @@ function UILibrary:CreateWindow(options)
                     dropdownButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
                     dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
                     dropdownButton.TextScaled = true
+                    dropdownButton.TextStrokeTransparency = 0.5
                     dropdownButton.Position = UDim2.new(0, 10, 0, (#tabFrame:GetChildren() * 35) + 10)
                     dropdownButton.Parent = tabFrame
 
@@ -157,6 +163,7 @@ function UILibrary:CreateWindow(options)
                         optionButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
                         optionButton.TextColor3 = Color3.fromRGB(255, 255, 255)
                         optionButton.TextScaled = true
+                        optionButton.TextStrokeTransparency = 0.5
                         optionButton.Parent = dropdownFrame
 
                         optionButton.MouseButton1Click:Connect(function()
@@ -166,28 +173,4 @@ function UILibrary:CreateWindow(options)
                         end)
                     end
 
-                    dropdownButton.MouseButton1Click:Connect(function()
-                        dropdownFrame.Visible = not dropdownFrame.Visible
-                    end)
-                end,
-
-                NewButton = function(buttonOptions)
-                    local button = Instance.new("TextButton")
-                    button.Size = UDim2.new(0, 200, 0, 30)
-                    button.Text = buttonOptions.Name
-                    button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-                    button.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    button.TextScaled = true
-                    button.Position = UDim2.new(0, 10, 0, (#tabFrame:GetChildren() * 35) + 10)
-                    button.Parent = tabFrame
-
-                    button.MouseButton1Click:Connect(function()
-                        buttonOptions.callback()
-                    end)
-                end,
-            }
-        end
-    }
-end
-
-return UILibrary
+                    dropdownButton.Mouse
