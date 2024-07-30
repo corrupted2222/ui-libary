@@ -15,7 +15,6 @@ function UILib:CreateWindow(options)
     window.Active = true
     window.Draggable = true
 
-
     local titleLabel = Instance.new("TextLabel")
     titleLabel.Parent = window
     titleLabel.Size = UDim2.new(1, 0, 0, 40)
@@ -44,6 +43,10 @@ function UILib:CreateWindow(options)
     tabFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     tabFrame.BorderSizePixel = 0
 
+    -- Add UICorner to tabFrame
+    local tabFrameCorner = Instance.new("UICorner")
+    tabFrameCorner.Parent = tabFrame
+
     local contentFrame = Instance.new("ScrollingFrame")
     contentFrame.Parent = window
     contentFrame.Size = UDim2.new(1, 0, 1, -100)
@@ -53,6 +56,10 @@ function UILib:CreateWindow(options)
     contentFrame.CanvasSize = UDim2.new(0, 0, 0, 0) -- Initial canvas size
     contentFrame.ScrollBarThickness = 10
     contentFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+
+    -- Add UICorner to contentFrame
+    local contentFrameCorner = Instance.new("UICorner")
+    contentFrameCorner.Parent = contentFrame
 
     local tabs = {}
 
