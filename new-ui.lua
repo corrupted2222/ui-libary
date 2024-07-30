@@ -4,6 +4,9 @@ function UILib:CreateWindow(options)
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Parent = game.CoreGui
 
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
 local MainFrame = Instance.new("Frame")
 MainFrame.Parent = ScreenGui
 MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
