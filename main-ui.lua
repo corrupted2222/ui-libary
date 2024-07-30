@@ -42,15 +42,6 @@ function UILib:CreateWindow(options)
     tabFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     tabFrame.BorderSizePixel = 0
     
-    local homebutton = Instance.new("ImageButton")
-    tabButton.Name = tabOptions.Title.Home
-    tabButton.Parent = tabFrame
-    tabButton.Size = UDim2.new(0, 100, 1, 0)
-    tabButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-    tabButton.Image = "http://www.roblox.com/asset/?id=16803381246"
-    tabButton.BorderSizePixel = 0
-    tabButton.Position = UDim2.new(#tabs * 0.2, 0, 0, 0)
-
     local contentFrame = Instance.new("ScrollingFrame")
     contentFrame.Parent = window
     contentFrame.Size = UDim2.new(1, 0, 1, -100)
