@@ -8,7 +8,7 @@ function UILib:CreateWindow(options)
     local window = Instance.new("Frame")
     window.Name = "MainWindow"
     window.Parent = screenGui
-    window.Size = options.Size or UDim2.new(0, 580, 0, 300)
+    window.Size = UDim2.new(0, 500, 0, 300)
     window.Position = UDim2.new(0.5, -290, 0.5, -230)
     window.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
     window.BorderSizePixel = 0
