@@ -21,6 +21,7 @@ function UILibrary:CreateWindow(options)
     titleLabel.Text = options.Title
     titleLabel.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
     titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    titleLabel.TextScaled = true
     titleLabel.Parent = mainFrame
 
     local tabContainer = Instance.new("Frame")
@@ -47,6 +48,7 @@ function UILibrary:CreateWindow(options)
     toggleButton.Text = "Open UI"
     toggleButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
     toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    toggleButton.TextScaled = true
     toggleButton.Parent = playerGui
 
     toggleButton.MouseButton1Click:Connect(function()
@@ -62,6 +64,7 @@ function UILibrary:CreateWindow(options)
             tabButton.Text = tabOptions.Name
             tabButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
             tabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            tabButton.TextScaled = true
             tabButton.Parent = tabList
 
             local tabFrame = Instance.new("Frame")
@@ -87,6 +90,7 @@ function UILibrary:CreateWindow(options)
                     toggleButton.Text = toggleOptions.Name .. ": " .. (toggleOptions.default and "On" or "Off")
                     toggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
                     toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    toggleButton.TextScaled = true
                     toggleButton.Position = UDim2.new(0, 10, 0, (#tabFrame:GetChildren() * 35) + 10)
                     toggleButton.Parent = tabFrame
 
@@ -104,6 +108,7 @@ function UILibrary:CreateWindow(options)
                     slider.Text = sliderOptions.Name .. ": " .. sliderOptions.default
                     slider.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
                     slider.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    slider.TextScaled = true
                     slider.Position = UDim2.new(0, 10, 0, (#tabFrame:GetChildren() * 35) + 10)
                     slider.Parent = tabFrame
 
@@ -133,6 +138,7 @@ function UILibrary:CreateWindow(options)
                     dropdownButton.Text = dropdownOptions.Name .. ": " .. dropdownOptions.default
                     dropdownButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
                     dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    dropdownButton.TextScaled = true
                     dropdownButton.Position = UDim2.new(0, 10, 0, (#tabFrame:GetChildren() * 35) + 10)
                     dropdownButton.Parent = tabFrame
 
@@ -150,6 +156,7 @@ function UILibrary:CreateWindow(options)
                         optionButton.Text = option
                         optionButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
                         optionButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                        optionButton.TextScaled = true
                         optionButton.Parent = dropdownFrame
 
                         optionButton.MouseButton1Click:Connect(function()
@@ -170,6 +177,7 @@ function UILibrary:CreateWindow(options)
                     button.Text = buttonOptions.Name
                     button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
                     button.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    button.TextScaled = true
                     button.Position = UDim2.new(0, 10, 0, (#tabFrame:GetChildren() * 35) + 10)
                     button.Parent = tabFrame
 
