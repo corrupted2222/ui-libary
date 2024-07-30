@@ -39,7 +39,6 @@ function UILib:CreateWindow(options)
         local GameTitle = Instance.new("TextLabel")
         GameTitle.Parent = Header
         GameTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-        GameTitle.Position = UDim2.new(0.592, 0, 0.09, 0)
         GameTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
         GameTitle.TextSize = 14
         GameTitle.Text = options.Game or "Game Name"
@@ -50,6 +49,11 @@ function UILib:CreateWindow(options)
         local gameTitleWidth = options.GameTitleWidth or GameTitle.TextBounds.X + 10
         local gameTitleHeight = 30
         GameTitle.Size = UDim2.new(0, gameTitleWidth, 0, gameTitleHeight)
+
+        -- Use options for position if provided
+        local gameTitlePosX = options.GameTitlePosX or 0.592
+        local gameTitlePosY = 0.09
+        GameTitle.Position = UDim2.new(gameTitlePosX, 0, gameTitlePosY, 0)
         
         GameTitle:GetPropertyChangedSignal("TextBounds"):Connect(function()
             if not options.GameTitleWidth then
