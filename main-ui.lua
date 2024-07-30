@@ -2,13 +2,12 @@ local UILib = {}
 
 function UILib:CreateWindow(options)
     local screenGui = Instance.new("ScreenGui")
-    screenGui.Name = options.Title or "UI Window"
-    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    screenGui.Parent = game.CoreGui
 
     local window = Instance.new("Frame")
     window.Name = "MainWindow"
     window.Parent = screenGui
-    window.Size = options.Size or UDim2.new(0, 580, 0, 460)
+    window.Size = UDim2.new(0, 580, 0, 460)
     window.Position = UDim2.new(0.5, -290, 0.5, -230)
     window.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
     window.BorderSizePixel = 0
