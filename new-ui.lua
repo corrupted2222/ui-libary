@@ -2,7 +2,7 @@ local UILib = {}
 
 function UILib:CreateWindow(options)
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Parent = game.CoreGui
+ScreenGui.Parent = game:GetService("CoreGui")
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
