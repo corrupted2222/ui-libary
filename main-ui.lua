@@ -173,4 +173,29 @@ function UILibrary:CreateWindow(options)
                         end)
                     end
 
-                    dropdownButton.Mouse
+                    dropdownButton.MouseButton1Click:Connect(function()
+                        dropdownFrame.Visible = not dropdownFrame.Visible
+                    end)
+                end,
+
+                NewButton = function(buttonOptions)
+                    local button = Instance.new("TextButton")
+                    button.Size = UDim2.new(0, 200, 0, 30)
+                    button.Text = buttonOptions.Name
+                    button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+                    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    button.TextScaled = true
+                    button.TextStrokeTransparency = 0.5
+                    button.Position = UDim2.new(0, 10, 0, (#tabFrame:GetChildren() * 35) + 10)
+                    button.Parent = tabFrame
+
+                    button.MouseButton1Click:Connect(function()
+                        buttonOptions.callback()
+                    end)
+                end,
+            }
+        end
+    }
+end
+
+return UILibrary
