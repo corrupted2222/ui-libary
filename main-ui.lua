@@ -9,15 +9,15 @@ function UILib:CreateWindow(options)
     window.Name = "MainWindow"
     window.Parent = screenGui
     window.Size = UDim2.new(0, 500, 0, 300)
-    window.Position = UDim2.new(0.5, -290, 0.5, -230)
+    window.Position = UDim2.new(0.5, -250, 0.5, -150)
     window.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
     window.BorderSizePixel = 0
     window.Active = true
     window.Draggable = true
 
-    local windowcorners = Instance.new("UICorner")
-windowcorners.CornerRadius = UDim.new(0, 4)
-windowcorners.Parent = window
+    local windowCorners = Instance.new("UICorner")
+    windowCorners.CornerRadius = UDim.new(0, 4)
+    windowCorners.Parent = window
 
     local titleLabel = Instance.new("TextLabel")
     titleLabel.Parent = window
@@ -47,9 +47,9 @@ windowcorners.Parent = window
     tabFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     tabFrame.BorderSizePixel = 0
 
-        local tabFramecorners = Instance.new("UICorner")
-tabFramecorners.CornerRadius = UDim.new(0, 4)
-tabFramecorners.Parent = tabFrame
+    local tabFrameCorners = Instance.new("UICorner")
+    tabFrameCorners.CornerRadius = UDim.new(0, 4)
+    tabFrameCorners.Parent = tabFrame
 
     local contentFrame = Instance.new("ScrollingFrame")
     contentFrame.Parent = window
@@ -57,13 +57,13 @@ tabFramecorners.Parent = tabFrame
     contentFrame.Position = UDim2.new(0, 0, 0, 100)
     contentFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     contentFrame.BorderSizePixel = 0
-    contentFrame.CanvasSize = UDim2.new(0, 0, 0, 0) -- Initial canvas size
+    contentFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
     contentFrame.ScrollBarThickness = 10
     contentFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
 
-    local contentFramecorners = Instance.new("UICorner")
-contentFramecorners.CornerRadius = UDim.new(0, 4)
-contentFramecorners.Parent = contentFrame
+    local contentFrameCorners = Instance.new("UICorner")
+    contentFrameCorners.CornerRadius = UDim.new(0, 4)
+    contentFrameCorners.Parent = contentFrame
 
     local tabs = {}
 
@@ -81,7 +81,7 @@ contentFramecorners.Parent = contentFrame
     toggleButton.Size = UDim2.new(0, 50, 0, 50)
     toggleButton.Position = UDim2.new(0, 10, 0, 10)
     toggleButton.BackgroundTransparency = 1
-    toggleButton.Image = "rbxassetid://PLACEHOLDER" -- Placeholder for the image
+    toggleButton.Image = "rbxassetid://PLACEHOLDER"
 
     local windowVisible = true
 
@@ -144,6 +144,10 @@ contentFramecorners.Parent = contentFrame
                     dropdownFrame.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
                     dropdownFrame.BorderSizePixel = 0
 
+                    local dropdownCorners = Instance.new("UICorner")
+                    dropdownCorners.CornerRadius = UDim.new(0, 4)
+                    dropdownCorners.Parent = dropdownFrame
+
                     local dropdownButton = Instance.new("TextButton")
                     dropdownButton.Name = "DropdownButton"
                     dropdownButton.Parent = dropdownFrame
@@ -162,6 +166,10 @@ contentFramecorners.Parent = contentFrame
                     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                     dropdownList.BorderSizePixel = 0
                     dropdownList.Visible = false
+
+                    local dropdownListCorners = Instance.new("UICorner")
+                    dropdownListCorners.CornerRadius = UDim.new(0, 4)
+                    dropdownListCorners.Parent = dropdownList
 
                     local listLayout = Instance.new("UIListLayout")
                     listLayout.Parent = dropdownList
@@ -187,65 +195,64 @@ contentFramecorners.Parent = contentFrame
 
                         itemButton.MouseButton1Click:Connect(function()
                             dropdownButton.Text = item
-                            dropdownOptions.Callback(item)
                             dropdownList.Visible = false
-                            layout:ApplyLayout()
+                            if dropdownOptions.Callback then
+                                dropdownOptions.Callback(item)
+                            end
                         end)
                     end
                 end,
 
                 AddToggle = function(self, toggleOptions)
-                    local toggle = Instance.new("Frame")
-                    toggle.Name = toggleOptions.Title or "Toggle"
-                    toggle.Parent = tabContent
-                    toggle.Size = toggleOptions.Size or UDim2.new(0, 200, 0, 50)
-                    toggle.BackgroundColor3 = toggleOptions.Color or Color3.fromRGB(45, 45, 45)
-                    toggle.BorderSizePixel = 0
+                    local toggleFrame = Instance.new("Frame")
+                    toggleFrame.Name = toggleOptions.Title or "Toggle"
+                    toggleFrame.Parent = tabContent
+                    toggleFrame.Size = UDim2.new(0, 200, 0, 50)
+                    toggleFrame.BackgroundColor3 = toggleOptions.Color or Color3.fromRGB(45, 45, 45)
+                    toggleFrame.BorderSizePixel = 0
 
-                    local toggleLabel = Instance.new("TextLabel")
-                    toggleLabel.Parent = toggle
-                    toggleLabel.Size = UDim2.new(0.8, 0, 1, 0)
-                    toggleLabel.BackgroundTransparency = 1
-                    toggleLabel.Text = toggleOptions.Title or "Toggle"
-                    toggleLabel.Font = Enum.Font.ArialBold
-                    toggleLabel.TextSize = 14
-                    toggleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    toggleLabel.BorderSizePixel = 0
+                    local toggleCorners = Instance.new("UICorner")
+                    toggleCorners.CornerRadius = UDim.new(0, 4)
+                    toggleCorners.Parent = toggleFrame
 
-                    local toggleButton = Instance.new("ImageButton")
-                    toggleButton.Parent = toggle
-                    toggleButton.Size = UDim2.new(0.2, -10, 0.8, -10)
-                    toggleButton.Position = UDim2.new(0.8, 5, 0.1, 0)
-                    toggleButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+                    local toggleButton = Instance.new("TextButton")
+                    toggleButton.Name = "ToggleButton"
+                    toggleButton.Parent = toggleFrame
+                    toggleButton.Size = UDim2.new(1, 0, 1, 0)
+                    toggleButton.BackgroundColor3 = toggleOptions.Color or Color3.fromRGB(45, 45, 45)
+                    toggleButton.Text = toggleOptions.Title or "Toggle"
+                    toggleButton.Font = Enum.Font.ArialBold
+                    toggleButton.TextSize = 14
+                    toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
                     toggleButton.BorderSizePixel = 0
 
+                    local isToggled = false
                     toggleButton.MouseButton1Click:Connect(function()
-                        toggleOptions.Callback(not toggleOptions.InitialState)
-                        toggleOptions.InitialState = not toggleOptions.InitialState
-                        if toggleOptions.InitialState then
-                            toggleButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-                        else
-                            toggleButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+                        isToggled = not isToggled
+                        toggleButton.Text = isToggled and "On" or "Off"
+                        if toggleOptions.Callback then
+                            toggleOptions.Callback(isToggled)
                         end
                     end)
-
-                    if toggleOptions.InitialState then
-                        toggleButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-                    end
                 end,
 
                 AddSlider = function(self, sliderOptions)
-                    local slider = Instance.new("Frame")
-                    slider.Name = sliderOptions.Title or "Slider"
-                    slider.Parent = tabContent
-                    slider.Size = sliderOptions.Size or UDim2.new(0, 200, 0, 70)
-                    slider.BackgroundColor3 = sliderOptions.Color or Color3.fromRGB(45, 45, 45)
-                    slider.BorderSizePixel = 0
+                    local sliderFrame = Instance.new("Frame")
+                    sliderFrame.Name = sliderOptions.Title or "Slider"
+                    sliderFrame.Parent = tabContent
+                    sliderFrame.Size = UDim2.new(0, 200, 0, 50)
+                    sliderFrame.BackgroundColor3 = sliderOptions.Color or Color3.fromRGB(45, 45, 45)
+                    sliderFrame.BorderSizePixel = 0
+
+                    local sliderCorners = Instance.new("UICorner")
+                    sliderCorners.CornerRadius = UDim.new(0, 4)
+                    sliderCorners.Parent = sliderFrame
 
                     local sliderLabel = Instance.new("TextLabel")
-                    sliderLabel.Parent = slider
-                    sliderLabel.Size = UDim2.new(1, 0, 0.3, 0)
-                    sliderLabel.BackgroundTransparency = 1
+                    sliderLabel.Name = "SliderLabel"
+                    sliderLabel.Parent = sliderFrame
+                    sliderLabel.Size = UDim2.new(1, 0, 0, 20)
+                    sliderLabel.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
                     sliderLabel.Text = sliderOptions.Title or "Slider"
                     sliderLabel.Font = Enum.Font.ArialBold
                     sliderLabel.TextSize = 14
@@ -253,80 +260,59 @@ contentFramecorners.Parent = contentFrame
                     sliderLabel.BorderSizePixel = 0
 
                     local sliderBar = Instance.new("Frame")
-                    sliderBar.Parent = slider
-                    sliderBar.Size = UDim2.new(1, -20, 0.3, 0)
-                    sliderBar.Position = UDim2.new(0, 10, 0.4, 0)
-                    sliderBar.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+                    sliderBar.Name = "SliderBar"
+                    sliderBar.Parent = sliderFrame
+                    sliderBar.Size = UDim2.new(1, 0, 0, 10)
+                    sliderBar.Position = UDim2.new(0, 0, 0, 20)
+                    sliderBar.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
                     sliderBar.BorderSizePixel = 0
 
-                    local sliderLine = Instance.new("Frame")
-                    sliderLine.Parent = sliderBar
-                    sliderLine.Size = UDim2.new(0, 0, 1, 0)
-                    sliderLine.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-                    sliderLine.BorderSizePixel = 0
+                    local sliderFill = Instance.new("Frame")
+                    sliderFill.Name = "SliderFill"
+                    sliderFill.Parent = sliderBar
+                    sliderFill.Size = UDim2.new(0, 0, 1, 0)
+                    sliderFill.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+                    sliderFill.BorderSizePixel = 0
 
-                    local sliderButton = Instance.new("ImageButton")
-                    sliderButton.Parent = sliderBar
-                    sliderButton.Size = UDim2.new(0, 10, 1, 0)
-                    sliderButton.Position = UDim2.new(0, 0, 0, 0)
-                    sliderButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-                    sliderButton.BorderSizePixel = 0
-                    sliderButton.Draggable = true
-                    sliderButton.Image = "rbxassetid://PLACEHOLDER" -- Placeholder for circular knob image
+                    local sliderThumb = Instance.new("TextButton")
+                    sliderThumb.Name = "SliderThumb"
+                    sliderThumb.Parent = sliderBar
+                    sliderThumb.Size = UDim2.new(0, 20, 1, 0)
+                    sliderThumb.Position = UDim2.new(0, -10, 0, 0)
+                    sliderThumb.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+                    sliderThumb.BorderSizePixel = 0
+                    sliderThumb.Text = ""
+                    sliderThumb.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    sliderThumb.Font = Enum.Font.ArialBold
 
-                    local valueBox = Instance.new("TextBox")
-                    valueBox.Parent = slider
-                    valueBox.Size = UDim2.new(0.2, 0, 0.3, 0)
-                    valueBox.Position = UDim2.new(0.8, 0, 0.1, 0)
-                    valueBox.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-                    valueBox.Text = tostring(sliderOptions.Min or 0)
-                    valueBox.Font = Enum.Font.ArialBold
-                    valueBox.TextSize = 14
-                    valueBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    valueBox.BorderSizePixel = 0
+                    local minValue = sliderOptions.Min or 0
+                    local maxValue = sliderOptions.Max or 100
+                    local value = sliderOptions.Default or 0
 
                     local function updateSlider(value)
-                        local min = sliderOptions.Min or 0
-                        local max = sliderOptions.Max or 100
-                        value = math.clamp(value, min, max)
-                        local percent = (value - min) / (max - min)
-                        sliderButton.Position = UDim2.new(percent, -5, 0, 0)
-                        sliderLine.Size = UDim2.new(percent, 0, 1, 0)
-                        valueBox.Text = tostring(value)
-                        sliderOptions.Callback(value)
+                        local percentage = (value - minValue) / (maxValue - minValue)
+                        sliderFill.Size = UDim2.new(percentage, 0, 1, 0)
+                        sliderThumb.Position = UDim2.new(percentage, -10, 0, 0)
+                        if sliderOptions.Callback then
+                            sliderOptions.Callback(value)
+                        end
                     end
 
-                    sliderButton.InputBegan:Connect(function(input)
-                        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                            local moveConnection
-                            local releaseConnection
-                            moveConnection = game:GetService("UserInputService").InputChanged:Connect(function(input)
-                                if input.UserInputType == Enum.UserInputType.MouseMovement then
-                                    local mousePos = input.Position
-                                    local relativePos = mousePos.X - sliderBar.AbsolutePosition.X
-                                    local percent = math.clamp(relativePos / sliderBar.AbsoluteSize.X, 0, 1)
-                                    local value = math.floor((sliderOptions.Min + (sliderOptions.Max - sliderOptions.Min) * percent) + 0.5)
-                                    updateSlider(value)
-                                end
-                            end)
-                            releaseConnection = game:GetService("UserInputService").InputEnded:Connect(function(input)
-                                if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                                    moveConnection:Disconnect()
-                                    releaseConnection:Disconnect()
-                                end
-                            end)
-                        end
-                    end)
+                    updateSlider(value)
 
-                    valueBox.FocusLost:Connect(function(enterPressed)
-                        if enterPressed then
-                            local value = tonumber(valueBox.Text)
-                            if value then
-                                updateSlider(value)
-                            else
-                                valueBox.Text = tostring(sliderOptions.Min or 0)
-                            end
+                    sliderThumb.MouseButton1Drag:Connect(function(input)
+                        local function update(input)
+                            local mousePos = input.Position.X - sliderBar.AbsolutePosition.X
+                            local percentage = math.clamp(mousePos / sliderBar.AbsoluteSize.X, 0, 1)
+                            local newValue = math.floor(minValue + percentage * (maxValue - minValue))
+                            updateSlider(newValue)
                         end
+                        update(input)
+                        input.Changed:Connect(function()
+                            if input.UserInputState == Enum.UserInputState.End then
+                                update(input)
+                            end
+                        end)
                     end)
                 end
             }
