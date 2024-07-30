@@ -1,184 +1,187 @@
--- UILib module
-local UILib = {}
+-- UILibrary.lua
 
--- Create Window
-function UILib:CreateWindow(config)
-    local window = Instance.new("Frame")
-    window.Size = config.Size or UDim2.fromOffset(580, 460)
-    window.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    window.Position = UDim2.fromScale(0.5, 0.5)
-    window.AnchorPoint = Vector2.new(0.5, 0.5)
-    
-    local title = Instance.new("TextLabel", window)
-    title.Text = config.Title or "Window"
-    title.Size = UDim2.new(1, 0, 0, 30)
-    title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    title.TextColor3 = Color3.fromRGB(255, 255, 255)
-    title.TextScaled = true
-    
-    local subtitle = Instance.new("TextLabel", window)
-    subtitle.Text = config.SubTitle or ""
-    subtitle.Size = UDim2.new(1, 0, 0, 20)
-    subtitle.Position = UDim2.new(0, 0, 0.05, 0)
-    subtitle.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    subtitle.TextColor3 = Color3.fromRGB(200, 200, 200)
-    subtitle.TextScaled = true
+local UILibrary = {}
+
+-- Function to create a window
+function UILibrary:CreateWindow(options)
+    local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+    local mainWindow = Instance.new("ScreenGui")
+    mainWindow.Name = options.Title
+    mainWindow.Parent = playerGui
+
+    local mainFrame = Instance.new("Frame")
+    mainFrame.Size = UDim2.new(0, 400, 0, 500)
+    mainFrame.Position = UDim2.new(0.5, -200, 0.5, -250)
+    mainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    mainFrame.Visible = false
+    mainFrame.Parent = mainWindow
+
+    local titleLabel = Instance.new("TextLabel")
+    titleLabel.Size = UDim2.new(1, 0, 0, 30)
+    titleLabel.Text = options.Title
+    titleLabel.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    titleLabel.Parent = mainFrame
 
     local tabContainer = Instance.new("Frame")
-    tabContainer.Size = UDim2.new(1, 0, 1, -50)
-    tabContainer.Position = UDim2.new(0, 0, 0, 50)
-    tabContainer.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    tabContainer.Parent = window
+    tabContainer.Size = UDim2.new(1, 0, 1, -30)
+    tabContainer.Position = UDim2.new(0, 0, 0, 30)
+    tabContainer.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    tabContainer.Parent = mainFrame
 
-    local tabButtons = Instance.new("Frame")
-    tabButtons.Size = UDim2.new(1, 0, 0, 50)
-    tabButtons.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    tabButtons.Parent = window
+    local tabList = Instance.new("Frame")
+    tabList.Size = UDim2.new(1, 0, 0, 30)
+    tabList.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    tabList.Parent = tabContainer
 
-    local currentTab = nil
+    local contentFrame = Instance.new("Frame")
+    contentFrame.Size = UDim2.new(1, 0, 1, -30)
+    contentFrame.Position = UDim2.new(0, 0, 0, 30)
+    contentFrame.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+    contentFrame.Name = "ContentFrame"
+    contentFrame.Parent = tabContainer
 
-    window.Tabs = {}
+    -- Open/Close Button
+    local toggleButton = Instance.new("TextButton")
+    toggleButton.Size = UDim2.new(0, 100, 0, 30)
+    toggleButton.Position = UDim2.new(0.5, -50, 0, 10)
+    toggleButton.Text = "Open UI"
+    toggleButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+    toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    toggleButton.Parent = playerGui
 
-    function window:SetTitle(tabTitle)
-        title.Text = "zygrade | " .. tabTitle
-    end
+    toggleButton.MouseButton1Click:Connect(function()
+        mainFrame.Visible = not mainFrame.Visible
+        toggleButton.Text = mainFrame.Visible and "Close UI" or "Open UI"
+    end)
 
-    function window:AddTab(config)
-        local tab = Instance.new("Frame")
-        tab.Size = UDim2.new(1, 0, 1, 0)
-        tab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-        tab.Name = config.Title or "Tab"
-        tab.Visible = false
-        tab.Parent = tabContainer
+    return {
+        NewTab = function(tabOptions)
+            local tabButton = Instance.new("TextButton")
+            tabButton.Size = UDim2.new(1 / 3, 0, 1, 0)
+            tabButton.Position = UDim2.new((#tabList:GetChildren() - 1) * (1 / 3), 0, 0, 0)
+            tabButton.Text = tabOptions.Name
+            tabButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+            tabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            tabButton.Parent = tabList
 
-        local tabButton = Instance.new("ImageButton")
-        tabButton.Image = config.Icon or ""
-        tabButton.Size = UDim2.new(1 / #window.Tabs, 0, 1, 0)
-        tabButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-        tabButton.Parent = tabButtons
+            local tabFrame = Instance.new("Frame")
+            tabFrame.Size = UDim2.new(1, 0, 1, 0)
+            tabFrame.Position = UDim2.new(0, 0, 0, 0)
+            tabFrame.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+            tabFrame.Visible = false
+            tabFrame.Parent = contentFrame
 
-        tabButton.MouseButton1Click:Connect(function()
-            if currentTab then
-                currentTab.Visible = false
-            end
-            tab.Visible = true
-            window:SetTitle(config.Title or "Tab")
-            currentTab = tab
-        end)
+            tabButton.MouseButton1Click:Connect(function()
+                for _, child in pairs(contentFrame:GetChildren()) do
+                    if child:IsA("Frame") then
+                        child.Visible = false
+                    end
+                end
+                tabFrame.Visible = true
+            end)
 
-        if #window.Tabs == 0 then
-            tab.Visible = true
-            currentTab = tab
-            window:SetTitle(config.Title or "Tab")
-        end
+            return {
+                NewToggle = function(toggleOptions)
+                    local toggleButton = Instance.new("TextButton")
+                    toggleButton.Size = UDim2.new(0, 200, 0, 30)
+                    toggleButton.Text = toggleOptions.Name .. ": " .. (toggleOptions.default and "On" or "Off")
+                    toggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+                    toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    toggleButton.Position = UDim2.new(0, 10, 0, (#tabFrame:GetChildren() * 35) + 10)
+                    toggleButton.Parent = tabFrame
 
-        table.insert(window.Tabs, tab)
+                    local isOn = toggleOptions.default
+                    toggleButton.MouseButton1Click:Connect(function()
+                        isOn = not isOn
+                        toggleButton.Text = toggleOptions.Name .. ": " .. (isOn and "On" or "Off")
+                        toggleOptions.callback(isOn)
+                    end)
+                end,
 
-        return {
-            AddButton = function(buttonConfig)
-                local button = Instance.new("TextButton")
-                button.Text = buttonConfig.Title or "Button"
-                button.Size = UDim2.new(1, -20, 0, 40)
-                button.Position = UDim2.new(0, 10, 0, 50)
-                button.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-                button.TextColor3 = Color3.fromRGB(255, 255, 255)
-                button.Parent = tab
-                button.MouseButton1Click:Connect(buttonConfig.Callback)
-            end,
-            
-            AddDropdown = function(dropdownConfig)
-                local dropdown = Instance.new("Frame")
-                dropdown.Size = UDim2.new(1, -20, 0, 40)
-                dropdown.Position = UDim2.new(0, 10, 0, 50)
-                dropdown.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-                dropdown.Parent = tab
+                NewSlider = function(sliderOptions)
+                    local slider = Instance.new("TextButton")
+                    slider.Size = UDim2.new(0, 200, 0, 30)
+                    slider.Text = sliderOptions.Name .. ": " .. sliderOptions.default
+                    slider.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+                    slider.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    slider.Position = UDim2.new(0, 10, 0, (#tabFrame:GetChildren() * 35) + 10)
+                    slider.Parent = tabFrame
 
-                local dropdownButton = Instance.new("TextButton")
-                dropdownButton.Text = dropdownConfig.Title or "Dropdown"
-                dropdownButton.Size = UDim2.new(1, 0, 0, 40)
-                dropdownButton.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
-                dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-                dropdownButton.Parent = dropdown
-                
-                local dropdownList = Instance.new("Frame")
-                dropdownList.Size = UDim2.new(1, 0, 0, #dropdownConfig.Items * 40)
-                dropdownList.Position = UDim2.new(0, 0, 1, 0)
-                dropdownList.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-                dropdownList.Visible = false
-                dropdownList.Parent = dropdown
-                
-                for i, item in ipairs(dropdownConfig.Items) do
-                    local optionButton = Instance.new("TextButton")
-                    optionButton.Text = item
-                    optionButton.Size = UDim2.new(1, 0, 0, 40)
-                    optionButton.Position = UDim2.new(0, 0, (i - 1) * 40, 0)
-                    optionButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-                    optionButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    optionButton.Parent = dropdownList
-                    optionButton.MouseButton1Click:Connect(function()
-                        dropdownButton.Text = item
-                        dropdownList.Visible = false
-                        dropdownConfig.Callback(item)
+                    local value = sliderOptions.default
+                    slider.MouseButton1Down:Connect(function()
+                        local inputConnection
+                        inputConnection = game:GetService("UserInputService").InputChanged:Connect(function(input)
+                            if input.UserInputType == Enum.UserInputType.MouseMovement then
+                                local relativePosition = math.clamp(input.Position.X - slider.AbsolutePosition.X, 0, slider.AbsoluteSize.X)
+                                value = sliderOptions.min + ((sliderOptions.max - sliderOptions.min) * (relativePosition / slider.AbsoluteSize.X))
+                                slider.Text = sliderOptions.Name .. ": " .. math.floor(value)
+                                sliderOptions.callback(value)
+                            end
+                        end)
+
+                        game:GetService("UserInputService").InputEnded:Connect(function(input)
+                            if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                                inputConnection:Disconnect()
+                            end
+                        end)
+                    end)
+                end,
+
+                NewDropdown = function(dropdownOptions)
+                    local dropdownButton = Instance.new("TextButton")
+                    dropdownButton.Size = UDim2.new(0, 200, 0, 30)
+                    dropdownButton.Text = dropdownOptions.Name .. ": " .. dropdownOptions.default
+                    dropdownButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+                    dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    dropdownButton.Position = UDim2.new(0, 10, 0, (#tabFrame:GetChildren() * 35) + 10)
+                    dropdownButton.Parent = tabFrame
+
+                    local dropdownFrame = Instance.new("Frame")
+                    dropdownFrame.Size = UDim2.new(0, 200, 0, #dropdownOptions.options * 30)
+                    dropdownFrame.Position = UDim2.new(0, 0, 1, 0)
+                    dropdownFrame.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+                    dropdownFrame.Visible = false
+                    dropdownFrame.Parent = dropdownButton
+
+                    for i, option in ipairs(dropdownOptions.options) do
+                        local optionButton = Instance.new("TextButton")
+                        optionButton.Size = UDim2.new(1, 0, 0, 30)
+                        optionButton.Position = UDim2.new(0, 0, 0, (i - 1) * 30)
+                        optionButton.Text = option
+                        optionButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+                        optionButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                        optionButton.Parent = dropdownFrame
+
+                        optionButton.MouseButton1Click:Connect(function()
+                            dropdownButton.Text = dropdownOptions.Name .. ": " .. option
+                            dropdownFrame.Visible = false
+                            dropdownOptions.callback(option)
+                        end)
+                    end
+
+                    dropdownButton.MouseButton1Click:Connect(function()
+                        dropdownFrame.Visible = not dropdownFrame.Visible
+                    end)
+                end,
+
+                NewButton = function(buttonOptions)
+                    local button = Instance.new("TextButton")
+                    button.Size = UDim2.new(0, 200, 0, 30)
+                    button.Text = buttonOptions.Name
+                    button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+                    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    button.Position = UDim2.new(0, 10, 0, (#tabFrame:GetChildren() * 35) + 10)
+                    button.Parent = tabFrame
+
+                    button.MouseButton1Click:Connect(function()
+                        buttonOptions.callback()
                     end)
                 end
-                
-                dropdownButton.MouseButton1Click:Connect(function()
-                    dropdownList.Visible = not dropdownList.Visible
-                end)
-            end,
-            
-            AddSlider = function(sliderConfig)
-                local sliderFrame = Instance.new("Frame")
-                sliderFrame.Size = UDim2.new(1, -20, 0, 40)
-                sliderFrame.Position = UDim2.new(0, 10, 0, 50)
-                sliderFrame.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-                sliderFrame.Parent = tab
-
-                local sliderLabel = Instance.new("TextLabel")
-                sliderLabel.Text = sliderConfig.Title or "Slider"
-                sliderLabel.Size = UDim2.new(1, 0, 0, 20)
-                sliderLabel.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
-                sliderLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-                sliderLabel.Parent = sliderFrame
-                
-                local sliderBar = Instance.new("Frame")
-                sliderBar.Size = UDim2.new(1, 0, 0, 10)
-                sliderBar.Position = UDim2.new(0, 0, 0.5, 0)
-                sliderBar.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-                sliderBar.Parent = sliderFrame
-                
-                local sliderHandle = Instance.new("Frame")
-                sliderHandle.Size = UDim2.new(0, 10, 1, 0)
-                sliderHandle.Position = UDim2.new(0, 0, 0, 0)
-                sliderHandle.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
-                sliderHandle.Parent = sliderBar
-                
-                local dragging = false
-                sliderBar.InputBegan:Connect(function(input)
-                    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                        dragging = true
-                    end
-                end)
-                
-                sliderBar.InputEnded:Connect(function(input)
-                    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                        dragging = false
-                    end
-                end)
-                
-                sliderBar.InputChanged:Connect(function(input)
-                    if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-                        local mouseX = input.Position.X - sliderBar.AbsolutePosition.X
-                        local newValue = math.clamp(mouseX / sliderBar.Size.X.Offset, 0, 1) * (sliderConfig.Max - sliderConfig.Min) + sliderConfig.Min
-                        sliderHandle.Position = UDim2.new(newValue / (sliderConfig.Max - sliderConfig.Min), -5, 0, 0)
-                        sliderConfig.Callback(newValue)
-                    end
-                end)
-            end
-        }
-    end
-    
-    return window
+            }
+        end
+    }
 end
 
-return UILib
+return UILibrary
