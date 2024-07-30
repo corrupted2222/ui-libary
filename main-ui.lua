@@ -226,13 +226,13 @@ function UILib:CreateWindow(options)
                     local slider = Instance.new("Frame")
                     slider.Name = sliderOptions.Title or "Slider"
                     slider.Parent = tabContent
-                    slider.Size = sliderOptions.Size or UDim2.new(0, 200, 0, 50)
+                    slider.Size = sliderOptions.Size or UDim2.new(0, 200, 0, 70)
                     slider.BackgroundColor3 = sliderOptions.Color or Color3.fromRGB(45, 45, 45)
                     slider.BorderSizePixel = 0
 
                     local sliderLabel = Instance.new("TextLabel")
                     sliderLabel.Parent = slider
-                    sliderLabel.Size = UDim2.new(1, 0, 0.5, 0)
+                    sliderLabel.Size = UDim2.new(1, 0, 0.3, 0)
                     sliderLabel.BackgroundTransparency = 1
                     sliderLabel.Text = sliderOptions.Title or "Slider"
                     sliderLabel.Font = Enum.Font.ArialBold
@@ -243,9 +243,15 @@ function UILib:CreateWindow(options)
                     local sliderBar = Instance.new("Frame")
                     sliderBar.Parent = slider
                     sliderBar.Size = UDim2.new(1, -20, 0.3, 0)
-                    sliderBar.Position = UDim2.new(0, 10, 0.6, 0)
+                    sliderBar.Position = UDim2.new(0, 10, 0.4, 0)
                     sliderBar.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
                     sliderBar.BorderSizePixel = 0
+
+                    local sliderLine = Instance.new("Frame")
+                    sliderLine.Parent = sliderBar
+                    sliderLine.Size = UDim2.new(0, 0, 1, 0)
+                    sliderLine.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+                    sliderLine.BorderSizePixel = 0
 
                     local sliderButton = Instance.new("ImageButton")
                     sliderButton.Parent = sliderBar
@@ -254,12 +260,27 @@ function UILib:CreateWindow(options)
                     sliderButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
                     sliderButton.BorderSizePixel = 0
                     sliderButton.Draggable = true
+                    sliderButton.Image = "rbxassetid://PLACEHOLDER" -- Placeholder for circular knob image
+
+                    local valueBox = Instance.new("TextBox")
+                    valueBox.Parent = slider
+                    valueBox.Size = UDim2.new(0.2, 0, 0.3, 0)
+                    valueBox.Position = UDim2.new(0.8, 0, 0.1, 0)
+                    valueBox.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+                    valueBox.Text = tostring(sliderOptions.Min or 0)
+                    valueBox.Font = Enum.Font.ArialBold
+                    valueBox.TextSize = 14
+                    valueBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    valueBox.BorderSizePixel = 0
 
                     local function updateSlider(value)
                         local min = sliderOptions.Min or 0
                         local max = sliderOptions.Max or 100
+                        value = math.clamp(value, min, max)
                         local percent = (value - min) / (max - min)
                         sliderButton.Position = UDim2.new(percent, -5, 0, 0)
+                        sliderLine.Size = UDim2.new(percent, 0, 1, 0)
+                        valueBox.Text = tostring(value)
                         sliderOptions.Callback(value)
                     end
 
@@ -272,7 +293,7 @@ function UILib:CreateWindow(options)
                                     local mousePos = input.Position
                                     local relativePos = mousePos.X - sliderBar.AbsolutePosition.X
                                     local percent = math.clamp(relativePos / sliderBar.AbsoluteSize.X, 0, 1)
-                                    local value = sliderOptions.Min + (sliderOptions.Max - sliderOptions.Min) * percent
+                                    local value = math.floor((sliderOptions.Min + (sliderOptions.Max - sliderOptions.Min) * percent) + 0.5)
                                     updateSlider(value)
                                 end
                             end)
@@ -282,6 +303,17 @@ function UILib:CreateWindow(options)
                                     releaseConnection:Disconnect()
                                 end
                             end)
+                        end
+                    end)
+
+                    valueBox.FocusLost:Connect(function(enterPressed)
+                        if enterPressed then
+                            local value = tonumber(valueBox.Text)
+                            if value then
+                                updateSlider(value)
+                            else
+                                valueBox.Text = tostring(sliderOptions.Min or 0)
+                            end
                         end
                     end)
                 end
