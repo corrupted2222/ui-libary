@@ -29,7 +29,7 @@ Title.Size = UDim2.new(0, 200, 0, 36)
 Title.Position = UDim2.new(0.01, 0, 0, 0) 
 Title.TextColor3 = Color3.fromRGB(255,255,255)
 Title.TextSize = 17
-Title.Text = Title or "Name Of UI"
+Title.Text = options.Title or "Name Of UI"
 Title.Font = Enum.Font.ArialBold
 Title.BackgroundTransparency = 1
 Title.TextXAlignment = Enum.TextXAlignment.Left
@@ -40,7 +40,7 @@ GameTitle.Size = UDim2.new(0, 200, 0, 30)
 GameTitle.Position = UDim2.new(0.592, 0, 0.09, 0) 
 GameTitle.TextColor3 = Color3.fromRGB(255,255,255)
 GameTitle.TextSize = 14
-GameTitle.Text = Game or "Game Name"
+GameTitle.Text = options.Game or "Game Name"
 GameTitle.Font = Enum.Font.ArialBold
 GameTitle.BackgroundTransparency = 0
 
@@ -60,3 +60,5 @@ TabsHolder.Size = UDim2.new(0, 54, 0, 300)
 local TabsHolderCorners = Instance.new("UICorner")
 TabsHolderCorners.CornerRadius = UDim.new(0, 4)
 TabsHolderCorners.Parent = TabsHolder
+
+return UILib
