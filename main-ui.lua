@@ -3,7 +3,7 @@ local UILib = {}
 function UILib:CreateWindow(options)
     local screenGui = Instance.new("ScreenGui")
     screenGui.Name = options.Title or "UI Window"
-    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    screenGui.Parent = game.CoreGui
 
     local window = Instance.new("Frame")
     window.Name = "MainWindow"
