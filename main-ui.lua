@@ -47,6 +47,10 @@ windowcorners.Parent = window
     tabFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     tabFrame.BorderSizePixel = 0
 
+        local tabFramecorners = Instance.new("UICorner")
+tabFramecorners.CornerRadius = UDim.new(0, 4)
+tabFramecorners.Parent = tabFrame
+
     local contentFrame = Instance.new("ScrollingFrame")
     contentFrame.Parent = window
     contentFrame.Size = UDim2.new(1, 0, 1, -100)
@@ -56,6 +60,10 @@ windowcorners.Parent = window
     contentFrame.CanvasSize = UDim2.new(0, 0, 0, 0) -- Initial canvas size
     contentFrame.ScrollBarThickness = 10
     contentFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+
+    local contentFramecorners = Instance.new("UICorner")
+contentFramecorners.CornerRadius = UDim.new(0, 4)
+contentFramecorners.Parent = contentFrame
 
     local tabs = {}
 
