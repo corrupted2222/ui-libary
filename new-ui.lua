@@ -46,7 +46,7 @@ function UILib:CreateWindow(options)
         GameTitle.Font = Enum.Font.ArialBold
         GameTitle.BackgroundTransparency = 0
         
-        GameTitle.Size = UDim2.new(0, GameTitle.TextBounds.X + 10, 0, 30) -- Add padding of 10
+        GameTitle.Size = UDim2.new(0, GameTitle.TextBounds.X + 5, 0, 30) -- Add padding of 10
         
         local GameTitleCorners = Instance.new("UICorner")
         GameTitleCorners.CornerRadius = UDim.new(0, 4)
