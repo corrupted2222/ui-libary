@@ -106,8 +106,8 @@ function UILib:CreateWindow(options)
     local tabs = {}
 
     local function switchTab(tab)
-        for _, tabButton in pairs(tabs) do
-            tabButton.content.Visible = false
+        for _, tabInfo in pairs(tabs) do
+            tabInfo.content.Visible = false
         end
         tab.content.Visible = true
         Title.Text = "Zygarde | " .. tab.title
@@ -115,9 +115,6 @@ function UILib:CreateWindow(options)
 
     local window = {
         AddTab = function(self, tabOptions)
-            -- Debugging output
-            print("Adding tab with options:", tabOptions)
-
             local TabButton = Instance.new("TextButton")
             TabButton.Parent = TabsHolderFrame
             TabButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
