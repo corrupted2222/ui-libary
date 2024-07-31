@@ -1,8 +1,11 @@
 local UILib = {}
 
 function UILib:CreateWindow(options)
+    local player = game.Players.LocalPlayer
+    local PlayerGui = player:WaitForChild("PlayerGui")
+
     local ScreenGui = Instance.new("ScreenGui")
-    ScreenGui.Parent = game:GetService("CoreGui")
+    ScreenGui.Parent = PlayerGui
 
     local MainFrame = Instance.new("Frame")
     MainFrame.Parent = ScreenGui
