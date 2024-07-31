@@ -44,7 +44,7 @@ function UILib:CreateWindow(options)
     GameTitle.Text = options.Game or "Game Name"
     GameTitle.Font = Enum.Font.ArialBold
     GameTitle.BackgroundTransparency = 0
-    local gameTitleWidth = options.GameTitleWidth or GameTitle.TextBounds.X + 10
+    local gameTitleWidth = options.GameTitleWidth or 80
     local gameTitleHeight = 30
     GameTitle.Size = UDim2.new(0, gameTitleWidth, 0, gameTitleHeight)
     local gameTitlePosX = options.GameTitlePosX or 0.592
@@ -97,7 +97,7 @@ function UILib:CreateWindow(options)
     TabHolders.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
     TabHolders.Position = UDim2.new(0.0192, 0, 0.023, 0)
     TabHolders.Size = UDim2.new(0, 480, 0, 294)
-    TabHolders.CanvasSize = UDim2.new(0, 0, 0, 0) -- change the 3rd one to scroll down --
+    TabHolders.CanvasSize = UDim2.new(0, 0, 0, 0)
     TabHolders.ScrollBarThickness = 0
     TabHolders.BackgroundTransparency = 1
     TabHolders.Active = true
@@ -115,6 +115,9 @@ function UILib:CreateWindow(options)
 
     local window = {
         AddTab = function(self, tabOptions)
+            -- Debugging output
+            print("Adding tab with options:", tabOptions)
+
             local TabButton = Instance.new("TextButton")
             TabButton.Parent = TabsHolderFrame
             TabButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
