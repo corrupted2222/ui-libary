@@ -105,15 +105,7 @@ function UILib:CreateWindow(options)
 
     local tabs = {}
 
-    local function switchTab(tab)
-        for _, tabInfo in pairs(tabs) do
-            tabInfo.content.Visible = false
-        end
-        tab.content.Visible = true
-        Title.Text = "Zygarde | " .. tab.title
-    end
-
-    local window = {
+    return {
         AddTab = function(self, tabOptions)
             local TabButton = Instance.new("TextButton")
             TabButton.Parent = TabsHolderFrame
