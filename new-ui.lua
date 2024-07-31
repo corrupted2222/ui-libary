@@ -158,6 +158,6 @@ function UILib:CreateWindow(options)
             return tabContent
         end
     }
-end
+end)
 
 return UILib
