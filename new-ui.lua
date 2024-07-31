@@ -57,7 +57,6 @@ function UILib:CreateWindow(options)
             end
         end)
         
-        
         local GameTitleCorners = Instance.new("UICorner")
         GameTitleCorners.CornerRadius = UDim.new(0, 4)
         GameTitleCorners.Parent = GameTitle
@@ -91,49 +90,62 @@ function UILib:CreateWindow(options)
         TabsGridLayout.Parent = TabsHolderFrame
         TabsGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
         TabsGridLayout.CellSize = UDim2.new(0, 37, 0, 37)
-        TabsGridLayout.CellPadding = UDim2.new(0, 5, 0, 5) 
+        TabsGridLayout.CellPadding = UDim2.new(0, 5, 0, 5)
         TabsGridLayout.FillDirection = Enum.FillDirection.Vertical
 
         local tabs = {}
 
-    local function switchTab(tab)
-        for _, tabButton in pairs(tabs) do
-            tabButton.content.Visible = false
+        local function switchTab(tab)
+            for _, tabButton in pairs(tabs) do
+                tabButton.content.Visible = false
+            end
+            tab.content.Visible = true
+            Title.Text = "Zygarde | " .. tab.title
         end
-        tab.content.Visible = true
-        titleLabel.Text = "zygarde | " .. tab.title
-    end
 
-    return {
-        AddTab = function(self, tabOptions)
-            local TabButton = Instance.new("TextButton")
-            TabButton.Parent = TabsHolderFrame
-            TabButton.BackgroundColor3 = Color3.fromRGB(40,40,40)
-            TabButton.Position = UDim2.new(0, 0, 0, 0)
-            TabButton.Size = UDim2.new(0,126,0,34)
-            TabButton.Text = ""
-            TabButton.TextSize = 14 
-            TabButton.Font = Enum.Font.ArialBold 
-            TabButton.TextColor3 = Color3.fromRGB(255,255,255)
-            TabButton.AutoButtonColor = false
-            TabButton.Visible = false
+        return {
+            AddTab = function(self, tabOptions)
+                local TabButton = Instance.new("TextButton")
+                TabButton.Parent = TabsHolderFrame
+                TabButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+                TabButton.Size = UDim2.new(0, 37, 0, 37)
+                TabButton.Text = ""
+                TabButton.TextSize = 14
+                TabButton.Font = Enum.Font.ArialBold
+                TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                TabButton.AutoButtonColor = false
+                TabButton.Visible = true
 
-            local TabButtonCorners = Instance.new("UICorner")
-            TabButtonCorners.CornerRadius = UDim.new(0, 4)
-            TabButtonCorners.Parent = TabButton
+                local TabButtonCorners = Instance.new("UICorner")
+                TabButtonCorners.CornerRadius = UDim.new(0, 4)
+                TabButtonCorners.Parent = TabButton
 
-            local HomeIcon = Instance.new("ImageLabel")
-            TabIcon.Parent = TabButton
-            TabIcon.Size = UDim2.new(0, 30, 0, 30)
-            TabIcon.Position = UDim2.new(0.1, 0, 0.1, 0)
-            TabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
-            TabIcon.BackgroundTransparency = 1
+                local TabIcon = Instance.new("ImageLabel")
+                TabIcon.Parent = TabButton
+                TabIcon.Size = UDim2.new(0, 30, 0, 30)
+                TabIcon.Position = UDim2.new(0.1, 0, 0.1, 0)
+                TabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
+                TabIcon.BackgroundTransparency = 1
 
-            tabButton.MouseButton1Click:Connect(function()
-                switchTab({ button = tabButton, content = tabContent, title = tabOptions.Title or "Tab" })
-            end)
+                local tabContent = Instance.new("Frame")
+                tabContent.Parent = MainFrame
+                tabContent.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+                tabContent.Size = UDim2.new(1, 0, 1, -36)
+                tabContent.Position = UDim2.new(0, 0, 0, 36)
+                tabContent.Visible = false
 
-            table.insert(tabs, { button = tabButton, content = tabContent })
+                TabButton.MouseButton1Click:Connect(function()
+                    switchTab({ button = TabButton, content = tabContent, title = tabOptions.Title or "Tab" })
+                end)
+
+                table.insert(tabs, { button = TabButton, content = tabContent })
+                if #tabs == 1 then
+                    switchTab({ button = TabButton, content = tabContent, title = tabOptions.Title or "Tab" })
+                end
+
+                return tabContent
+            end
+        }
     end)
 
     if not success then
