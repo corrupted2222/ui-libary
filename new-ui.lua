@@ -1,13 +1,14 @@
 local UILib = {}
 
 function UILib:CreateWindow(options)
+    local CoreGui = game:GetService("CoreGui")
     local ScreenGui = Instance.new("ScreenGui")
-    ScreenGui.Parent = game:GetService("CoreGui")
+    ScreenGui.Parent = CoreGui
 
     local MainFrame = Instance.new("Frame")
     MainFrame.Parent = ScreenGui
     MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    MainFrame.Position = UDim2.new(0.5, -100, 0.5, -70)
+    MainFrame.Position = UDim2.new(0.5, -250, 0.5, -150)
     MainFrame.Size = UDim2.new(0, 500, 0, 300)
     MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
     MainFrame.Active = true
@@ -20,8 +21,8 @@ function UILib:CreateWindow(options)
     local Header = Instance.new("Frame")
     Header.Parent = MainFrame
     Header.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    Header.Position = UDim2.new(0, 0, -0.15, 0)
-    Header.Size = UDim2.new(0, 500, 0, 36)
+    Header.Position = UDim2.new(0, 0, 0, 0)
+    Header.Size = UDim2.new(1, 0, 0, 36)
     Header.Active = true
 
     local Title = Instance.new("TextLabel")
@@ -102,6 +103,6 @@ function UILib:CreateWindow(options)
     TabHolders.BackgroundTransparency = 1
     TabHolders.Active = true
     TabHolders.AutomaticCanvasSize = Enum.AutomaticSize.Y
-end)
+end
 
 return UILib
