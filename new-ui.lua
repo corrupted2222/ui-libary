@@ -53,7 +53,7 @@ function UILib:CreateWindow(options)
     GameTitle.Position = UDim2.new(gameTitlePosX, 0, gameTitlePosY, 0)
     GameTitle:GetPropertyChangedSignal("TextBounds"):Connect(function()
         if not options.GameTitleWidth then
-            GameTitle.Size = UDim2.new(0, GameTitle.TextBounds.X + 10, 0, gameTitleHeight) -- Add padding of 10
+            GameTitle.Size = UDim2.new(0, GameTitle.TextBounds.X + 10, 0, gameTitleHeight)
         end
     end)
 
