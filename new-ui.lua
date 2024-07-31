@@ -105,12 +105,21 @@ function UILib:CreateWindow(options)
 
     local tabs = {}
 
+        local function switchTab(tab)
+        for _, tabButton in pairs(tabs) do
+            tabButton.content.Visible = false
+        end
+        tab.content.Visible = true
+        Title.Text = "zygarde | " .. tab.title
+    end
+
     return {
         AddTab = function(self, tabOptions)
             local TabButton = Instance.new("TextButton")
             TabButton.Parent = TabsHolderFrame
             TabButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
             TabButton.Size = UDim2.new(0, 37, 0, 37)
+            TabButton.Name = tabOptions.Title or "TabContent"
             TabButton.Text = ""
             TabButton.TextSize = 14
             TabButton.Font = Enum.Font.ArialBold
@@ -124,6 +133,7 @@ function UILib:CreateWindow(options)
 
             local TabIcon = Instance.new("ImageLabel")
             TabIcon.Parent = TabButton
+            TabIcon.Name = tabOptions.Title or "TabContent"
             TabIcon.Size = UDim2.new(0, 30, 0, 30)
             TabIcon.Position = UDim2.new(0.1, 0, 0.1, 0)
             TabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
