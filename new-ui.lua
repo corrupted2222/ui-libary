@@ -92,6 +92,17 @@ function UILib:CreateWindow(options)
     TabsGridLayout.CellPadding = UDim2.new(0, 5, 0, 5)
     TabsGridLayout.FillDirection = Enum.FillDirection.Vertical
 
+    local TabHolders = Instance.new("ScrollingFrame")
+    TabHolders.Parent = MainFrame
+    TabHolders.BackgroundColor3 = Color3.fromRGB(60,60,60)
+    TabHolders.Position = UDim2.new(0.0192, 0, 0.023, 0)
+    TabHolders.Size = UDim2.new(0, 480, 0, 294)
+    TabHolders.CanvasSize = UDim2.new(0, 0, 0, 0) -- change the 3rd one to scroll down --
+    TabHolders.ScrollBarThickness = 0
+    TabHolders.BackgroundTransparency = 1
+    TabHolders.Active = true
+    TabHolders.AutomaticCanvasSize = Enum.AutomaticSize.Y
+
     local tabs = {}
 
     local function switchTab(tab)
@@ -127,7 +138,7 @@ function UILib:CreateWindow(options)
             TabIcon.BackgroundTransparency = 1
 
             local tabContent = Instance.new("Frame")
-            tabContent.Parent = MainFrame
+            tabContent.Parent = TabHolders
             tabContent.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
             tabContent.Size = UDim2.new(1, 0, 1, -36)
             tabContent.Position = UDim2.new(0, 0, 0, 36)
