@@ -102,62 +102,6 @@ function UILib:CreateWindow(options)
     TabHolders.BackgroundTransparency = 1
     TabHolders.Active = true
     TabHolders.AutomaticCanvasSize = Enum.AutomaticSize.Y
-
-    local tabs = {}
-
-    local function switchTab(tab)
-        for _, tabButton in pairs(tabs) do
-            tabButton.content.Visible = false
-        end
-        tab.content.Visible = true
-        Title.Text = "zygarde | " .. tab.title
-    end
-
-    return {
-        AddTab = function(self, tabOptions)
-            local TabButton = Instance.new("TextButton")
-            TabButton.Parent = TabsHolderFrame
-            TabButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-            TabButton.Size = UDim2.new(0, 37, 0, 37)
-            TabButton.Name = tabOptions.Title or "TabContent"
-            TabButton.Text = ""
-            TabButton.TextSize = 14
-            TabButton.Font = Enum.Font.ArialBold
-            TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-            TabButton.AutoButtonColor = false
-            TabButton.Visible = true
-
-            local TabButtonCorners = Instance.new("UICorner")
-            TabButtonCorners.CornerRadius = UDim.new(0, 4)
-            TabButtonCorners.Parent = TabButton
-
-            local TabIcon = Instance.new("ImageLabel")
-            TabIcon.Parent = TabButton
-            TabIcon.Name = tabOptions.Title or "TabContent"
-            TabIcon.Size = UDim2.new(0, 30, 0, 30)
-            TabIcon.Position = UDim2.new(0.1, 0, 0.1, 0)
-            TabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
-            TabIcon.BackgroundTransparency = 1
-
-            local tabContent = Instance.new("Frame")
-            tabContent.Parent = TabHolders
-            tabContent.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-            tabContent.Size = UDim2.new(1, 0, 1, -36)
-            tabContent.Position = UDim2.new(0, 0, 0, 36)
-            tabContent.Visible = false
-
-            TabButton.MouseButton1Click:Connect(function()
-                switchTab({ button = TabButton, content = tabContent, title = tabOptions.Title or "Tab" })
-            end)
-
-            table.insert(tabs, { button = TabButton, content = tabContent })
-            if #tabs == 1 then
-                switchTab({ button = TabButton, content = tabContent, title = tabOptions.Title or "Tab" })
-            end
-
-            return tabContent
-        end
-    }
 end)
 
 return UILib
