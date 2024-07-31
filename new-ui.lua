@@ -151,8 +151,10 @@ function UILib:CreateWindow(options)
     if not success then
         warn("Failed to create UI in CoreGui: " .. tostring(err))
     end
-    
-    return UILib
+
+    return {
+        AddTab = UILib.AddTab
+    }
 end
 
 return UILib
