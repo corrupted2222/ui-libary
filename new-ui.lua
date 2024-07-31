@@ -94,7 +94,7 @@ function UILib:CreateWindow(options)
 
     local TabHolders = Instance.new("ScrollingFrame")
     TabHolders.Parent = MainFrame
-    TabHolders.BackgroundColor3 = Color3.fromRGB(60,60,60)
+    TabHolders.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
     TabHolders.Position = UDim2.new(0.0192, 0, 0.023, 0)
     TabHolders.Size = UDim2.new(0, 480, 0, 294)
     TabHolders.CanvasSize = UDim2.new(0, 0, 0, 0) -- change the 3rd one to scroll down --
