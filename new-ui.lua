@@ -1,8 +1,9 @@
 local UILib = {}
 
 function UILib:CreateWindow(options)
+    local CoreGui = game:GetService("CoreGui")
     local ScreenGui = Instance.new("ScreenGui")
-    ScreenGui.Parent = game:GetService("CoreGui")
+    ScreenGui.Parent = CoreGui
 
     local MainFrame = Instance.new("Frame")
     MainFrame.Parent = ScreenGui
@@ -105,12 +106,12 @@ function UILib:CreateWindow(options)
 
     local tabs = {}
 
-        local function switchTab(tab)
+    local function switchTab(tab)
         for _, tabButton in pairs(tabs) do
             tabButton.content.Visible = false
         end
         tab.content.Visible = true
-        Title.Text = "zygarde | " .. tab.title
+        Title.Text = "Zygarde | " .. tab.title
     end
 
     return {
@@ -158,8 +159,6 @@ function UILib:CreateWindow(options)
             return tabContent
         end
     }
-
-    return window
 end
 
 return UILib
