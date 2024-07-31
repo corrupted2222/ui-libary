@@ -45,24 +45,18 @@ function UILib:CreateWindow(options)
         GameTitle.Text = options.Game or "Game Name"
         GameTitle.Font = Enum.Font.ArialBold
         GameTitle.BackgroundTransparency = 0
-        
-        -- Use options for size if provided
         local gameTitleWidth = options.GameTitleWidth or GameTitle.TextBounds.X + 10
         local gameTitleHeight = 30
         GameTitle.Size = UDim2.new(0, gameTitleWidth, 0, gameTitleHeight)
-
-        -- Use options for position if provided
         local gameTitlePosX = options.GameTitlePosX or 0.592
         local gameTitlePosY = 0.09
         GameTitle.Position = UDim2.new(gameTitlePosX, 0, gameTitlePosY, 0)
-        
         GameTitle:GetPropertyChangedSignal("TextBounds"):Connect(function()
             if not options.GameTitleWidth then
                 GameTitle.Size = UDim2.new(0, GameTitle.TextBounds.X + 10, 0, gameTitleHeight) -- Add padding of 10
             end
         end)
         
-        GameTitle.Text = options.Game or "Game Name" -- This triggers the TextBounds update
         
         local GameTitleCorners = Instance.new("UICorner")
         GameTitleCorners.CornerRadius = UDim.new(0, 4)
@@ -81,6 +75,65 @@ function UILib:CreateWindow(options)
         local TabsHolderCorners = Instance.new("UICorner")
         TabsHolderCorners.CornerRadius = UDim.new(0, 4)
         TabsHolderCorners.Parent = TabsHolder
+
+        local TabsHolderFrame = Instance.new("ScrollingFrame")
+        TabsHolderFrame.Parent = TabsHolder
+        TabsHolderFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+        TabsHolderFrame.Position = UDim2.new(0.15, 0, 0.023, 0)
+        TabsHolderFrame.Size = UDim2.new(0, 44, 0, 292)
+        TabsHolderFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+        TabsHolderFrame.ScrollBarThickness = 0
+        TabsHolderFrame.BackgroundTransparency = 1
+        TabsHolderFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+        TabsHolderFrame.Active = true
+
+        local TabsGridLayout = Instance.new("UIGridLayout")
+        TabsGridLayout.Parent = TabsHolderFrame
+        TabsGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        TabsGridLayout.CellSize = UDim2.new(0, 37, 0, 37)
+        TabsGridLayout.CellPadding = UDim2.new(0, 5, 0, 5) 
+        TabsGridLayout.FillDirection = Enum.FillDirection.Vertical
+
+        local tabs = {}
+
+    local function switchTab(tab)
+        for _, tabButton in pairs(tabs) do
+            tabButton.content.Visible = false
+        end
+        tab.content.Visible = true
+        titleLabel.Text = "zygarde | " .. tab.title
+    end
+
+    return {
+        AddTab = function(self, tabOptions)
+            local TabButton = Instance.new("TextButton")
+            TabButton.Parent = TabsHolderFrame
+            TabButton.BackgroundColor3 = Color3.fromRGB(40,40,40)
+            TabButton.Position = UDim2.new(0, 0, 0, 0)
+            TabButton.Size = UDim2.new(0,126,0,34)
+            TabButton.Text = ""
+            TabButton.TextSize = 14 
+            TabButton.Font = Enum.Font.ArialBold 
+            TabButton.TextColor3 = Color3.fromRGB(255,255,255)
+            TabButton.AutoButtonColor = false
+            TabButton.Visible = false
+
+            local TabButtonCorners = Instance.new("UICorner")
+            TabButtonCorners.CornerRadius = UDim.new(0, 4)
+            TabButtonCorners.Parent = TabButton
+
+            local HomeIcon = Instance.new("ImageLabel")
+            TabIcon.Parent = TabButton
+            TabIcon.Size = UDim2.new(0, 30, 0, 30)
+            TabIcon.Position = UDim2.new(0.1, 0, 0.1, 0)
+            TabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
+            TabIcon.BackgroundTransparency = 1
+
+            tabButton.MouseButton1Click:Connect(function()
+                switchTab({ button = tabButton, content = tabContent, title = tabOptions.Title or "Tab" })
+            end)
+
+            table.insert(tabs, { button = tabButton, content = tabContent })
     end)
 
     if not success then
