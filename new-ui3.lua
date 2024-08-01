@@ -103,6 +103,45 @@ function UILib:CreateWindow(options)
     TabHolders.BackgroundTransparency = 1
     TabHolders.Active = true
     TabHolders.AutomaticCanvasSize = Enum.AutomaticSize.Y
+
+    local tabs = {}
+    local function switchTab(tab)
+        for _, tabButton in pairs(tabs) do
+            tabButton.content.Visible = false
+        end
+        tab.content.Visible = true
+        Title.Text = "zygarde | " .. tab.title
+    end
+    return {
+        AddTab = function(self, tabOptions)
+            local tabButton = Instance.new("ImageButton")
+            tabButton.Name = tabOptions.Title or "Tab"
+            tabButton.Parent = tabFrame
+            tabButton.Size = UDim2.new(0, 100, 1, 0)
+            tabButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+            tabButton.Image = tabOptions.Icon or ""
+            tabButton.BorderSizePixel = 0
+            tabButton.Position = UDim2.new(#tabs * 0.2, 0, 0, 0)
+
+            local tabContent = Instance.new("Frame")
+            tabContent.Name = tabOptions.Title or "TabContent"
+            tabContent.Parent = contentFrame
+            tabContent.Size = UDim2.new(1, 0, 1, 0)
+            tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+            tabContent.BorderSizePixel = 0
+            tabContent.Visible = false
+
+            local layout = Instance.new("UIListLayout")
+            layout.Parent = tabContent
+            layout.SortOrder = Enum.SortOrder.LayoutOrder
+            layout.Padding = UDim.new(0, 10)
+
+            tabButton.MouseButton1Click:Connect(function()
+                switchTab({ button = tabButton, content = tabContent, title = tabOptions.Title or "Tab" })
+            end)
+
+            table.insert(tabs, { button = tabButton, content = tabContent })
+        }
 end
 
 return UILib
