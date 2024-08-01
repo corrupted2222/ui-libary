@@ -131,7 +131,7 @@ function UILib:CreateWindow(options)
             tabButtonCorners.CornerRadius = UDim.new(0, 4)
             tabButtonCorners.Parent = tabButton
 
-            local HomeIcon = Instance.new("ImageLabel")
+            local tabIcon = Instance.new("ImageLabel")
             tabIcon.Parent = tabButton
             tabIcon.Size = UDim2.new(0, 30, 0, 30)
             tabIcon.Name = tabOptions.Title or "Tab"
