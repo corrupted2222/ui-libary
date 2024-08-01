@@ -25,7 +25,6 @@ function UILib:CreateWindow(options)
     Header.Size = UDim2.new(0, 500, 0, 36)
     Header.Active = true
 
-
     local Title = Instance.new("TextLabel")
     Title.Parent = Header
     Title.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
