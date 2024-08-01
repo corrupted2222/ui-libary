@@ -116,7 +116,7 @@ function UILib:CreateWindow(options)
         AddTab = function(self, tabOptions)
             local tabButton = Instance.new("ImageButton")
             tabButton.Name = tabOptions.Title or "Tab"
-            tabButton.Parent = tabFrame
+            tabButton.Parent = TabsHolderFrame
             tabButton.Size = UDim2.new(0, 100, 1, 0)
             tabButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
             tabButton.Image = tabOptions.Icon or ""
@@ -125,7 +125,7 @@ function UILib:CreateWindow(options)
 
             local tabContent = Instance.new("Frame")
             tabContent.Name = tabOptions.Title or "TabContent"
-            tabContent.Parent = contentFrame
+            tabContent.Parent = MainFrame
             tabContent.Size = UDim2.new(1, 0, 1, 0)
             tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
             tabContent.BorderSizePixel = 0
