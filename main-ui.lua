@@ -58,8 +58,8 @@ function UILib:CreateWindow(options)
     local TabsHolder = Instance.new("Frame")
     TabsHolder.Parent = MainFrame
     TabsHolder.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    TabsHolder.Position = UDim2.new(1.025, 0, 0, 0)
-    TabsHolder.Size = UDim2.new(0, 54, 0, 300)
+    TabsHolder.Position = UDim2.new(1, 0, 0, 0)
+    TabsHolder.Size = UDim2.new(0, 54, 1, 0) -- Adjusted to be full height of MainFrame
 
     local TabsHolderCorners = Instance.new("UICorner")
     TabsHolderCorners.CornerRadius = UDim.new(0, 4)
@@ -68,9 +68,9 @@ function UILib:CreateWindow(options)
     local TabsHolderFrame = Instance.new("ScrollingFrame")
     TabsHolderFrame.Parent = TabsHolder
     TabsHolderFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    TabsHolderFrame.Position = UDim2.new(0.15, 0, 0.023, 0)
-    TabsHolderFrame.Size = UDim2.new(0, 44, 0, 292)
-    TabsHolderFrame.CanvasSize = UDim2.new(0, 0, 0, 0) -- Change the 3rd value to allow scrolling
+    TabsHolderFrame.Position = UDim2.new(0, 0, 0, 0) -- Align with TabsHolder
+    TabsHolderFrame.Size = UDim2.new(1, 0, 1, 0) -- Fill the TabsHolder
+    TabsHolderFrame.CanvasSize = UDim2.new(0, 0, 0, 100) -- Adjusted for visibility
     TabsHolderFrame.ScrollBarThickness = 0
     TabsHolderFrame.BackgroundTransparency = 1
     TabsHolderFrame.Active = true
@@ -81,7 +81,11 @@ function UILib:CreateWindow(options)
     TabsGridLayout.CellSize = UDim2.new(0, 37, 0, 37)
     TabsGridLayout.CellPadding = UDim2.new(0, 5, 0, 5)
     TabsGridLayout.FillDirection = Enum.FillDirection.Vertical
-    
+
+    -- Debugging
+    print("TabsHolderFrame Size:", TabsHolderFrame.Size)
+    print("TabsHolderFrame Position:", TabsHolderFrame.Position)
+
     return ScreenGui
 end
 
