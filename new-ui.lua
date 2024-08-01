@@ -21,7 +21,7 @@ function UILib:CreateWindow(options)
     local Header = Instance.new("Frame")
     Header.Parent = MainFrame
     Header.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    Header.Position = UDim2.new(0, 0, 0, 0)
+    Header.Position = UDim2.new(0, 0, -0.15, 0)
     Header.Size = UDim2.new(1, 0, 0, 36)
     Header.Active = true
 
