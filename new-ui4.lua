@@ -112,6 +112,7 @@ function UILib:CreateWindow(options)
         tab.content.Visible = true
         Title.Text = "zygarde | " .. tab.title
     end
+    
     return {
         AddTab = function(self, tabOptions)
             local tabButton = Instance.new("ImageButton")
@@ -141,7 +142,8 @@ function UILib:CreateWindow(options)
             end)
 
             table.insert(tabs, { button = tabButton, content = tabContent })
-        }
+        end
+    }
 end
 
 return UILib
