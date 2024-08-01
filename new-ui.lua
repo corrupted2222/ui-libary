@@ -45,10 +45,10 @@ function UILib:CreateWindow(options)
     GameTitle.Text = options.Game or "Game Name"
     GameTitle.Font = Enum.Font.ArialBold
     GameTitle.BackgroundTransparency = 0
-    local gameTitleWidth = tonumber(options.GameTitleWidth) or 80
+    local gameTitleWidth = options.GameTitleWidth or 80
     local gameTitleHeight = 30
     GameTitle.Size = UDim2.new(0, gameTitleWidth, 0, gameTitleHeight)
-    local gameTitlePosX = tonumber(options.GameTitlePosX) or 0.83
+    local gameTitlePosX = options.GameTitlePosX or 0.592
     local gameTitlePosY = 0.09
     GameTitle.Position = UDim2.new(gameTitlePosX, 0, gameTitlePosY, 0)
     GameTitle:GetPropertyChangedSignal("TextBounds"):Connect(function()
@@ -68,8 +68,8 @@ function UILib:CreateWindow(options)
     local TabsHolder = Instance.new("Frame")
     TabsHolder.Parent = MainFrame
     TabsHolder.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    TabsHolder.Position = UDim2.new(0, 0, 0.12, 0)
-    TabsHolder.Size = UDim2.new(1, 0, 0, 36)
+    TabsHolder.Position = UDim2.new(1, 25, 0, 0)
+    TabsHolder.Size = UDim2.new(0, 54, 1, 0)
 
     local TabsHolderCorners = Instance.new("UICorner")
     TabsHolderCorners.CornerRadius = UDim.new(0, 4)
@@ -78,65 +78,31 @@ function UILib:CreateWindow(options)
     local TabsHolderFrame = Instance.new("ScrollingFrame")
     TabsHolderFrame.Parent = TabsHolder
     TabsHolderFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    TabsHolderFrame.Position = UDim2.new(0.02, 0, 0, 0)
-    TabsHolderFrame.Size = UDim2.new(0.96, 0, 1, 0)
+    TabsHolderFrame.Position = UDim2.new(0.15, 0, 0.023, 0)
+    TabsHolderFrame.Size = UDim2.new(0, 44, 1, -8)
     TabsHolderFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
     TabsHolderFrame.ScrollBarThickness = 0
     TabsHolderFrame.BackgroundTransparency = 1
-    TabsHolderFrame.AutomaticCanvasSize = Enum.AutomaticSize.X
+    TabsHolderFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
     TabsHolderFrame.Active = true
 
-    local TabsGridLayout = Instance.new("UIListLayout")
+    local TabsGridLayout = Instance.new("UIGridLayout")
     TabsGridLayout.Parent = TabsHolderFrame
     TabsGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    TabsGridLayout.Padding = UDim.new(0, 5)
+    TabsGridLayout.CellSize = UDim2.new(0, 37, 0, 37)
+    TabsGridLayout.CellPadding = UDim2.new(0, 5, 0, 5)
+    TabsGridLayout.FillDirection = Enum.FillDirection.Vertical
 
-    local TabHolders = Instance.new("Frame")
+    local TabHolders = Instance.new("ScrollingFrame")
     TabHolders.Parent = MainFrame
     TabHolders.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-    TabHolders.Position = UDim2.new(0.0192, 0, 0.24, 0)
-    TabHolders.Size = UDim2.new(0.96, 0, 0.76, 0)
+    TabHolders.Position = UDim2.new(0.0192, 0, 0.136, 0)
+    TabHolders.Size = UDim2.new(0.96, 0, 0.86, 0)
+    TabHolders.CanvasSize = UDim2.new(0, 0, 0, 0)
+    TabHolders.ScrollBarThickness = 0
     TabHolders.BackgroundTransparency = 1
-
-    local function createTab(options)
-        local TabButton = Instance.new("ImageButton")
-        TabButton.Parent = TabsHolderFrame
-        TabButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-        TabButton.Size = UDim2.new(0, 100, 0, 36)
-        TabButton.Image = options.Icon
-        TabButton.BackgroundTransparency = 1
-
-        local TabLabel = Instance.new("TextLabel")
-        TabLabel.Parent = TabButton
-        TabLabel.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-        TabLabel.Size = UDim2.new(1, 0, 1, 0)
-        TabLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-        TabLabel.TextSize = 14
-        TabLabel.Text = options.Title
-        TabLabel.Font = Enum.Font.ArialBold
-        TabLabel.BackgroundTransparency = 1
-        TabLabel.TextXAlignment = Enum.TextXAlignment.Left
-        TabLabel.Position = UDim2.new(1.1, 0, 0, 0)
-
-        local TabContent = Instance.new("Frame")
-        TabContent.Parent = TabHolders
-        TabContent.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-        TabContent.Size = UDim2.new(1, 0, 1, 0)
-        TabContent.Visible = false
-
-        TabButton.MouseButton1Click:Connect(function()
-            for _, tab in pairs(TabHolders:GetChildren()) do
-                tab.Visible = false
-            end
-            TabContent.Visible = true
-        end)
-
-        return TabContent
-    end
-
-    return {
-        AddTab = createTab
-    }
+    TabHolders.Active = true
+    TabHolders.AutomaticCanvasSize = Enum.AutomaticSize.Y
 end
 
 return UILib
