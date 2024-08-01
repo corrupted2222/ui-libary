@@ -115,14 +115,29 @@ function UILib:CreateWindow(options)
     
     return {
         AddTab = function(self, tabOptions)
-            local tabButton = Instance.new("ImageButton")
+            local tabButton = Instance.new("TextButton")
             tabButton.Name = tabOptions.Title or "Tab"
             tabButton.Parent = TabsHolderFrame
-            tabButton.Size = UDim2.new(0, 100, 1, 0)
-            tabButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-            tabButton.Image = tabOptions.Icon or ""
-            tabButton.BorderSizePixel = 0
-            tabButton.Position = UDim2.new(#tabs * 0.2, 0, 0, 0)
+            tabButton.BackgroundColor3 = Color3.fromRGB(40,40,40)
+            tabButton.Position = UDim2.new(0, 0, 0, 0)
+            tabButton.Size = UDim2.new(0,126,0,34)
+            tabButton.Text = ""
+            tabButton.TextSize = 14 
+            tabButton.Font = Enum.Font.ArialBold 
+            tabButton.TextColor3 = Color3.fromRGB(255,255,255)
+            tabButton.AutoButtonColor = false
+
+            local tabButtonCorners = Instance.new("UICorner")
+            tabButtonCorners.CornerRadius = UDim.new(0, 4)
+            tabButtonCorners.Parent = tabButton
+
+            local HomeIcon = Instance.new("ImageLabel")
+            tabIcon.Parent = tabButton
+            tabIcon.Size = UDim2.new(0, 30, 0, 30)
+            tabIcon.Name = tabOptions.Title or "Tab"
+            tabIcon.Position = UDim2.new(0.1, 0, 0.1, 0)
+            tabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
+            tabIcon.BackgroundTransparency = 1
 
             local tabContent = Instance.new("Frame")
             tabContent.Name = tabOptions.Title or "TabContent"
