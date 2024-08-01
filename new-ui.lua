@@ -21,8 +21,8 @@ function UILib:CreateWindow(options)
     local Header = Instance.new("Frame")
     Header.Parent = MainFrame
     Header.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    Header.Position = UDim2.new(0, 0, -0.15, 0)
-    Header.Size = UDim2.new(0, 500, 0, 36)
+    Header.Position = UDim2.new(0, 0, 0, 0)
+    Header.Size = UDim2.new(1, 0, 0, 36)
     Header.Active = true
 
     local Title = Instance.new("TextLabel")
@@ -68,8 +68,8 @@ function UILib:CreateWindow(options)
     local TabsHolder = Instance.new("Frame")
     TabsHolder.Parent = MainFrame
     TabsHolder.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    TabsHolder.Position = UDim2.new(1.025, 0, 0, 0)
-    TabsHolder.Size = UDim2.new(0, 54, 0, 300)
+    TabsHolder.Position = UDim2.new(1, 25, 0, 0)
+    TabsHolder.Size = UDim2.new(0, 54, 1, 0)
 
     local TabsHolderCorners = Instance.new("UICorner")
     TabsHolderCorners.CornerRadius = UDim.new(0, 4)
@@ -79,7 +79,7 @@ function UILib:CreateWindow(options)
     TabsHolderFrame.Parent = TabsHolder
     TabsHolderFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
     TabsHolderFrame.Position = UDim2.new(0.15, 0, 0.023, 0)
-    TabsHolderFrame.Size = UDim2.new(0, 44, 0, 292)
+    TabsHolderFrame.Size = UDim2.new(0, 44, 1, -8)
     TabsHolderFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
     TabsHolderFrame.ScrollBarThickness = 0
     TabsHolderFrame.BackgroundTransparency = 1
@@ -96,8 +96,8 @@ function UILib:CreateWindow(options)
     local TabHolders = Instance.new("ScrollingFrame")
     TabHolders.Parent = MainFrame
     TabHolders.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-    TabHolders.Position = UDim2.new(0.0192, 0, 0.023, 0)
-    TabHolders.Size = UDim2.new(0, 480, 0, 294)
+    TabHolders.Position = UDim2.new(0.0192, 0, 0.136, 0)
+    TabHolders.Size = UDim2.new(0.96, 0, 0.86, 0)
     TabHolders.CanvasSize = UDim2.new(0, 0, 0, 0)
     TabHolders.ScrollBarThickness = 0
     TabHolders.BackgroundTransparency = 1
