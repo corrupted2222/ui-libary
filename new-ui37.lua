@@ -332,28 +332,28 @@ CreditsHolderLayour.CellSize = UDim2.new(0, 217, 0, 60)
 CreditsHolderLayour.CellPadding = UDim2.new(0, 5, 0, 5) 
 CreditsHolderLayour.FillDirection = Enum.FillDirection.Vertical
 
-local Louis = Instance.new("Frame")
+local Credit = Instance.new("Frame")
 Louis.Parent = CreditsHolder
 Louis.BackgroundColor3 = Color3.fromRGB(25,25,25)
 Louis.Position = UDim2.new(0, 0, 0, 0)
 Louis.Size = UDim2.new(0, 240, 0, 30)
 
-local louiscorner = Instance.new("UICorner")
+local CreditCorner = Instance.new("UICorner")
 louiscorner.CornerRadius = UDim.new(0, 4)
 louiscorner.Parent = Louis
 
-local louisicon = Instance.new("ImageLabel")
+local Icon = Instance.new("ImageLabel")
 louisicon.Parent = Louis
 louisicon.Size = UDim2.new(0, 45, 0, 45)
 louisicon.Position = UDim2.new(0.02, 0, 0.113, 0)
 louisicon.Image = "rbxassetid://17374536880"
 louisicon.BackgroundTransparency = 1
 
-local louisiconcorner = Instance.new("UICorner")
+local IconCorners = Instance.new("UICorner")
 louisiconcorner.CornerRadius = UDim.new(0, 4)
 louisiconcorner.Parent = louisicon
 
-local louisname = Instance.new("TextLabel")
+local CreditName = Instance.new("TextLabel")
 louisname.Parent = Louis
 louisname.BackgroundColor3 = Color3.fromRGB(40,40,40)
 louisname.Size = UDim2.new(0, 160, 0, 45)
@@ -364,72 +364,6 @@ louisname.Text = "louis - founder"
 louisname.Font = Enum.Font.ArialBold
 louisname.BackgroundTransparency = 1
 louisname.TextXAlignment = Enum.TextXAlignment.Left
-
-local Paws = Instance.new("Frame")
-Paws.Parent = CreditsHolder
-Paws.BackgroundColor3 = Color3.fromRGB(25,25,25)
-Paws.Position = UDim2.new(0, 0, 0, 0)
-Paws.Size = UDim2.new(0, 240, 0, 30)
-
-local pawcorner = Instance.new("UICorner")
-pawcorner.CornerRadius = UDim.new(0, 4)
-pawcorner.Parent = Paws
-
-local pawicon = Instance.new("ImageLabel")
-pawicon.Parent = Paws
-pawicon.Size = UDim2.new(0, 45, 0, 45)
-pawicon.Position = UDim2.new(0.02, 0, 0.113, 0)
-pawicon.Image = "rbxassetid://17374548782"
-pawicon.BackgroundTransparency = 1
-
-local pawiconcorner = Instance.new("UICorner")
-pawiconcorner.CornerRadius = UDim.new(0, 4)
-pawiconcorner.Parent = pawicon
-
-local pawname = Instance.new("TextLabel")
-pawname.Parent = Paws
-pawname.BackgroundColor3 = Color3.fromRGB(40,40,40)
-pawname.Size = UDim2.new(0, 160, 0, 45)
-pawname.Position = UDim2.new(0.27, 0, 0.113, 0) 
-pawname.TextColor3 = Color3.fromRGB(255,255,255)
-pawname.TextSize = 14
-pawname.Text = "paws - scripter"
-pawname.Font = Enum.Font.ArialBold
-pawname.BackgroundTransparency = 1
-pawname.TextXAlignment = Enum.TextXAlignment.Left
-
-local Corrupted = Instance.new("Frame")
-Corrupted.Parent = CreditsHolder
-Corrupted.BackgroundColor3 = Color3.fromRGB(25,25,25)
-Corrupted.Position = UDim2.new(0, 0, 0, 0)
-Corrupted.Size = UDim2.new(0, 240, 0, 30)
-
-local corruptcorner = Instance.new("UICorner")
-corruptcorner.CornerRadius = UDim.new(0, 4)
-corruptcorner.Parent = Corrupted
-
-local corrupticon = Instance.new("ImageLabel")
-corrupticon.Parent = Corrupted
-corrupticon.Size = UDim2.new(0, 45, 0, 45)
-corrupticon.Position = UDim2.new(0.02, 0, 0.113, 0)
-corrupticon.Image = "rbxassetid://17374554419"
-corrupticon.BackgroundTransparency = 1
-
-local corrupticoncorner = Instance.new("UICorner")
-corrupticoncorner.CornerRadius = UDim.new(0, 4)
-corrupticoncorner.Parent = corrupticon
-
-local corruptname = Instance.new("TextLabel")
-corruptname.Parent = Corrupted
-corruptname.BackgroundColor3 = Color3.fromRGB(40,40,40)
-corruptname.Size = UDim2.new(0, 160, 0, 45)
-corruptname.Position = UDim2.new(0.27, 0, 0.113, 0) 
-corruptname.TextColor3 = Color3.fromRGB(255,255,255)
-corruptname.TextSize = 14
-corruptname.Text = "corrupted - ui designer"
-corruptname.Font = Enum.Font.ArialBold
-corruptname.BackgroundTransparency = 1
-corruptname.TextXAlignment = Enum.TextXAlignment.Left
                 end
             }
         end
