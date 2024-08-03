@@ -224,12 +224,13 @@ function UILib:CreateWindow(options)
                 AddLabel = function(self, labelOptions)
                     local label = Instance.new("TextLabel")
                     label.Name = labelOptions.Title or "Label"
+                    label.Position = labelOptions.Position or UDim2.new(0.017, 0, 0.015, 0)
                     label.Parent = tabContent
-                    label.Size = UDim2.new(0, 200, 0, 50)
-                    label.BackgroundColor3 = labelOptions.Color or Color3.fromRGB(255, 255, 255)
+                    label.Size = labelOptions.Size or UDim2.new(0, 200, 0, 50)
+                    label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
                     label.Text = labelOptions.Title or "Label"
                     label.Font = Enum.Font.ArialBold
-                    label.TextSize = 14
+                    label.TextSize = labelOptions.TextSize or 14
                     label.TextColor3 = Color3.fromRGB(0, 0, 0)
                     label.BorderSizePixel = 0
 
