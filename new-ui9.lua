@@ -236,7 +236,159 @@ function UILib:CreateWindow(options)
                             end
                         end)
                     end
-                end
+                end,
+
+                AddToggle = function(self, toggleOptions)
+                    local toggleFrame = Instance.new("Frame")
+                    toggleFrame.Name = toggleOptions.Title or "Toggle"
+                    toggleFrame.Parent = tabContent
+                    toggleFrame.Size = toggleOptions.Size or UDim2.new(0, 200, 0, 50)
+                    toggleFrame.BackgroundColor3 = toggleOptions.Color or Color3.fromRGB(40, 40, 40)
+                    toggleFrame.BorderSizePixel = 0
+
+                    local toggleButton = Instance.new("TextButton")
+                    toggleButton.Name = toggleOptions.Title or "ToggleButton"
+                    toggleButton.Parent = toggleFrame
+                    toggleButton.Size = UDim2.new(0, 50, 1, 0)
+                    toggleButton.Position = UDim2.new(0, 0, 0, 0)
+                    toggleButton.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+                    toggleButton.Text = toggleOptions.State and "On" or "Off"
+                    toggleButton.Font = Enum.Font.ArialBold
+                    toggleButton.TextSize = 14
+                    toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    toggleButton.BorderSizePixel = 0
+
+                    local toggleLabel = Instance.new("TextLabel")
+                    toggleLabel.Name = "ToggleLabel"
+                    toggleLabel.Parent = toggleFrame
+                    toggleLabel.Size = UDim2.new(1, -60, 1, 0)
+                    toggleLabel.Position = UDim2.new(0, 60, 0, 0)
+                    toggleLabel.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+                    toggleLabel.Text = toggleOptions.Title or "Toggle"
+                    toggleLabel.Font = Enum.Font.ArialBold
+                    toggleLabel.TextSize = 14
+                    toggleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    toggleLabel.TextXAlignment = Enum.TextXAlignment.Left
+                    toggleLabel.BorderSizePixel = 0
+
+                    local function updateToggle(state)
+                        toggleButton.Text = state and "On" or "Off"
+                        if toggleOptions.Callback then
+                            toggleOptions.Callback(state)
+                        end
+                    end
+
+                    toggleButton.MouseButton1Click:Connect(function()
+                        toggleOptions.State = not toggleOptions.State
+                        updateToggle(toggleOptions.State)
+                    end)
+
+                    updateToggle(toggleOptions.State)
+                end,
+
+                AddSlider = function(self, sliderOptions)
+                    local sliderFrame = Instance.new("Frame")
+                    sliderFrame.Name = sliderOptions.Title or "Slider"
+                    sliderFrame.Parent = tabContent
+                    sliderFrame.Size = sliderOptions.Size or UDim2.new(0, 200, 0, 50)
+                    sliderFrame.BackgroundColor3 = sliderOptions.Color or Color3.fromRGB(40, 40, 40)
+                    sliderFrame.BorderSizePixel = 0
+
+                    local sliderLabel = Instance.new("TextLabel")
+                    sliderLabel.Name = "SliderLabel"
+                    sliderLabel.Parent = sliderFrame
+                    sliderLabel.Size = UDim2.new(1, 0, 0, 25)
+                    sliderLabel.Position = UDim2.new(0, 0, 0, 0)
+                    sliderLabel.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+                    sliderLabel.Text = sliderOptions.Title or "Slider"
+                    sliderLabel.Font = Enum.Font.ArialBold
+                    sliderLabel.TextSize = 14
+                    sliderLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    sliderLabel.TextXAlignment = Enum.TextXAlignment.Left
+                    sliderLabel.BorderSizePixel = 0
+
+                    local sliderValue = Instance.new("TextLabel")
+                    sliderValue.Name = "SliderValue"
+                    sliderValue.Parent = sliderFrame
+                    sliderValue.Size = UDim2.new(0, 50, 0, 25)
+                    sliderValue.Position = UDim2.new(1, -50, 0, 0)
+                    sliderValue.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+                    sliderValue.Text = tostring(sliderOptions.Default or 0)
+                    sliderValue.Font = Enum.Font.ArialBold
+                    sliderValue.TextSize = 14
+                    sliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    sliderValue.TextXAlignment = Enum.TextXAlignment.Right
+                    sliderValue.BorderSizePixel = 0
+
+                    local sliderBar = Instance.new("Frame")
+                    sliderBar.Name = "SliderBar"
+                    sliderBar.Parent = sliderFrame
+                    sliderBar.Size = UDim2.new(1, 0, 0, 10)
+                    sliderBar.Position = UDim2.new(0, 0, 1, -10)
+                    sliderBar.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+                    sliderBar.BorderSizePixel = 0
+
+                    local sliderFill = Instance.new("Frame")
+                    sliderFill.Name = "SliderFill"
+                    sliderFill.Parent = sliderBar
+                    sliderFill.Size = UDim2.new((sliderOptions.Default or 0) / (sliderOptions.Max or 100), 0, 1, 0)
+                    sliderFill.BackgroundColor3 = sliderOptions.Color or Color3.fromRGB(0, 170, 255)
+                    sliderFill.BorderSizePixel = 0
+
+                    local sliderHandle = Instance.new("ImageButton")
+                    sliderHandle.Name = "SliderHandle"
+                    sliderHandle.Parent = sliderBar
+                    sliderHandle.Size = UDim2.new(0, 20, 0, 20)
+                    sliderHandle.Position = UDim2.new((sliderOptions.Default or 0) / (sliderOptions.Max or 100), -10, 0.5, -10)
+                    sliderHandle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    sliderHandle.BorderSizePixel = 0
+
+                    sliderHandle.MouseButton1Down:Connect(function()
+                        local function move(input)
+                            local pos = UDim2.new(math.clamp((input.Position.X - sliderBar.AbsolutePosition.X) / sliderBar.AbsoluteSize.X, 0, 1), -10, 0.5, -10)
+                            sliderHandle.Position = pos
+                            sliderFill.Size = UDim2.new(pos.X.Scale, 0, 1, 0)
+                            local value = math.floor((pos.X.Scale * (sliderOptions.Max or 100)) + 0.5)
+                            sliderValue.Text = tostring(value)
+                            if sliderOptions.Callback then
+                                sliderOptions.Callback(value)
+                            end
+                        end
+
+                        local moveConnection = game:GetService("UserInputService").InputChanged:Connect(move)
+                        local releaseConnection
+                        releaseConnection = game:GetService("UserInputService").InputEnded:Connect(function(input)
+                            if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                                moveConnection:Disconnect()
+                                releaseConnection:Disconnect()
+                            end
+                        end)
+                    end)
+                end,
+
+AddTime = function(self, timeOptions)
+    local timeLabel = Instance.new("TextLabel")
+    timeLabel.Name = timeOptions.Title or "TimeLabel"
+    timeLabel.Parent = tabContent
+    timeLabel.Size = timeOptions.Size or UDim2.new(0, 200, 0, 50)
+    timeLabel.BackgroundColor3 = timeOptions.Color or Color3.fromRGB(40, 40, 40)
+    timeLabel.Text = "00:00:00"
+    timeLabel.Font = Enum.Font.ArialBold
+    timeLabel.TextSize = 14
+    timeLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    timeLabel.BorderSizePixel = 0
+    timeLabel.TextXAlignment = Enum.TextXAlignment.Center
+
+    local function updateTime()
+        while true do
+            local currentTime = os.date("%H:%M:%S")
+            timeLabel.Text = currentTime
+            wait(1)
+        end
+    end
+
+    spawn(updateTime)
+end,
             }
         end
     }
