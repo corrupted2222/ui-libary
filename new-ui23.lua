@@ -286,6 +286,9 @@ function UILib:CreateWindow(options)
                     PlayerName.TextTruncate = Enum.TextTruncate.AtEnd
                     PlayerName.Text = game.Players.LocalPlayer.DisplayName
 
+                    local Players = game:GetService("Players")
+                    local player = Players.LocalPlayer
+
                     local PlayerIcon = Instance.new("ImageLabel")
                     PlayerIcon.Parent = tabContent
                     PlayerIcon.Size = UDim2.new(0, 30, 0, 30)
