@@ -237,6 +237,29 @@ function UILib:CreateWindow(options)
                     local labelCorners = Instance.new("UICorner")
                     labelCorners.CornerRadius = UDim.new(0, 4)
                     labelCorners.Parent = label
+                end,
+                AddTime = function(self, parent)
+                    local Time = Instance.new("TextLabel")
+                    Time.Parent = parent
+                    Time.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+                    Time.Size = UDim2.new(0, 102, 0, 30)
+                    Time.Position = UDim2.new(0.017, 0, 0.015, 0)
+                    Time.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    Time.TextSize = 16
+                    Time.Font = Enum.Font.ArialBold
+                    Time.BackgroundTransparency = 0
+                    Time.Text = "00:00:00 AM"
+
+                    local function updateTime()
+                        local currentTime = os.date("%I:%M:%S %p")
+                        Time.Text = currentTime
+                    end
+
+                    game:GetService("RunService").Heartbeat:Connect(updateTime)
+
+                    local TimeCorners = Instance.new("UICorner")
+                    TimeCorners.CornerRadius = UDim.new(0, 4)
+                    TimeCorners.Parent = Time
                 end
             }
         end
