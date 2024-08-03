@@ -227,7 +227,7 @@ function UILib:CreateWindow(options)
                     label.Position = labelOptions.Position or UDim2.new(0.017, 0, 0.015, 0)
                     label.Parent = tabContent
                     label.Size = labelOptions.Size or UDim2.new(0, 200, 0, 50)
-                    label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    label.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
                     label.Text = labelOptions.Text or "Label"
                     label.Font = Enum.Font.ArialBold
                     label.TextSize = labelOptions.TextSize or 14
