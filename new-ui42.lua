@@ -345,7 +345,7 @@ function UILib:CreateWindow(options)
                     return creditsFrame
                 end,
             }
-        end
+        end,
     }
 end
 
