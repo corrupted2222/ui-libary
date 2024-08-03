@@ -240,7 +240,7 @@ function UILib:CreateWindow(options)
                 end,
                 AddTime = function(self, parent)
                     local Time = Instance.new("TextLabel")
-                    Time.Parent = parent
+                    Time.Parent = tabContent
                     Time.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
                     Time.Size = UDim2.new(0, 102, 0, 30)
                     Time.Position = UDim2.new(0.017, 0, 0.015, 0)
