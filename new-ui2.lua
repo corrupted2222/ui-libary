@@ -330,7 +330,7 @@ function UILib:CreateWindow(options)
         local NewFrame = Instance.new("Frame")
         NewFrame.Parent = creditsList
         NewFrame.BackgroundTransparency = 0
-        NewFrame.Size = UDim2.new(1, 0, 0, 45)  -- Adjusted height to fit the icon
+        NewFrame.Size = UDim2.new(1, 0, 0, 60)  -- Adjusted height to fit the icon
         NewFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 
         local creditIcon = Instance.new("ImageLabel")
