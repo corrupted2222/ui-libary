@@ -145,6 +145,7 @@ function UILib:CreateWindow(options)
             tabContent.Size = UDim2.new(1, 0, 1, 0)
             tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
             tabContent.BorderSizePixel = 0
+            tabContent.BackgroundTransparency = 1
             tabContent.Visible = false
 
             local layout = Instance.new("UIListLayout")
