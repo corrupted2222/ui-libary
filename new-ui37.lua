@@ -296,75 +296,77 @@ function UILib:CreateWindow(options)
                     PlayerIcon.Image = game.Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
                     PlayerIcon.BackgroundTransparency = 1
                 end
-            AddCredits = function(self, credits)
-local CreditsFrame = Instance.new("Frame")
-CreditsFrame.Parent = tabContent
-CreditsFrame.BackgroundColor3 = Color3.fromRGB(40,40,40)
-CreditsFrame.Position = UDim2.new(0.017, 0, 0.15, 0)
-CreditsFrame.Size = UDim2.new(0, 230, 0, 245)
-CreditsFrame.BackgroundTransparency = 0
-local CreditsCorners = Instance.new("UICorner")
-CreditsCorners.CornerRadius = UDim.new(0, 4)
-CreditsCorners.Parent = CreditsFrame
+        AddCredits = function(self, credits)
+    local CreditsFrame = Instance.new("Frame")
+    CreditsFrame.Parent = self.tabContent
+    CreditsFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    CreditsFrame.Position = UDim2.new(0.017, 0, 0.15, 0)
+    CreditsFrame.Size = UDim2.new(0, 230, 0, 245)
+    CreditsFrame.BackgroundTransparency = 0
 
-local CreditTitle = Instance.new("TextLabel")
-CreditTitle.Parent = CreditsFrame
-CreditTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-CreditTitle.Size = UDim2.new(0, 230, 0, 18)
-CreditTitle.Position = UDim2.new(0, 0, 0, 0)
-CreditTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-CreditTitle.TextSize = 14
-CreditTitle.Font = Enum.Font.ArialBold
-CreditTitle.BackgroundTransparency = 1
-CreditTitle.Text = "Credits"
+    local CreditsCorners = Instance.new("UICorner")
+    CreditsCorners.CornerRadius = UDim.new(0, 4)
+    CreditsCorners.Parent = CreditsFrame
 
-local CreditsHolder = Instance.new("Frame")
-CreditsHolder.Parent = CreditsFrame
-CreditsHolder.BackgroundColor3 = Color3.fromRGB(30,30,30)
-CreditsHolder.Position = UDim2.new(0.032, 0, 0.08 ,0)
-CreditsHolder.Size = UDim2.new(0, 217, 0, 217)
-CreditsHolder.BackgroundTransparency = 1
+    local CreditTitle = Instance.new("TextLabel")
+    CreditTitle.Parent = CreditsFrame
+    CreditTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    CreditTitle.Size = UDim2.new(0, 230, 0, 18)
+    CreditTitle.Position = UDim2.new(0, 0, 0, 0)
+    CreditTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    CreditTitle.TextSize = 14
+    CreditTitle.Font = Enum.Font.ArialBold
+    CreditTitle.BackgroundTransparency = 1
+    CreditTitle.Text = "Credits"
 
-local CreditsHolderLayour = Instance.new("UIGridLayout")
-CreditsHolderLayour.Parent = CreditsHolder
-CreditsHolderLayour.SortOrder = Enum.SortOrder.LayoutOrder
-CreditsHolderLayour.CellSize = UDim2.new(0, 217, 0, 60)
-CreditsHolderLayour.CellPadding = UDim2.new(0, 5, 0, 5) 
-CreditsHolderLayour.FillDirection = Enum.FillDirection.Vertical
+    local CreditsHolder = Instance.new("Frame")
+    CreditsHolder.Parent = CreditsFrame
+    CreditsHolder.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    CreditsHolder.Position = UDim2.new(0.032, 0, 0.08, 0)
+    CreditsHolder.Size = UDim2.new(0, 217, 0, 217)
+    CreditsHolder.BackgroundTransparency = 1
 
-local Credit = Instance.new("Frame")
-Louis.Parent = CreditsHolder
-Louis.BackgroundColor3 = Color3.fromRGB(25,25,25)
-Louis.Position = UDim2.new(0, 0, 0, 0)
-Louis.Size = UDim2.new(0, 240, 0, 30)
+    local CreditsHolderLayout = Instance.new("UIGridLayout")
+    CreditsHolderLayout.Parent = CreditsHolder
+    CreditsHolderLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    CreditsHolderLayout.CellSize = UDim2.new(0, 217, 0, 60)
+    CreditsHolderLayout.CellPadding = UDim2.new(0, 5, 0, 5)
+    CreditsHolderLayout.FillDirection = Enum.FillDirection.Vertical
 
-local CreditCorner = Instance.new("UICorner")
-louiscorner.CornerRadius = UDim.new(0, 4)
-louiscorner.Parent = Louis
+    for _, credit in pairs(credits) do
+        local CreditFrame = Instance.new("Frame")
+        CreditFrame.Parent = CreditsHolder
+        CreditFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+        CreditFrame.Size = UDim2.new(0, 240, 0, 30)
 
-local Icon = Instance.new("ImageLabel")
-louisicon.Parent = Louis
-louisicon.Size = UDim2.new(0, 45, 0, 45)
-louisicon.Position = UDim2.new(0.02, 0, 0.113, 0)
-louisicon.Image = "rbxassetid://17374536880"
-louisicon.BackgroundTransparency = 1
+        local CreditCorner = Instance.new("UICorner")
+        CreditCorner.CornerRadius = UDim.new(0, 4)
+        CreditCorner.Parent = CreditFrame
 
-local IconCorners = Instance.new("UICorner")
-louisiconcorner.CornerRadius = UDim.new(0, 4)
-louisiconcorner.Parent = louisicon
+        local Icon = Instance.new("ImageLabel")
+        Icon.Parent = CreditFrame
+        Icon.Size = UDim2.new(0, 45, 0, 45)
+        Icon.Position = UDim2.new(0.02, 0, 0.113, 0)
+        Icon.Image = credit.Icon or "rbxassetid://17374536880"
+        Icon.BackgroundTransparency = 1
 
-local CreditName = Instance.new("TextLabel")
-louisname.Parent = Louis
-louisname.BackgroundColor3 = Color3.fromRGB(40,40,40)
-louisname.Size = UDim2.new(0, 160, 0, 45)
-louisname.Position = UDim2.new(0.27, 0, 0.113, 0) 
-louisname.TextColor3 = Color3.fromRGB(255,255,255)
-louisname.TextSize = 14
-louisname.Text = "louis - founder"
-louisname.Font = Enum.Font.ArialBold
-louisname.BackgroundTransparency = 1
-louisname.TextXAlignment = Enum.TextXAlignment.Left
-                end
+        local IconCorners = Instance.new("UICorner")
+        IconCorners.CornerRadius = UDim.new(0, 4)
+        IconCorners.Parent = Icon
+
+        local CreditName = Instance.new("TextLabel")
+        CreditName.Parent = CreditFrame
+        CreditName.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        CreditName.Size = UDim2.new(0, 160, 0, 45)
+        CreditName.Position = UDim2.new(0.27, 0, 0.113, 0)
+        CreditName.TextColor3 = Color3.fromRGB(255, 255, 255)
+        CreditName.TextSize = 14
+        CreditName.Text = credit.Name or "Unknown - Role"
+        CreditName.Font = Enum.Font.ArialBold
+        CreditName.BackgroundTransparency = 1
+        CreditName.TextXAlignment = Enum.TextXAlignment.Left
+    end
+end
             }
         end
     }
