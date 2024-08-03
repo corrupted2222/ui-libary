@@ -299,15 +299,25 @@ function UILib:CreateWindow(options)
         AddCredits = function(self, creditsOptions)
                     local creditsFrame = Instance.new("Frame")
                     creditsFrame.Parent = tabContent
-                    creditsFrame.Size = UDim2.new(0, 200, 0, 50)
+                    creditsFrame.Size = UDim2.new(0, 230, 0, 245)
                     creditsFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
                     creditsFrame.BorderSizePixel = 0
                     CreditsFrame.Position = UDim2.new(0.017, 0, 0.15, 0)
 
+                    CreditTitle.Parent = CreditsFrame
+                    CreditTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+                    CreditTitle.Size = UDim2.new(0, 230, 0, 18)
+                    CreditTitle.Position = UDim2.new(0, 0, 0, 0)
+                    CreditTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    CreditTitle.TextSize = 14
+                    CreditTitle.Font = Enum.Font.ArialBold
+                    CreditTitle.BackgroundTransparency = 1
+                    CreditTitle.Text = "Credits"
+
                     local creditsList = Instance.new("Frame")
                     creditsList.Parent = creditsFrame
-                    creditsList.Size = UDim2.new(1, 0, 1, 0)
-                    creditsList.Position = UDim2.new(0, 0, 0, 0)
+                    creditsList.Size = UDim2.new(0, 217, 0, 217)
+                    creditsList.Position = UDim2.new(0.032, 0, 0.08 ,0)
                     creditsList.BackgroundTransparency = 1
 
                     local listLayout = Instance.new("UIListLayout")
