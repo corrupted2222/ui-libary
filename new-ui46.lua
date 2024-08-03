@@ -302,7 +302,7 @@ function UILib:CreateWindow(options)
                     creditsFrame.Size = UDim2.new(0, 230, 0, 245)
                     creditsFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
                     creditsFrame.BorderSizePixel = 0
-                    CreditsFrame.Position = UDim2.new(0.017, 0, 0.15, 0)
+                    creditsFrame.Position = UDim2.new(0.017, 0, 0.15, 0)
 
                     CreditTitle.Parent = creditsFrame
                     CreditTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
