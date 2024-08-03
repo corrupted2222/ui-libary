@@ -265,7 +265,7 @@ function UILib:CreateWindow(options)
                     local playerFrame = Instance.new("Frame")
                     playerFrame.Parent = tabContent
                     playerFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-                    playerFrame.Position = UDim2.new(0.51, 0, 0.015, 0)
+                    playerFrame.Position = UDim2.new(0.53, 0, 0.015, 0)
                     playerFrame.Size = UDim2.new(0, 240, 0, 30)
 
                     local PlayerFrameCorners = Instance.new("UICorner")
