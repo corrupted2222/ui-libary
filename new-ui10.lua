@@ -368,16 +368,21 @@ function UILib:CreateWindow(options)
 
 AddTime = function(self, timeOptions)
     local timeLabel = Instance.new("TextLabel")
-    timeLabel.Name = timeOptions.Title or "TimeLabel"
+    timeLabel.Name = "TimeLabel"
     timeLabel.Parent = tabContent
-    timeLabel.Size = timeOptions.Size or UDim2.new(0, 200, 0, 50)
-    timeLabel.BackgroundColor3 = timeOptions.Color or Color3.fromRGB(40, 40, 40)
+    timeLabel.Size = UDim2.new(0, 102, 0, 30)
+    timeLabel.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     timeLabel.Text = "00:00:00"
     timeLabel.Font = Enum.Font.ArialBold
     timeLabel.TextSize = 14
     timeLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     timeLabel.BorderSizePixel = 0
     timeLabel.TextXAlignment = Enum.TextXAlignment.Center
+    timeLabel.BackgroundTransparency = 0
+
+    local TimeCorners = Instance.new("UICorner")
+    TimeCorners.CornerRadius = UDim.new(0, 4)
+    TimeCorners.Parent = timeLabel
 
     local function updateTime()
         while true do
