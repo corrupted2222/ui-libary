@@ -297,70 +297,70 @@ function UILib:CreateWindow(options)
                     PlayerIcon.BackgroundTransparency = 1
                 end,
         AddCredits = function(self, creditsOptions)
-                    local creditsFrame = Instance.new("Frame")
-                    creditsFrame.Parent = tabContent
-                    creditsFrame.Size = UDim2.new(0, 230, 0, 245)
-                    creditsFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-                    creditsFrame.BorderSizePixel = 0
-                    creditsFrame.Position = UDim2.new(0.017, 0, 0.13, 0)
+    local creditsFrame = Instance.new("Frame")
+    creditsFrame.Parent = tabContent
+    creditsFrame.Size = UDim2.new(0, 230, 0, 245)
+    creditsFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    creditsFrame.BorderSizePixel = 0
+    creditsFrame.Position = UDim2.new(0.017, 0, 0.13, 0)
 
-                    local CreditTitle = Instance.new("TextLabel")
-                    CreditTitle.Parent = creditsFrame
-                    CreditTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-                    CreditTitle.Size = UDim2.new(0, 230, 0, 18)
-                    CreditTitle.Position = UDim2.new(0, 0, 0, 0)
-                    CreditTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    CreditTitle.TextSize = 14
-                    CreditTitle.Font = Enum.Font.ArialBold
-                    CreditTitle.BackgroundTransparency = 1
-                    CreditTitle.Text = "Credits"
+    local CreditTitle = Instance.new("TextLabel")
+    CreditTitle.Parent = creditsFrame
+    CreditTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    CreditTitle.Size = UDim2.new(0, 230, 0, 18)
+    CreditTitle.Position = UDim2.new(0, 0, 0, 0)
+    CreditTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    CreditTitle.TextSize = 14
+    CreditTitle.Font = Enum.Font.ArialBold
+    CreditTitle.BackgroundTransparency = 1
+    CreditTitle.Text = "Credits"
 
-                    local creditsList = Instance.new("Frame")
-                    creditsList.Parent = creditsFrame
-                    creditsList.Size = UDim2.new(0, 217, 0, 217)
-                    creditsList.Position = UDim2.new(0.032, 0, 0.08 ,0)
-                    creditsList.BackgroundTransparency = 1
+    local creditsList = Instance.new("Frame")
+    creditsList.Parent = creditsFrame
+    creditsList.Size = UDim2.new(0, 217, 0, 217)
+    creditsList.Position = UDim2.new(0.032, 0, 0.08, 0)
+    creditsList.BackgroundTransparency = 1
 
-                    local listLayout = Instance.new("UIListLayout")
-                    listLayout.Parent = creditsList
-                    listLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    local listLayout = Instance.new("UIListLayout")
+    listLayout.Parent = creditsList
+    listLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
-                    for _, credit in pairs(creditsOptions) do
-                        local  NewFrame = Instance.new("Frame")
-                        NewFrame.Parent = creditsList
-                        NewFrame.BackgroundTransparency = 0
-                        NewFrame.Size = UDim2.new(0, 240, 0, 30)
-                        NewFrame.BackgroundColor3 = Color3.fromRGB(25,25,25)
+    for _, credit in pairs(creditsOptions) do
+        local NewFrame = Instance.new("Frame")
+        NewFrame.Parent = creditsList
+        NewFrame.BackgroundTransparency = 0
+        NewFrame.Size = UDim2.new(1, 0, 0, 45)  -- Adjusted height to fit the icon
+        NewFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 
-                        local creditIcon = Instance.new("ImageLabel")
-                        creditIcon.Parent = NewFrame
-                        creditIcon.Size = UDim2.new(0, 45, 0, 45)
-                        creditIcon.Position = UDim2.new(0, 10, 0.5, -15)
-                        creditIcon.Image = credit.Icon or ""
-                        creditIcon.BackgroundTransparency = 1
+        local creditIcon = Instance.new("ImageLabel")
+        creditIcon.Parent = NewFrame
+        creditIcon.Size = UDim2.new(0, 45, 0, 45)
+        creditIcon.Position = UDim2.new(0, 10, 0.5, -22.5)  -- Centered vertically
+        creditIcon.Image = credit.Icon or ""
+        creditIcon.BackgroundTransparency = 1
 
-                        local creditName = Instance.new("TextLabel")
-                        creditName.Parent = NewFrame
-                        creditName.Size = UDim2.new(1, -50, 1, 0)
-                        creditName.Position = UDim2.new(0, 50, 0, 0)
-                        creditName.BackgroundTransparency = 1
-                        creditName.Text = credit.Name or ""
-                        creditName.Font = Enum.Font.ArialBold
-                        creditName.TextSize = 14
-                        creditName.TextColor3 = Color3.fromRGB(255, 255, 255)
-                        creditName.TextXAlignment = Enum.TextXAlignment.Left
-                    end
+        local creditName = Instance.new("TextLabel")
+        creditName.Parent = NewFrame
+        creditName.Size = UDim2.new(1, -60, 1, 0)  -- Adjusted to fit within the frame
+        creditName.Position = UDim2.new(0, 60, 0, 0)
+        creditName.BackgroundTransparency = 1
+        creditName.Text = credit.Name or ""
+        creditName.Font = Enum.Font.ArialBold
+        creditName.TextSize = 14
+        creditName.TextColor3 = Color3.fromRGB(255, 255, 255)
+        creditName.TextXAlignment = Enum.TextXAlignment.Left
 
-                    local creditsCorners = Instance.new("UICorner")
-                    creditsCorners.CornerRadius = UDim.new(0, 4)
-                    creditsCorners.Parent = NewFrame
+        local creditsCorners = Instance.new("UICorner")
+        creditsCorners.CornerRadius = UDim.new(0, 4)
+        creditsCorners.Parent = NewFrame
 
-                    local creditIconCorners = Instance.new("UICorner")
-                    creditIconCorners.CornerRadius = UDim.new(0, 4)
-                    creditIconCorners.Parent = creditIcon
+        local creditIconCorners = Instance.new("UICorner")
+        creditIconCorners.CornerRadius = UDim.new(0, 4)
+        creditIconCorners.Parent = creditIcon
+    end
 
-                    return creditsFrame
-                end,
+    return creditsFrame
+end,
             }
         end,
     }
