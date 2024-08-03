@@ -324,6 +324,7 @@ function UILib:CreateWindow(options)
     local listLayout = Instance.new("UIListLayout")
     listLayout.Parent = creditsList
     listLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    listLayout.Padding = UDim.new(0, 5)  -- Add padding between elements
 
     for _, credit in pairs(creditsOptions) do
         local NewFrame = Instance.new("Frame")
