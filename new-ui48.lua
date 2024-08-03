@@ -302,7 +302,7 @@ function UILib:CreateWindow(options)
                     creditsFrame.Size = UDim2.new(0, 230, 0, 245)
                     creditsFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
                     creditsFrame.BorderSizePixel = 0
-                    creditsFrame.Position = UDim2.new(0.017, 0, 0.15, 0)
+                    creditsFrame.Position = UDim2.new(0.017, 0, 0.13, 0)
 
                     local CreditTitle = Instance.new("TextLabel")
                     CreditTitle.Parent = creditsFrame
@@ -328,12 +328,13 @@ function UILib:CreateWindow(options)
                     for _, credit in pairs(creditsOptions) do
                         local  NewFrame = Instance.new("Frame")
                         NewFrame.Parent = creditsList
-                        NewFrame.Size = UDim2.new(1, 0, 0, 50)
                         NewFrame.BackgroundTransparency = 0
+                        NewFrame.Size = UDim2.new(0, 240, 0, 30)
+                        NewFrame.BackgroundColor3 = Color3.fromRGB(25,25,25)
 
                         local creditIcon = Instance.new("ImageLabel")
                         creditIcon.Parent = NewFrame
-                        creditIcon.Size = UDim2.new(0, 30, 0, 30)
+                        creditIcon.Size = UDim2.new(0, 45, 0, 45)
                         creditIcon.Position = UDim2.new(0, 10, 0.5, -15)
                         creditIcon.Image = credit.Icon or ""
                         creditIcon.BackgroundTransparency = 1
@@ -356,7 +357,7 @@ function UILib:CreateWindow(options)
 
                     local creditIconCorners = Instance.new("UICorner")
                     creditIconCorners.CornerRadius = UDim.new(0, 4)
-                    creditIconCorners.Parent = NewFrame
+                    creditIconCorners.Parent = creditIcon
 
                     return creditsFrame
                 end,
