@@ -373,6 +373,7 @@ AddTime = function(self, timeOptions)
     timeLabel.Parent = tabContent
     timeLabel.Size = UDim2.new(0, 102, 0, 30)
     timeLabel.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    timeLabel.Position = UDim2.new(0.017, 0, 0.015, 0)
     timeLabel.Text = "00:00:00"
     timeLabel.Font = Enum.Font.ArialBold
     timeLabel.TextSize = 14
