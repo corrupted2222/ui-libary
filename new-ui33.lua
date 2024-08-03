@@ -276,7 +276,7 @@ function UILib:CreateWindow(options)
                     PlayerName.Parent = tabContent
                     PlayerName.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
                     PlayerName.Size = UDim2.new(0, 199, 0, 30)
-                    PlayerName.Position = UDim2.new(0.65, 0, 0.015, 0)
+                    PlayerName.Position = UDim2.new(0.6, 0, 0.015, 0)
                     PlayerName.TextColor3 = Color3.fromRGB(255, 255, 255)
                     PlayerName.TextSize = 14
                     PlayerName.Font = Enum.Font.ArialBold
