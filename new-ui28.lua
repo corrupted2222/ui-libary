@@ -273,7 +273,7 @@ function UILib:CreateWindow(options)
                     PlayerFrameCorners.Parent = playerFrame
 
                     local PlayerName = Instance.new("TextLabel")
-                    PlayerName.Parent = playerFrame
+                    PlayerName.Parent = tabContent
                     PlayerName.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
                     PlayerName.Size = UDim2.new(0, 199, 0, 30)
                     PlayerName.Position = UDim2.new(0.585, 0, 0.015, 0)
@@ -290,9 +290,9 @@ function UILib:CreateWindow(options)
                     local player = Players.LocalPlayer
 
                     local PlayerIcon = Instance.new("ImageLabel")
-                    PlayerIcon.Parent = playerFrame
+                    PlayerIcon.Parent = tabContent
                     PlayerIcon.Size = UDim2.new(0, 30, 0, 30)
-                    PlayerIcon.Position = UDim2.new(0.2, 0, 0.015, 0)
+                    PlayerIcon.Position = UDim2.new(0.52, 0, 0.015, 0)
                     PlayerIcon.Image = game.Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
                     PlayerIcon.BackgroundTransparency = 1
                 end
