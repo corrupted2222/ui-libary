@@ -292,7 +292,7 @@ function UILib:CreateWindow(options)
                     local PlayerIcon = Instance.new("ImageLabel")
                     PlayerIcon.Parent = playerFrame
                     PlayerIcon.Size = UDim2.new(0, 30, 0, 30)
-                    PlayerIcon.Position = UDim2.new(0.52, 0, 0.015, 0)
+                    PlayerIcon.Position = UDim2.new(0.2, 0, 0.015, 0)
                     PlayerIcon.Image = game.Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
                     PlayerIcon.BackgroundTransparency = 1
                 end
