@@ -231,7 +231,7 @@ function UILib:CreateWindow(options)
                     label.Text = labelOptions.Text or "Label"
                     label.Font = Enum.Font.ArialBold
                     label.TextSize = labelOptions.TextSize or 14
-                    label.TextColor3 = Color3.fromRGB(0, 0, 0)
+                    label.TextColor3 = Color3.fromRGB(255, 255, 255)
                     label.BorderSizePixel = 0
 
                     local labelCorners = Instance.new("UICorner")
