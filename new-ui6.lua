@@ -302,7 +302,11 @@ function UILib:CreateWindow(options)
     creditsFrame.Size = UDim2.new(0, 230, 0, 245)
     creditsFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     creditsFrame.BorderSizePixel = 0
-    creditsFrame.Position = UDim2.new(0.017, 0, 0.095, 0)
+    creditsFrame.Position = UDim2.new(0.017, 0, 0.093, 0)
+
+    local creditsFrameCorners = Instance.new("UICorner")
+    creditsFrameCorners.CornerRadius = UDim.new(0, 4)
+    creditsFrameCorners.Parent = creditsFrame               
 
     local CreditTitle = Instance.new("TextLabel")
     CreditTitle.Parent = creditsFrame
