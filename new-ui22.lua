@@ -112,42 +112,7 @@ function UILib:CreateWindow(options)
         tab.content.Visible = true
         Title.Text = "zygarde | " .. tab.title
     end
-
-    local function AddPlayer(tabContent, player)
-        -- player frame
-        local playerFrame = Instance.new("Frame")
-        playerFrame.Parent = tabContent
-        playerFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-        playerFrame.Position = UDim2.new(0.506, 0, 0.015, 0)
-        playerFrame.Size = UDim2.new(0, 240, 0, 30)
-
-        local PlayerFrameCorners = Instance.new("UICorner")
-        PlayerFrameCorners.CornerRadius = UDim.new(0, 4)
-        PlayerFrameCorners.Parent = playerFrame
-
-        -- player name
-        local PlayerName = Instance.new("TextLabel")
-        PlayerName.Parent = tabContent
-        PlayerName.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-        PlayerName.Size = UDim2.new(0, 199, 0, 30)
-        PlayerName.Position = UDim2.new(0.585, 0, 0.015, 0)
-        PlayerName.TextColor3 = Color3.fromRGB(255, 255, 255)
-        PlayerName.TextSize = 14
-        PlayerName.Font = Enum.Font.ArialBold
-        PlayerName.BackgroundTransparency = 1
-        PlayerName.Text = player.DisplayName
-        PlayerName.TextXAlignment = Enum.TextXAlignment.Left
-        PlayerName.TextTruncate = Enum.TextTruncate.AtEnd
-
-        -- player icon
-        local PlayerIcon = Instance.new("ImageLabel")
-        PlayerIcon.Parent = tabContent
-        PlayerIcon.Size = UDim2.new(0, 30, 0, 30)
-        PlayerIcon.Position = UDim2.new(0.52, 0, 0.015, 0)
-        PlayerIcon.Image = game.Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
-        PlayerIcon.BackgroundTransparency = 1
-    end
-
+    
     return {
         AddTab = function(self, tabOptions)
             local tabButton = Instance.new("TextButton")
@@ -176,7 +141,7 @@ function UILib:CreateWindow(options)
 
             local tabContent = Instance.new("Frame")
             tabContent.Name = tabOptions.Title or "TabContent"
-            tabContent.Parent = TabHolders
+            tabContent.Parent = MainFrame
             tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
             tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
             tabContent.BorderSizePixel = 0
@@ -297,7 +262,36 @@ function UILib:CreateWindow(options)
                     TimeCorners.Parent = Time
                 end,
                 AddPlayer = function(self, player)
-                    AddPlayer(tabContent, player)
+                    local playerFrame = Instance.new("Frame")
+                    playerFrame.Parent = tabContent
+                    playerFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+                    playerFrame.Position = UDim2.new(0.506, 0, 0.015, 0)
+                    playerFrame.Size = UDim2.new(0, 240, 0, 30)
+
+                    local PlayerFrameCorners = Instance.new("UICorner")
+                    PlayerFrameCorners.CornerRadius = UDim.new(0, 4)
+                    PlayerFrameCorners.Parent = playerFrame
+
+                    local PlayerName = Instance.new("TextLabel")
+                    PlayerName.Parent = tabContent
+                    PlayerName.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+                    PlayerName.Size = UDim2.new(0, 199, 0, 30)
+                    PlayerName.Position = UDim2.new(0.585, 0, 0.015, 0)
+                    PlayerName.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    PlayerName.TextSize = 14
+                    PlayerName.Font = Enum.Font.ArialBold
+                    PlayerName.BackgroundTransparency = 1
+                    PlayerName.Text = "Player Name"
+                    PlayerName.TextXAlignment = Enum.TextXAlignment.Left
+                    PlayerName.TextTruncate = Enum.TextTruncate.AtEnd
+                    PlayerName.Text = game.Players.LocalPlayer.DisplayName
+
+                    local PlayerIcon = Instance.new("ImageLabel")
+                    PlayerIcon.Parent = tabContent
+                    PlayerIcon.Size = UDim2.new(0, 30, 0, 30)
+                    PlayerIcon.Position = UDim2.new(0.52, 0, 0.015, 0)
+                    PlayerIcon.Image = game.Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
+                    PlayerIcon.BackgroundTransparency = 1
                 end
             }
         end
