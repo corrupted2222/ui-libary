@@ -372,7 +372,7 @@ end,
     supportedFrame.Size = UDim2.new(0, 230, 0, 245)
     supportedFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     supportedFrame.BorderSizePixel = 0
-    supportedFrame.Position = UDim2.new(0.52, 0, 0.093, 0)
+    supportedFrame.Position = UDim2.new(0.55, 0, 0.093, 0)
 
     local supportedFrameCorners = Instance.new("UICorner")
     supportedFrameCorners.CornerRadius = UDim.new(0, 4)
@@ -399,7 +399,7 @@ end,
     local listLayout = Instance.new("UIListLayout")
     listLayout.Parent = supportedList
     listLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    listLayout.Padding = UDim.new(0, 5)
+    listLayout.Padding = UDim.new(0, 0)
 
     for _, supported in pairs(supportedOptions) do
         local SupportedText = Instance.new("TextLabel")
