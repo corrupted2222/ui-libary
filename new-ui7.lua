@@ -366,6 +366,60 @@ function UILib:CreateWindow(options)
 
     return creditsFrame
 end,
+                AddSupported = function(self, supportedOptions)
+    local supportedFrame = Instance.new("Frame")
+    supportedFrame.Parent = tabContent
+    supportedFrame.Size = UDim2.new(0, 230, 0, 245)
+    supportedFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    supportedFrame.BorderSizePixel = 0
+    supportedFrame.Position = UDim2.new(0.52, 0, 0.093, 0)
+
+    local supportedFrameCorners = Instance.new("UICorner")
+    supportedFrameCorners.CornerRadius = UDim.new(0, 4)
+    supportedFrameCorners.Parent = supportedFrame               
+
+    local SupportedTitle = Instance.new("TextLabel")
+    SupportedTitle.Parent = supportedFrame
+    SupportedTitle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    SupportedTitle.Size = UDim2.new(0, 230, 0, 18)
+    SupportedTitle.Position = UDim2.new(0, 0, 0, 0)
+    SupportedTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    SupportedTitle.TextSize = 14
+    SupportedTitle.Font = Enum.Font.ArialBold
+    SupportedTitle.BackgroundTransparency = 1
+    SupportedTitle.Text = "Supported Games"
+
+    local supportedList = Instance.new("ScrollingFrame")
+    supportedList.Parent = supportedFrame
+    supportedList.Size = UDim2.new(0, 217, 0, 217)
+    supportedList.Position = UDim2.new(0.032, 0, 0.08, 0)
+    supportedList.BackgroundTransparency = 1
+    supportedList.ScrollBarThickness = 6
+
+    local listLayout = Instance.new("UIListLayout")
+    listLayout.Parent = supportedList
+    listLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    listLayout.Padding = UDim.new(0, 5)
+
+    for _, supported in pairs(supportedOptions) do
+        local SupportedText = Instance.new("TextLabel")
+        SupportedText.Parent = supportedList
+        SupportedText.Size = UDim2.new(0, 230, 0, 18)
+        SupportedText.BackgroundTransparency = 1
+        SupportedText.Text = supported.Text or ""
+        SupportedText.Font = Enum.Font.ArialBold
+        SupportedText.TextSize = 14
+        SupportedText.TextColor3 = Color3.fromRGB(255, 255, 255)
+        SupportedText.TextXAlignment = Enum.TextXAlignment.Left
+    end
+
+    listLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+        supportedList.CanvasSize = UDim2.new(0, 0, 0, listLayout.AbsoluteContentSize.Y)
+        supportedList.CanvasPosition = Vector2.new(0, supportedList.AbsoluteCanvasSize.Y)
+    end)
+
+    return supportedFrame
+end,
             }
         end,
     }
