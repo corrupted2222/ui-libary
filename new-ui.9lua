@@ -369,7 +369,7 @@ end,
                 AddSupported = function(self, supportedOptions)
     local supportedFrame = Instance.new("Frame")
     supportedFrame.Parent = tabContent
-    supportedFrame.Size = UDim2.new(0, 230, 0, 245)
+    supportedFrame.Size = UDim2.new(0, 230, 0, 244)
     supportedFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     supportedFrame.BorderSizePixel = 0
     supportedFrame.Position = UDim2.new(0.55, 0, 0.093, 0)
@@ -394,7 +394,8 @@ end,
     supportedList.Size = UDim2.new(0, 217, 0, 217)
     supportedList.Position = UDim2.new(0.032, 0, 0.08, 0)
     supportedList.BackgroundTransparency = 1
-    supportedList.ScrollBarThickness = 6
+    supportedList.ScrollBarThickness = 3
+    supportedList.BorderSizePixel = 0
 
     local listLayout = Instance.new("UIListLayout")
     listLayout.Parent = supportedList
