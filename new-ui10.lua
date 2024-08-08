@@ -421,6 +421,36 @@ end,
 
     return supportedFrame
 end,
+
+    AddButton = function(self, buttonOptions)
+                    local tabButton = Instance.new("TextButton")
+                    tabButton.Parent = tabContent
+                    tabButton.BackgroundColor3 = Color3.fromRGB(40,40,40)
+                    tabButton.Position = UDim2.new(0, 0, 0, 0)
+                    tabButton.Size = UDim2.new(0, 480, 0, 40)
+                    tabButton.Text = buttonOptions.Title or "Button"
+                    tabButton.TextSize = 16
+                    tabButton.Font = Enum.Font.ArialBold 
+                    tabButton.TextColor3 = Color3.fromRGB(255,255,255)
+                    tabButton.AutoButtonColor = false
+                    tabButton.TextXAlignment = Enum.TextXAlignment.Left
+                    tabButton.MouseButton1Click:Connect(buttonOptions.Callback or function() end)
+
+                    local tabButtonCorners = Instance.new("UICorner")
+                    tabButtonCorners.CornerRadius = UDim.new(0, 4)
+                    tabButtonCorners.Parent = tabButton
+
+                    local tabButtonPadding = Instance.new("UIPadding")
+                    tabButtonPadding.Parent = tabButton
+                    tabButtonPadding.PaddingLeft = UDim.new(0, 6) 
+
+                    local FingerPrint = Instance.new("ImageLabel")
+                    FingerPrint.Parent = tabButton
+                    FingerPrint.Size = UDim2.new(0, 30, 0, 30)
+                    FingerPrint.Position = UDim2.new(0.93, 0, 0.113, 0)
+                    FingerPrint.Image = "http://www.roblox.com/asset/?id=17374737385"
+                    FingerPrint.BackgroundTransparency = 1
+                end,
             }
         end,
     }
