@@ -486,12 +486,18 @@ end,
                     updateToggle()
                 end,
 	AddSlider = function(self, sliderOptions)
-                    local slider = Instance.new("Frame")
-                    slider.Name = sliderOptions.Title or "Slider"
+                    local slider = Instance.new("TextButton")
                     slider.Parent = tabContent
-                    slider.Size = sliderOptions.Size or UDim2.new(0, 480, 0, 40)
-                    slider.BackgroundColor3 = sliderOptions.Color or Color3.fromRGB(40, 40, 40)
-                    slider.BorderSizePixel = 0
+                    slider.BackgroundColor3 = Color3.fromRGB(40,40,40)
+                    slider.Position = UDim2.new(0, 0, 0, 0)
+                    slider.Size = UDim2.new(0,480,0,40)
+                    slider.Text = toggleOptions.Title or "Toggle"
+                    slider.TextSize = 16
+                    slider.Font = Enum.Font.ArialBold 
+                    slider.TextColor3 = Color3.fromRGB(255,255,255)
+                    slider.AutoButtonColor = false
+                    slider.Active = false 
+                    slider.TextXAlignment = Enum.TextXAlignment.Left
 
 		    local slidercorners = Instance.new("UICorner")
                     slidercorners.CornerRadius = UDim.new(0, 4)
@@ -501,7 +507,7 @@ end,
                     sliderBar.Name = "SliderBar"
                     sliderBar.Parent = slider
                     sliderBar.Size = UDim2.new(0, 200, 0, 7)
-                    sliderBar.Position = UDim2.new(0.74, -90, 0.5, -5)
+                    sliderBar.Position = UDim2.new(0.753, -90, 0.5, -5)
                     sliderBar.BackgroundColor3 = Color3.fromRGB(65,65,65)
                     sliderBar.BorderSizePixel = 0
 
