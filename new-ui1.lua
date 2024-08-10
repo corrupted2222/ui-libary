@@ -160,9 +160,13 @@ function UILib:CreateWindow(options)
     end
 
     tabButton.MouseButton1Click:Connect(function()
-        switchTab({ button = tabButton, content = tabContent, title = tabOptions.Title or "Tab" })
-    end)
+                switchTab({title = tabOptions.Title, content = tabContent})
+            end)
 
+            tabs[tabOptions.Title] = tabContent
+            if not options.StartTab then
+                switchTab({title = tabOptions.Title, content = tabContent})
+            end)
     table.insert(tabs, { button = tabButton, content = tabContent })
 
 
