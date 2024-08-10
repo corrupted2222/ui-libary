@@ -170,16 +170,9 @@ function UILib:CreateWindow(options)
             if tabs[index] then
                 switchTab(tabs[index])
             end
-        end,
-
-        AddElement = function(self, tabIndex, element)
-            if tabs[tabIndex] then
-                element.Parent = tabs[tabIndex].content
-            end
         end
     }
-
-
+end
             return {
                 AddButton = function(self, buttonOptions)
                     local button = Instance.new("TextButton")
