@@ -503,6 +503,10 @@ end,
     slidercorners.CornerRadius = UDim.new(0, 4)
     slidercorners.Parent = slider
 
+local sliderpadding = Instance.new("UIPadding")
+sliderpadding.Parent = slider
+sliderpadding.PaddingLeft = UDim.new(0, 6)
+
     local sliderBar = Instance.new("Frame")
     sliderBar.Name = "SliderBar"
     sliderBar.Parent = slider
@@ -536,7 +540,7 @@ end,
     local valueBox = Instance.new("TextBox")
     valueBox.Parent = slider
     valueBox.Size = UDim2.new(0, 40, 0, 20)
-    valueBox.Position = UDim2.new(1, -50, 0.5, -10)
+    valueBox.Position = UDim2.new(0.5, -50, 0.5, -5
     valueBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     valueBox.TextColor3 = Color3.fromRGB(0, 0, 0)
     valueBox.TextSize = 14
