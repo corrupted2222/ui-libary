@@ -455,6 +455,65 @@ end,
                     FingerPrint.Image = "http://www.roblox.com/asset/?id=17374737385"
                     FingerPrint.BackgroundTransparency = 1
                 end,
+            AddToggle = function(self, toggleOptions)
+                    local tabToggle = Instance.new("TextButton")
+                    tabToggle.Parent = tabContent
+                    tabToggle.BackgroundColor3 = Color3.fromRGB(40,40,40)
+                    tabToggle.Position = UDim2.new(0, 0, 0, 0)
+                    tabToggle.Size = UDim2.new(0,126,0,34)
+                    tabToggle.Text = toggleOptions.Title or "Toggle"
+                    tabToggle.TextSize = 16
+                    tabToggle.Font = Enum.Font.ArialBold 
+                    tabToggle.TextColor3 = Color3.fromRGB(255,255,255)
+                    tabToggle.AutoButtonColor = false
+                    tabToggle.Active = false 
+                    tabToggle.TextXAlignment = Enum.TextXAlignment.Left
+
+                    local tabToggleCorners = Instance.new("UICorner")
+                    tabToggleCorners.CornerRadius = UDim.new(0, 4)
+                    tabToggleCorners.Parent = tabToggle
+
+                    local tabTogglePadding = Instance.new("UIPadding")
+                    tabTogglePadding.Parent = tabToggle
+                    tabTogglePadding.PaddingLeft = UDim.new(0, 6)
+
+                    local tabToggleButton = Instance.new("TextButton")
+                    tabToggleButton.Parent = tabToggle
+                    tabToggleButton.Size = UDim2.new(0, 30, 0, 30)
+                    tabToggleButton.Position = UDim2.new(0.93, 0, 0.113, 0)
+                    tabToggleButton.BackgroundColor3 = Color3.fromRGB(40,40,40)
+                    tabToggleButton.Text = ""
+                    tabToggleButton.BackgroundTransparency = 0
+                    tabToggleButton.AutoButtonColor = false
+                    
+                    local tabToggleButtonCorners = Instance.new("UICorner")
+                    tabToggleButtonCorners.CornerRadius = UDim.new(0, 4)
+                    tabToggleButtonCorners.Parent = tabToggleButton
+
+                    local tabToggleButtonStrok = Instance.new("UIStroke")
+                    tabToggleButtonStrok.Parent = tabToggleButton
+                    tabToggleButtonStrok.Thickness = 2
+                    tabToggleButtonStrok.Color = Color3.fromRGB(25,25,25)
+                    tabToggleButtonStrok.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+                    
+                    local toggleState = false
+
+                    local function updateToggle()
+                        if toggleState then
+                            tabToggleButton.BackgroundColor3 = Color3.fromRGB(196, 237, 112)
+                        else
+                            tabToggleButton.BackgroundTransparency = 0
+                        end
+                    end
+
+                    tabToggleButton.MouseButton1Click:Connect(function()
+                        toggleState = not toggleState
+                        updateToggle()
+                        toggleOptions.Callback(toggleState)
+                    end)
+
+                    updateToggle()
+                end,
             }
         end,
     }
