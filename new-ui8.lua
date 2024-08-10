@@ -165,7 +165,12 @@ function UILib:CreateWindow(options)
             end)
 
             table.insert(tabs, tabContent)
-        end,
+        end
+    }
+end
+
+return UILib
+
 
             return {
                 AddLabel = function(self, labelOptions)
