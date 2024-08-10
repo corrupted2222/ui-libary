@@ -70,6 +70,7 @@ function UILib:CreateWindow(options)
     TabsHolder.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
     TabsHolder.Position = UDim2.new(1.025, 0, 0, 0)
     TabsHolder.Size = UDim2.new(0, 54, 0, 300)
+    TabsHolder.Visible = options.TabsHolderVisible ~= false  -- Set visibility based on options
 
     local TabsHolderCorners = Instance.new("UICorner")
     TabsHolderCorners.CornerRadius = UDim.new(0, 4)
@@ -106,13 +107,13 @@ function UILib:CreateWindow(options)
 
     local tabs = {}
     local function switchTab(tab)
-        for _, tabButton in pairs(tabs) do
-            tabButton.content.Visible = false
+        for _, tabContent in pairs(tabs) do
+            tabContent.Visible = false
         end
         tab.content.Visible = true
         Title.Text = "zygarde | " .. tab.title
     end
-
+    
     return {
         AddTab = function(self, tabOptions)
             local tabButton = Instance.new("TextButton")
@@ -122,8 +123,8 @@ function UILib:CreateWindow(options)
             tabButton.Position = UDim2.new(0, 0, 0, 0)
             tabButton.Size = UDim2.new(0, 126, 0, 34)
             tabButton.Text = ""
-            tabButton.TextSize = 14
-            tabButton.Font = Enum.Font.ArialBold
+            tabButton.TextSize = 14 
+            tabButton.Font = Enum.Font.ArialBold 
             tabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
             tabButton.AutoButtonColor = false
 
@@ -146,33 +147,29 @@ function UILib:CreateWindow(options)
             tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
             tabContent.BorderSizePixel = 0
             tabContent.BackgroundTransparency = 1
-            tabContent.Visible = false
+            tabContent.Visible = tabOptions.Visible ~= false  -- Set visibility based on options
 
             if tabOptions.EnableLayout then
                 local ContentLayout = Instance.new("UIGridLayout")
                 ContentLayout.Parent = tabContent
                 ContentLayout.SortOrder = Enum.SortOrder.LayoutOrder
                 ContentLayout.CellSize = UDim2.new(0, 480, 0, 40)
-                ContentLayout.CellPadding = UDim2.new(0, 5, 0, 5)
+                ContentLayout.CellPadding = UDim2.new(0, 5, 0, 5) 
                 ContentLayout.FillDirection = Enum.FillDirection.Vertical
 
                 tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0)
             end
 
             tabButton.MouseButton1Click:Connect(function()
-                switchTab({ button = tabButton, content = tabContent, title = tabOptions.Title or "Tab" })
+                switchTab({ content = tabContent, title = tabOptions.Title or "Tab" })
             end)
 
-            table.insert(tabs, { button = tabButton, content = tabContent })
-        end,
-
-        SelectTab = function(self, index)
-            if tabs[index] then
-                switchTab(tabs[index])
-            end
+            table.insert(tabs, tabContent)
         end
     }
 end
+
+return UILib
             return {
                 AddButton = function(self, buttonOptions)
                     local button = Instance.new("TextButton")
