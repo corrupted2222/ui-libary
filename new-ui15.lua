@@ -502,7 +502,7 @@ end,
                         if toggleState then
                             tabToggleButton.BackgroundColor3 = Color3.fromRGB(196, 237, 112)
                         else
-                            tabToggleButton.BackgroundTransparency = 0
+                            tabToggleButton.BackgroundColor3 = Color3.fromRGB(40,40,40)
                         end
                     end
 
