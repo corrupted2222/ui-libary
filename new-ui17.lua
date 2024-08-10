@@ -172,7 +172,7 @@ function UILib:CreateWindow(options)
             end
         end
     }
-end
+end,
 
             return {
                 AddButton = function(self, buttonOptions)
