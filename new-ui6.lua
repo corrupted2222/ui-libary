@@ -165,9 +165,7 @@ function UILib:CreateWindow(options)
             end)
 
             table.insert(tabs, tabContent)
-        end
-    }
-end
+        end,
 
             return {
                 AddButton = function(self, buttonOptions)
