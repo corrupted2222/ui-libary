@@ -486,85 +486,109 @@ end,
                     updateToggle()
                 end,
 	AddSlider = function(self, sliderOptions)
-                    local slider = Instance.new("TextButton")
-                    slider.Parent = tabContent
-                    slider.BackgroundColor3 = Color3.fromRGB(40,40,40)
-                    slider.Position = UDim2.new(0, 0, 0, 0)
-                    slider.Size = UDim2.new(0,480,0,40)
-                    slider.Text = sliderOptions.Title or "Toggle"
-                    slider.TextSize = 16
-                    slider.Font = Enum.Font.ArialBold 
-                    slider.TextColor3 = Color3.fromRGB(255,255,255)
-                    slider.AutoButtonColor = false
-                    slider.Active = false 
-                    slider.TextXAlignment = Enum.TextXAlignment.Left
+    local slider = Instance.new("TextButton")
+    slider.Parent = tabContent
+    slider.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    slider.Position = UDim2.new(0, 0, 0, 0)
+    slider.Size = UDim2.new(0, 480, 0, 40)
+    slider.Text = sliderOptions.Title or "Slider"
+    slider.TextSize = 16
+    slider.Font = Enum.Font.ArialBold
+    slider.TextColor3 = Color3.fromRGB(255, 255, 255)
+    slider.AutoButtonColor = false
+    slider.Active = false
+    slider.TextXAlignment = Enum.TextXAlignment.Left
 
-		    local slidercorners = Instance.new("UICorner")
-                    slidercorners.CornerRadius = UDim.new(0, 4)
-                    slidercorners.Parent = slider
+    local slidercorners = Instance.new("UICorner")
+    slidercorners.CornerRadius = UDim.new(0, 4)
+    slidercorners.Parent = slider
 
-                    local sliderBar = Instance.new("Frame")
-                    sliderBar.Name = "SliderBar"
-                    sliderBar.Parent = slider
-                    sliderBar.Size = UDim2.new(0, 200, 0, 7)
-                    sliderBar.Position = UDim2.new(0.753, -90, 0.5, -5)
-                    sliderBar.BackgroundColor3 = Color3.fromRGB(65,65,65)
-                    sliderBar.BorderSizePixel = 0
+    local sliderBar = Instance.new("Frame")
+    sliderBar.Name = "SliderBar"
+    sliderBar.Parent = slider
+    sliderBar.Size = UDim2.new(0, 200, 0, 7)
+    sliderBar.Position = UDim2.new(0.753, -90, 0.5, -5)
+    sliderBar.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    sliderBar.BorderSizePixel = 0
 
-                    local sliderButton = Instance.new("ImageButton")
-                    sliderButton.Name = "SliderButton"
-                    sliderButton.Parent = sliderBar
-                    sliderButton.Size = UDim2.new(0, 15, 0, 15)
-                    sliderButton.Position = UDim2.new(0, -9, 0.2, -10)
-                    sliderButton.BackgroundColor3 = Color3.fromRGB(196, 237, 112)
-                    sliderButton.Image = ""
-                    sliderButton.BorderSizePixel = 0
-		    sliderButton.AutoButtonColor = false
+    local sliderButton = Instance.new("ImageButton")
+    sliderButton.Name = "SliderButton"
+    sliderButton.Parent = sliderBar
+    sliderButton.Size = UDim2.new(0, 15, 0, 15)
+    sliderButton.Position = UDim2.new(0, -9, 0.2, -10)
+    sliderButton.BackgroundColor3 = Color3.fromRGB(196, 237, 112)
+    sliderButton.Image = ""
+    sliderButton.BorderSizePixel = 0
+    sliderButton.AutoButtonColor = false
 
-		   local sliderbuttoncorners = Instance.new("UICorner")
-                    sliderbuttoncorners.CornerRadius = UDim.new(0, 50)
-                    sliderbuttoncorners.Parent = sliderButton
+    local sliderbuttoncorners = Instance.new("UICorner")
+    sliderbuttoncorners.CornerRadius = UDim.new(0, 50)
+    sliderbuttoncorners.Parent = sliderButton
 
-                    local sliderLine = Instance.new("Frame")
-                    sliderLine.Name = "SliderLine"
-                    sliderLine.Parent = sliderBar
-                    sliderLine.Size = UDim2.new(0, 0, 0, 7)
-                    sliderLine.Position = UDim2.new(0, 0, 0.5, -5)
-                    sliderLine.BackgroundColor3 = Color3.fromRGB(196, 237, 112)
-                    sliderLine.BorderSizePixel = 0
+    local sliderLine = Instance.new("Frame")
+    sliderLine.Name = "SliderLine"
+    sliderLine.Parent = sliderBar
+    sliderLine.Size = UDim2.new(0, 0, 0, 7)
+    sliderLine.Position = UDim2.new(0, 0, 0.5, -5)
+    sliderLine.BackgroundColor3 = Color3.fromRGB(196, 237, 112)
+    sliderLine.BorderSizePixel = 0
 
-                    local sliderValue = sliderOptions.Min or 0
-                    local maxValue = sliderOptions.Max or 100
+    local valueBox = Instance.new("TextBox")
+    valueBox.Parent = slider
+    valueBox.Size = UDim2.new(0, 40, 0, 20)
+    valueBox.Position = UDim2.new(1, -50, 0.5, -10)
+    valueBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    valueBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+    valueBox.TextSize = 14
+    valueBox.Font = Enum.Font.Arial
+    valueBox.Text = tostring(sliderOptions.Min or 0)
 
-                    local function updateSlider(position)
-                        local relativePos = math.clamp(position, 0, 1)
-                        sliderButton.Position = UDim2.new(relativePos, -10, 0.5, -10)
-                        sliderLine.Size = UDim2.new(relativePos, 0, 0, 7)
-                        sliderValue = math.floor(relativePos * (maxValue - sliderOptions.Min) + sliderOptions.Min)
-                        sliderOptions.Callback(sliderValue)
-                    end
+    local sliderValue = sliderOptions.Min or 0
+    local maxValue = sliderOptions.Max or 100
 
-                    sliderButton.MouseButton1Down:Connect(function()
-                        local moveConnection
-                        local releaseConnection
+    local function updateSlider(position)
+        local relativePos = math.clamp(position, 0, 1)
+        sliderButton.Position = UDim2.new(relativePos, -10, 0.5, -10)
+        sliderLine.Size = UDim2.new(relativePos, 0, 0, 7)
+        sliderValue = math.floor(relativePos * (maxValue - sliderOptions.Min) + sliderOptions.Min)
+        valueBox.Text = tostring(sliderValue)
+        sliderOptions.Callback(sliderValue)
+    end
 
-                        moveConnection = game:GetService("UserInputService").InputChanged:Connect(function(input)
-                            if input.UserInputType == Enum.UserInputType.MouseMovement then
-                                local relativePos = (input.Position.X - sliderBar.AbsolutePosition.X) / sliderBar.AbsoluteSize.X
-                                updateSlider(relativePos)
-                            end
-                        end)
+    sliderButton.MouseButton1Down:Connect(function()
+        local moveConnection
+        local releaseConnection
 
-                        releaseConnection = game:GetService("UserInputService").InputEnded:Connect(function(input)
-                            if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                                moveConnection:Disconnect()
-                                releaseConnection:Disconnect()
-                            end
-                        end)
-                    end)
+        moveConnection = game:GetService("UserInputService").InputChanged:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseMovement then
+                local relativePos = (input.Position.X - sliderBar.AbsolutePosition.X) / sliderBar.AbsoluteSize.X
+                updateSlider(relativePos)
+            end
+        end)
 
-                    updateSlider((sliderValue - sliderOptions.Min) / (maxValue - sliderOptions.Min))
-                end,
+        releaseConnection = game:GetService("UserInputService").InputEnded:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                moveConnection:Disconnect()
+                releaseConnection:Disconnect()
+            end
+        end)
+    end)
+
+    valueBox.FocusLost:Connect(function(enterPressed)
+        if enterPressed then
+            local inputValue = tonumber(valueBox.Text)
+            if inputValue then
+                local clampedValue = math.clamp(inputValue, sliderOptions.Min, maxValue)
+                local relativePos = (clampedValue - sliderOptions.Min) / (maxValue - sliderOptions.Min)
+                updateSlider(relativePos)
+            else
+                valueBox.Text = tostring(sliderValue)
+            end
+        end
+    end)
+
+    updateSlider((sliderValue - sliderOptions.Min) / (maxValue - sliderOptions.Min))
+end,
             }
         end,
     }
