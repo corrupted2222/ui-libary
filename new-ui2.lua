@@ -539,8 +539,8 @@ sliderpadding.PaddingLeft = UDim.new(0, 6)
 
     local valueBox = Instance.new("TextBox")
     valueBox.Parent = slider
-    valueBox.Size = UDim2.new(0, 40, 0, 20)
-    valueBox.Position = UDim2.new(0.5, -50, 0.5, -5
+    valueBox.Size = UDim2.new(0, 30, 0, 30)
+    valueBox.Position = UDim2.new(0.5, -50, 0.5, -5)
     valueBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     valueBox.TextColor3 = Color3.fromRGB(0, 0, 0)
     valueBox.TextSize = 14
