@@ -120,11 +120,11 @@ function UILib:CreateWindow(options)
             tabButton.Parent = TabsHolderFrame
             tabButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
             tabButton.Position = UDim2.new(0, 0, 0, 0)
-            tabButton.Size = UDim2.new(0,126,0,34)
+            tabButton.Size = UDim2.new(0, 126, 0, 34)
             tabButton.Text = ""
-            tabButton.TextSize = 14 
-            tabButton.Font = Enum.Font.ArialBold 
-            tabButton.TextColor3 = Color3.fromRGB(255,255,255)
+            tabButton.TextSize = 14
+            tabButton.Font = Enum.Font.ArialBold
+            tabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
             tabButton.AutoButtonColor = false
 
             local tabButtonCorners = Instance.new("UICorner")
@@ -153,7 +153,7 @@ function UILib:CreateWindow(options)
                 ContentLayout.Parent = tabContent
                 ContentLayout.SortOrder = Enum.SortOrder.LayoutOrder
                 ContentLayout.CellSize = UDim2.new(0, 480, 0, 40)
-                ContentLayout.CellPadding = UDim2.new(0, 5, 0, 5) 
+                ContentLayout.CellPadding = UDim2.new(0, 5, 0, 5)
                 ContentLayout.FillDirection = Enum.FillDirection.Vertical
 
                 tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0)
