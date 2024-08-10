@@ -500,15 +500,15 @@ end,
                     local sliderBar = Instance.new("Frame")
                     sliderBar.Name = "SliderBar"
                     sliderBar.Parent = slider
-                    sliderBar.Size = UDim2.new(0, 150, 0, 8)
+                    sliderBar.Size = UDim2.new(0, 200, 0, 5)
                     sliderBar.Position = UDim2.new(0.3, -90, 0.5, -5)
-                    sliderBar.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+                    sliderBar.BackgroundColor3 = Color3.fromRGB(65,65,65)
                     sliderBar.BorderSizePixel = 0
 
                     local sliderButton = Instance.new("ImageButton")
                     sliderButton.Name = "SliderButton"
                     sliderButton.Parent = sliderBar
-                    sliderButton.Size = UDim2.new(0, 20, 0, 20)
+                    sliderButton.Size = UDim2.new(0, 10, 0, 10)
                     sliderButton.Position = UDim2.new(0, -10, 0.5, -10)
                     sliderButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
                     sliderButton.Image = ""
@@ -522,7 +522,7 @@ end,
                     local sliderLine = Instance.new("Frame")
                     sliderLine.Name = "SliderLine"
                     sliderLine.Parent = sliderBar
-                    sliderLine.Size = UDim2.new(0, 0, 0, 8)
+                    sliderLine.Size = UDim2.new(0, 0, 0, 5)
                     sliderLine.Position = UDim2.new(0, 0, 0.5, -5)
                     sliderLine.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
                     sliderLine.BorderSizePixel = 0
