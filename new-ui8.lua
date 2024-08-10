@@ -491,7 +491,7 @@ end,
                     slider.BackgroundColor3 = Color3.fromRGB(40,40,40)
                     slider.Position = UDim2.new(0, 0, 0, 0)
                     slider.Size = UDim2.new(0,480,0,40)
-                    slider.Text = toggleOptions.Title or "Toggle"
+                    slider.Text = sliderOptions.Title or "Toggle"
                     slider.TextSize = 16
                     slider.Font = Enum.Font.ArialBold 
                     slider.TextColor3 = Color3.fromRGB(255,255,255)
