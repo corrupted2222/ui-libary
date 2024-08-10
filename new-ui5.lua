@@ -500,7 +500,7 @@ end,
                     local sliderBar = Instance.new("Frame")
                     sliderBar.Name = "SliderBar"
                     sliderBar.Parent = slider
-                    sliderBar.Size = UDim2.new(0, 200, 0, 5)
+                    sliderBar.Size = UDim2.new(0, 200, 0, 7)
                     sliderBar.Position = UDim2.new(0.3, -90, 0.5, -5)
                     sliderBar.BackgroundColor3 = Color3.fromRGB(65,65,65)
                     sliderBar.BorderSizePixel = 0
@@ -508,7 +508,7 @@ end,
                     local sliderButton = Instance.new("ImageButton")
                     sliderButton.Name = "SliderButton"
                     sliderButton.Parent = sliderBar
-                    sliderButton.Size = UDim2.new(0, 10, 0, 10)
+                    sliderButton.Size = UDim2.new(0, 15, 0, 15)
                     sliderButton.Position = UDim2.new(0, -10, 0.5, -10)
                     sliderButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
                     sliderButton.Image = ""
@@ -522,7 +522,7 @@ end,
                     local sliderLine = Instance.new("Frame")
                     sliderLine.Name = "SliderLine"
                     sliderLine.Parent = sliderBar
-                    sliderLine.Size = UDim2.new(0, 0, 0, 5)
+                    sliderLine.Size = UDim2.new(0, 0, 0, 7)
                     sliderLine.Position = UDim2.new(0, 0, 0.5, -5)
                     sliderLine.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
                     sliderLine.BorderSizePixel = 0
@@ -533,7 +533,7 @@ end,
                     local function updateSlider(position)
                         local relativePos = math.clamp(position, 0, 1)
                         sliderButton.Position = UDim2.new(relativePos, -10, 0.5, -10)
-                        sliderLine.Size = UDim2.new(relativePos, 0, 0, 10)
+                        sliderLine.Size = UDim2.new(relativePos, 0, 0, 7)
                         sliderValue = math.floor(relativePos * (maxValue - sliderOptions.Min) + sliderOptions.Min)
                         sliderOptions.Callback(sliderValue)
                     end
