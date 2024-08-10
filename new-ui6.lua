@@ -183,7 +183,7 @@ end)
                 local layout = Instance.new("UIListLayout")
                 layout.Parent = tabContent
                 layout.SortOrder = Enum.SortOrder.LayoutOrder
-                layout.Padding = UDim.new(0, 10)
+                layout.Padding = UDim.new(0, 5)
 
                    tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0)
                end
@@ -431,7 +431,7 @@ end,
                     tabToggle.Parent = tabContent
                     tabToggle.BackgroundColor3 = Color3.fromRGB(40,40,40)
                     tabToggle.Position = UDim2.new(0, 0, 0, 0)
-                    tabToggle.Size = UDim2.new(0,126,0,34)
+                    tabToggle.Size = UDim2.new(0,480,0,40)
                     tabToggle.Text = toggleOptions.Title or "Toggle"
                     tabToggle.TextSize = 16
                     tabToggle.Font = Enum.Font.ArialBold 
