@@ -500,7 +500,7 @@ end,
                     local sliderBar = Instance.new("Frame")
                     sliderBar.Name = "SliderBar"
                     sliderBar.Parent = slider
-                    sliderBar.Size = UDim2.new(0, 120, 20)
+                    sliderBar.Size = UDim2.new(0, 120, 20, 0)
                     sliderBar.Position = UDim2.new(0.3, -90, 0.5, -5)
                     sliderBar.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
                     sliderBar.BorderSizePixel = 0
