@@ -149,14 +149,12 @@ function UILib:CreateWindow(options)
             tabContent.Visible = false
 
             if tabOptions.EnableLayout then
-                local layout = Instance.new("UIListLayout")
-                layout.Parent = tabContent
-                layout.SortOrder = Enum.SortOrder.LayoutOrder
-                layout.Padding = UDim.new(0, 10)
-
-                local layoutPadding = Instance.new("UIPadding")
-                layoutPadding.Parent = DiscordButton
-                layoutPadding.PaddingLeft = UDim.new(6, 6) 
+                local ContentLayout = Instance.new("UIGridLayout")
+                ContentLayout.Parent = tabContent
+                ContentLayout.SortOrder = Enum.SortOrder.LayoutOrder
+                ContentLayout.CellSize = UDim2.new(0, 480, 0, 40)
+                ContentLayout.CellPadding = UDim2.new(0, 5, 0, 5) 
+                ContentLayout.FillDirection = Enum.FillDirection.Vertical
             end
 
             tabButton.MouseButton1Click:Connect(function()
