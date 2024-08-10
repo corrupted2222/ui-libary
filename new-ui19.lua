@@ -118,7 +118,7 @@ function UILib:CreateWindow(options)
             local tabButton = Instance.new("TextButton")
             tabButton.Name = tabOptions.Title or "Tab"
             tabButton.Parent = TabsHolderFrame
-            tabButton.BackgroundColor3 = Color3.fromRGB(40,40,40)
+            tabButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
             tabButton.Position = UDim2.new(0, 0, 0, 0)
             tabButton.Size = UDim2.new(0,126,0,34)
             tabButton.Text = ""
@@ -171,6 +171,9 @@ function UILib:CreateWindow(options)
                 switchTab(tabs[index])
             end
         end
+    }
+end
+
 
             return {
                 AddButton = function(self, buttonOptions)
