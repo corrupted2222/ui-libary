@@ -171,8 +171,6 @@ function UILib:CreateWindow(options)
                 switchTab(tabs[index])
             end
         end
-    }
-end,
 
             return {
                 AddButton = function(self, buttonOptions)
