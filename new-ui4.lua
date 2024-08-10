@@ -169,7 +169,6 @@ function UILib:CreateWindow(options)
     }
 end
 
-return UILib
             return {
                 AddButton = function(self, buttonOptions)
                     local button = Instance.new("TextButton")
