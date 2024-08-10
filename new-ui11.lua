@@ -153,6 +153,10 @@ function UILib:CreateWindow(options)
                 layout.Parent = tabContent
                 layout.SortOrder = Enum.SortOrder.LayoutOrder
                 layout.Padding = UDim.new(0, 10)
+
+                local layoutPadding = Instance.new("UIPadding")
+                layoutPadding.Parent = DiscordButton
+                layoutPadding.PaddingLeft = UDim.new(6, 6) 
             end
 
             tabButton.MouseButton1Click:Connect(function()
