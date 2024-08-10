@@ -178,7 +178,6 @@ function UILib:CreateWindow(options)
             end
         end
     }
-end
 
 
             return {
