@@ -501,7 +501,7 @@ end,
                     sliderBar.Name = "SliderBar"
                     sliderBar.Parent = slider
                     sliderBar.Size = UDim2.new(0, 200, 0, 7)
-                    sliderBar.Position = UDim2.new(0.7, -90, 0.5, -5)
+                    sliderBar.Position = UDim2.new(0.93, -90, 0.5, -5)
                     sliderBar.BackgroundColor3 = Color3.fromRGB(65,65,65)
                     sliderBar.BorderSizePixel = 0
 
