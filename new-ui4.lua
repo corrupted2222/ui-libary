@@ -149,12 +149,10 @@ function UILib:CreateWindow(options)
                tabContent.Visible = tabOptions.DefaultVisible or false
 
                if tabOptions.EnableLayout then
-                   local ContentLayout = Instance.new("UIGridLayout")
-                   ContentLayout.Parent = tabContent
-                   ContentLayout.SortOrder = Enum.SortOrder.LayoutOrder
-                   ContentLayout.CellSize = UDim2.new(0, 480, 0, 40)
-                   ContentLayout.CellPadding = UDim2.new(0, 5, 0, 5) 
-                   ContentLayout.FillDirection = Enum.FillDirection.Vertical
+                local layout = Instance.new("UIListLayout")
+                layout.Parent = tabContent
+                layout.SortOrder = Enum.SortOrder.LayoutOrder
+                layout.Padding = UDim.new(0, 10)
 
                    tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0)
                end
