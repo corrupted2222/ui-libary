@@ -493,11 +493,15 @@ end,
                     slider.BackgroundColor3 = sliderOptions.Color or Color3.fromRGB(40, 40, 40)
                     slider.BorderSizePixel = 0
 
+		    local slidercorners = Instance.new("UICorner")
+                    slidercorners.CornerRadius = UDim.new(0, 4)
+                    slidercorners.Parent = slider
+
                     local sliderBar = Instance.new("Frame")
                     sliderBar.Name = "SliderBar"
                     sliderBar.Parent = slider
                     sliderBar.Size = UDim2.new(1, -20, 0, 10)
-                    sliderBar.Position = UDim2.new(0.5, -90, 0.5, -5)
+                    sliderBar.Position = UDim2.new(0.3, -90, 0.5, -5)
                     sliderBar.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
                     sliderBar.BorderSizePixel = 0
 
@@ -507,8 +511,12 @@ end,
                     sliderButton.Size = UDim2.new(0, 20, 0, 20)
                     sliderButton.Position = UDim2.new(0, -10, 0.5, -10)
                     sliderButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
-                    sliderButton.Image = "rbxassetid://6031091008"
+                    sliderButton.Image = ""
                     sliderButton.BorderSizePixel = 0
+
+		   local sliderbuttoncorners = Instance.new("UICorner")
+                    sliderbuttoncorners.CornerRadius = UDim.new(0, 50)
+                    sliderbuttoncorners.Parent = sliderButton
 
                     local sliderLine = Instance.new("Frame")
                     sliderLine.Name = "SliderLine"
