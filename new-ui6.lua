@@ -501,7 +501,7 @@ end,
                     sliderBar.Name = "SliderBar"
                     sliderBar.Parent = slider
                     sliderBar.Size = UDim2.new(0, 200, 0, 7)
-                    sliderBar.Position = UDim2.new(0.3, -90, 0.5, -5)
+                    sliderBar.Position = UDim2.new(0.7, 0, 0.113, 0)
                     sliderBar.BackgroundColor3 = Color3.fromRGB(65,65,65)
                     sliderBar.BorderSizePixel = 0
 
@@ -509,7 +509,7 @@ end,
                     sliderButton.Name = "SliderButton"
                     sliderButton.Parent = sliderBar
                     sliderButton.Size = UDim2.new(0, 15, 0, 15)
-                    sliderButton.Position = UDim2.new(0, -10, 0.5, -10)
+                    sliderButton.Position = UDim2.new(0, -9, 0.5, -10)
                     sliderButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
                     sliderButton.Image = ""
                     sliderButton.BorderSizePixel = 0
