@@ -70,7 +70,6 @@ function UILib:CreateWindow(options)
     TabsHolder.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
     TabsHolder.Position = UDim2.new(1.025, 0, 0, 0)
     TabsHolder.Size = UDim2.new(0, 54, 0, 300)
-    TabsHolder.Visible = options.TabsHolderVisible ~= false  -- Set visibility based on options
 
     local TabsHolderCorners = Instance.new("UICorner")
     TabsHolderCorners.CornerRadius = UDim.new(0, 4)
@@ -107,8 +106,8 @@ function UILib:CreateWindow(options)
 
     local tabs = {}
     local function switchTab(tab)
-        for _, tabContent in pairs(tabs) do
-            tabContent.Visible = false
+        for _, tabButton in pairs(tabs) do
+            tabButton.content.Visible = false
         end
         tab.content.Visible = true
         Title.Text = "zygarde | " .. tab.title
@@ -116,60 +115,55 @@ function UILib:CreateWindow(options)
     
     return {
         AddTab = function(self, tabOptions)
-            local tabButton = Instance.new("TextButton")
-            tabButton.Name = tabOptions.Title or "Tab"
-            tabButton.Parent = TabsHolderFrame
-            tabButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-            tabButton.Position = UDim2.new(0, 0, 0, 0)
-            tabButton.Size = UDim2.new(0, 126, 0, 34)
-            tabButton.Text = ""
-            tabButton.TextSize = 14 
-            tabButton.Font = Enum.Font.ArialBold 
-            tabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-            tabButton.AutoButtonColor = false
+               local tabButton = Instance.new("TextButton")
+    tabButton.Name = tabOptions.Title or "Tab"
+    tabButton.Parent = TabsHolderFrame
+    tabButton.BackgroundColor3 = Color3.fromRGB(40,40,40)
+    tabButton.Position = UDim2.new(0, 0, 0, 0)
+    tabButton.Size = UDim2.new(0,126,0,34)
+    tabButton.Text = ""
+    tabButton.TextSize = 14 
+    tabButton.Font = Enum.Font.ArialBold 
+    tabButton.TextColor3 = Color3.fromRGB(255,255,255)
+    tabButton.AutoButtonColor = false
 
-            local tabButtonCorners = Instance.new("UICorner")
-            tabButtonCorners.CornerRadius = UDim.new(0, 4)
-            tabButtonCorners.Parent = tabButton
+    local tabButtonCorners = Instance.new("UICorner")
+    tabButtonCorners.CornerRadius = UDim.new(0, 4)
+    tabButtonCorners.Parent = tabButton
 
-            local tabIcon = Instance.new("ImageLabel")
-            tabIcon.Parent = tabButton
-            tabIcon.Size = UDim2.new(0, 30, 0, 30)
-            tabIcon.Name = tabOptions.Title or "Tab"
-            tabIcon.Position = UDim2.new(0.1, 0, 0.1, 0)
-            tabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
-            tabIcon.BackgroundTransparency = 1
+    local tabIcon = Instance.new("ImageLabel")
+    tabIcon.Parent = tabButton
+    tabIcon.Size = UDim2.new(0, 30, 0, 30)
+    tabIcon.Name = tabOptions.Title or "Tab"
+    tabIcon.Position = UDim2.new(0.1, 0, 0.1, 0)
+    tabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
+    tabIcon.BackgroundTransparency = 1
 
-            local tabContent = Instance.new("Frame")
-            tabContent.Name = tabOptions.Title or "TabContent"
-            tabContent.Parent = MainFrame
-            tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
-            tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-            tabContent.BorderSizePixel = 0
-            tabContent.BackgroundTransparency = 1
-            tabContent.Visible = tabOptions.Visible ~= false  -- Set visibility based on options
+    local tabContent = Instance.new("Frame")
+    tabContent.Name = tabOptions.Title or "TabContent"
+    tabContent.Parent = MainFrame
+    tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
+    tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    tabContent.BorderSizePixel = 0
+    tabContent.BackgroundTransparency = 1
+    tabContent.Visible = false
 
-            if tabOptions.EnableLayout then
-                local ContentLayout = Instance.new("UIGridLayout")
-                ContentLayout.Parent = tabContent
-                ContentLayout.SortOrder = Enum.SortOrder.LayoutOrder
-                ContentLayout.CellSize = UDim2.new(0, 480, 0, 40)
-                ContentLayout.CellPadding = UDim2.new(0, 5, 0, 5) 
-                ContentLayout.FillDirection = Enum.FillDirection.Vertical
+    if tabOptions.EnableLayout then
+        local ContentLayout = Instance.new("UIGridLayout")
+        ContentLayout.Parent = tabContent
+        ContentLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        ContentLayout.CellSize = UDim2.new(0, 480, 0, 40)
+        ContentLayout.CellPadding = UDim2.new(0, 5, 0, 5) 
+        ContentLayout.FillDirection = Enum.FillDirection.Vertical
 
-                tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0)
-            end
+        tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0)
+    end
 
-            tabButton.MouseButton1Click:Connect(function()
-                switchTab({ content = tabContent, title = tabOptions.Title or "Tab" })
-            end)
+    tabButton.MouseButton1Click:Connect(function()
+        switchTab({ button = tabButton, content = tabContent, title = tabOptions.Title or "Tab" })
+    end)
 
-            table.insert(tabs, tabContent)
-        end
-    }
-end
-
-return UILib
+    table.insert(tabs, { button = tabButton, content = tabContent })
 
 
             return {
