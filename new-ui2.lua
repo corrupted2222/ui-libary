@@ -115,7 +115,7 @@ function UILib:CreateWindow(options)
     
     return {
         AddTab = function(self, tabOptions)
-               local tabButton = Instance.new("TextButton")
+    local tabButton = Instance.new("TextButton")
     tabButton.Name = tabOptions.Title or "Tab"
     tabButton.Parent = TabsHolderFrame
     tabButton.BackgroundColor3 = Color3.fromRGB(40,40,40)
@@ -155,20 +155,19 @@ function UILib:CreateWindow(options)
         ContentLayout.CellSize = UDim2.new(0, 480, 0, 40)
         ContentLayout.CellPadding = UDim2.new(0, 5, 0, 5) 
         ContentLayout.FillDirection = Enum.FillDirection.Vertical
-
-        tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0)
     end
 
     tabButton.MouseButton1Click:Connect(function()
-                switchTab({title = tabOptions.Title, content = tabContent})
-            end)
+        switchTab({title = tabOptions.Title, content = tabContent})
+    end)
 
-            tabs[tabOptions.Title] = tabContent
-            if not options.StartTab then
-                switchTab({title = tabOptions.Title, content = tabContent})
-            end)
-    table.insert(tabs, { button = tabButton, content = tabContent })
+    tabs[tabOptions.Title] = tabContent
+    if not options.StartTab then
+        switchTab({title = tabOptions.Title, content = tabContent})
+    end
 
+    table.insert(tabs, {button = tabButton, content = tabContent})
+end
 
             return {
                 AddLabel = function(self, labelOptions)
