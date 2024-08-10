@@ -155,6 +155,8 @@ function UILib:CreateWindow(options)
                 ContentLayout.CellSize = UDim2.new(0, 480, 0, 40)
                 ContentLayout.CellPadding = UDim2.new(0, 5, 0, 5) 
                 ContentLayout.FillDirection = Enum.FillDirection.Vertical
+
+                tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0)
             end
 
             tabButton.MouseButton1Click:Connect(function()
