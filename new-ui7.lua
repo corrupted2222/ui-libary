@@ -168,65 +168,6 @@ function UILib:CreateWindow(options)
         end,
 
             return {
-                AddButton = function(self, buttonOptions)
-                    local button = Instance.new("TextButton")
-                    button.Name = buttonOptions.Title or "Button"
-                    button.Parent = tabContent
-                    button.Size = buttonOptions.Size or UDim2.new(0, 200, 0, 50)
-                    button.BackgroundColor3 = buttonOptions.Color or Color3.fromRGB(0, 170, 255)
-                    button.Text = buttonOptions.Title or "Button"
-                    button.Font = Enum.Font.ArialBold
-                    button.TextSize = 14
-                    button.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    button.BorderSizePixel = 0
-
-                    button.MouseButton1Click:Connect(buttonOptions.Callback or function() end)
-
-                    local buttonCorners = Instance.new("UICorner")
-                    buttonCorners.CornerRadius = UDim.new(0, 4)
-                    buttonCorners.Parent = button
-                end,
-                AddToggle = function(self, toggleOptions)
-                    local toggle = Instance.new("Frame")
-                    toggle.Name = toggleOptions.Title or "Toggle"
-                    toggle.Parent = tabContent
-                    toggle.Size = UDim2.new(0, 200, 0, 50)
-                    toggle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-                    toggle.BorderSizePixel = 0
-
-                    local toggleButton = Instance.new("TextButton")
-                    toggleButton.Parent = toggle
-                    toggleButton.Size = UDim2.new(0, 200, 0, 50)
-                    toggleButton.BackgroundTransparency = 1
-                    toggleButton.Text = toggleOptions.Title or "Toggle"
-                    toggleButton.Font = Enum.Font.ArialBold
-                    toggleButton.TextSize = 14
-                    toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    toggleButton.BorderSizePixel = 0
-
-                    local toggleSwitch = Instance.new("Frame")
-                    toggleSwitch.Parent = toggle
-                    toggleSwitch.Size = UDim2.new(0, 20, 0, 20)
-                    toggleSwitch.Position = UDim2.new(0.9, 0, 0.5, -10)
-                    toggleSwitch.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-                    toggleSwitch.BorderSizePixel = 0
-
-                    toggleButton.MouseButton1Click:Connect(function()
-                        toggleOptions.State = not toggleOptions.State
-                        toggleSwitch.BackgroundColor3 = toggleOptions.State and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-                        if toggleOptions.Callback then
-                            toggleOptions.Callback(toggleOptions.State)
-                        end
-                    end)
-
-                    local toggleCorners = Instance.new("UICorner")
-                    toggleCorners.CornerRadius = UDim.new(0, 4)
-                    toggleCorners.Parent = toggle
-
-                    local toggleSwitchCorners = Instance.new("UICorner")
-                    toggleSwitchCorners.CornerRadius = UDim.new(0, 4)
-                    toggleSwitchCorners.Parent = toggleSwitch
-                end,
                 AddLabel = function(self, labelOptions)
                     local label = Instance.new("TextLabel")
                     label.Name = labelOptions.Title or "Label"
