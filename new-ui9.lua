@@ -500,7 +500,7 @@ end,
                     local sliderBar = Instance.new("Frame")
                     sliderBar.Name = "SliderBar"
                     sliderBar.Parent = slider
-                    sliderBar.Size = UDim2.new(1, -20, 0, 10)
+                    sliderBar.Size = UDim2.new(0, 120, 20)
                     sliderBar.Position = UDim2.new(0.3, -90, 0.5, -5)
                     sliderBar.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
                     sliderBar.BorderSizePixel = 0
@@ -513,6 +513,7 @@ end,
                     sliderButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
                     sliderButton.Image = ""
                     sliderButton.BorderSizePixel = 0
+		    sliderButton.AutoButtonColor = false
 
 		   local sliderbuttoncorners = Instance.new("UICorner")
                     sliderbuttoncorners.CornerRadius = UDim.new(0, 50)
