@@ -17,7 +17,7 @@ MainFrame.Draggable = true
 
 -- Check if the device is mobile and adjust the position
 if UserInputService.TouchEnabled then
-    MainFrame.Position = UDim2.new(0.7, 0, 0.5, 0)
+    MainFrame.Position = UDim2.new(0.58, 0, 0.5, 0)
 MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 end
 	
@@ -614,7 +614,7 @@ end,
     valueBox.Font = Enum.Font.ArialBold
     valueBox.Text = tostring(sliderOptions.Min or 0)
     valueBox.TextTruncate = Enum.TextTruncate.AtEnd
-					
+
     local valuecorners = Instance.new("UICorner")
     valuecorners.CornerRadius = UDim.new(0, 4)
     valuecorners.Parent = valueBox
@@ -636,14 +636,14 @@ end,
         local releaseConnection
 
         moveConnection = game:GetService("UserInputService").InputChanged:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.MouseMovement then
+            if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
                 local relativePos = (input.Position.X - sliderBar.AbsolutePosition.X) / sliderBar.AbsoluteSize.X
                 updateSlider(relativePos)
             end
         end)
 
         releaseConnection = game:GetService("UserInputService").InputEnded:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
                 moveConnection:Disconnect()
                 releaseConnection:Disconnect()
             end
@@ -651,18 +651,13 @@ end,
     end)
 
     valueBox.FocusLost:Connect(function(enterPressed)
-        if enterPressed then
-            local inputValue = tonumber(valueBox.Text)
-            if inputValue then
-                local clampedValue = math.clamp(inputValue, sliderOptions.Min, maxValue)
-                local relativePos = (clampedValue - sliderOptions.Min) / (maxValue - sliderOptions.Min)
-                updateSlider(relativePos)
-            else
-                valueBox.Text = "0"
-                updateSlider(0)
-            end
-        elseif valueBox.Text == "" then
-            valueBox.Text = "0"
+        local inputValue = tonumber(valueBox.Text)
+        if inputValue then
+            local clampedValue = math.clamp(inputValue, sliderOptions.Min, maxValue)
+            local relativePos = (clampedValue - sliderOptions.Min) / (maxValue - sliderOptions.Min)
+            updateSlider(relativePos)
+        else
+            valueBox.Text = tostring(sliderOptions.Min)
             updateSlider(0)
         end
     end)
