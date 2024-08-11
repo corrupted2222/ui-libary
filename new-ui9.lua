@@ -614,7 +614,6 @@ end,
     dropdownFrame.TextColor3 = Color3.fromRGB(255, 255, 255)
     dropdownFrame.AutoButtonColor = false
     dropdownFrame.TextXAlignment = Enum.TextXAlignment.Left
-    dropdownFrame.ZIndex = 1
 
     local dropdowncorners = Instance.new("UICorner")
     dropdowncorners.CornerRadius = UDim.new(0, 4)
@@ -637,7 +636,6 @@ end,
     dropdownButton.BorderSizePixel = 0
     dropdownButton.TextTruncate = Enum.TextTruncate.AtEnd
     dropdownButton.AutoButtonColor = false
-    dropdownButton.ZIndex = 1
 
     local dropdownbuttoncorners = Instance.new("UICorner")
     dropdownbuttoncorners.CornerRadius = UDim.new(0, 4)
@@ -647,33 +645,21 @@ end,
     dropdownList.Name = "DropdownList"
     dropdownList.Parent = tabContent
     dropdownList.Size = UDim2.new(0, 480, 0, #dropdownOptions.Items * 30)
-    dropdownList.Position = UDim2.new(0, 0, 1, 0)
+    dropdownList.Position = UDim2.new(0, 0, 1, 0) -- Ensure this is correctly positioned
     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     dropdownList.BorderSizePixel = 0
-    dropdownList.ZIndex = 2
-    
-    -- Apply UICorner while visible
-    dropdownList.Visible = true
+    dropdownList.Visible = false
+
     local dropdownListCorners = Instance.new("UICorner")
     dropdownListCorners.CornerRadius = UDim.new(0, 4)
     dropdownListCorners.Parent = dropdownList
-    dropdownList.Visible = false
 
     local listLayout = Instance.new("UIListLayout")
     listLayout.Parent = dropdownList
     listLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    listLayout.ZIndex = 2
 
     dropdownButton.MouseButton1Click:Connect(function()
         dropdownList.Visible = not dropdownList.Visible
-        
-        -- Reapply UICorner when toggling visibility
-        if dropdownList.Visible then
-            dropdownListCorners:Destroy()
-            dropdownListCorners = Instance.new("UICorner")
-            dropdownListCorners.CornerRadius = UDim.new(0, 4)
-            dropdownListCorners.Parent = dropdownList
-        end
     end)
 
     for _, item in ipairs(dropdownOptions.Items) do
@@ -689,11 +675,22 @@ end,
         itemButton.BorderSizePixel = 0
         itemButton.AutoButtonColor = false
         itemButton.TextXAlignment = Enum.TextXAlignment.Left
-        itemButton.ZIndex = 3
 
         local itemPadding = Instance.new("UIPadding")
         itemPadding.Parent = itemButton
         itemPadding.PaddingLeft = UDim.new(0, 6)
+
+        local itemButtonCorners = Instance.new("UICorner")
+        itemButtonCorners.CornerRadius = UDim.new(0, 4)
+        itemButtonCorners.Parent = itemButton
+
+        itemButton.MouseButton1Click:Connect(function()
+            dropdownButton.Text = item
+            if dropdownOptions.Callback then
+                dropdownOptions.Callback(item)
+            end
+            dropdownList.Visible = false
+        end)
     end
 end,
             }
