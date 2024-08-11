@@ -183,7 +183,7 @@ tabContent.Visible = tabOptions.DefaultVisible or false
 tabContent.ScrollBarThickness = 3
 
 -- Adjust CanvasSize to fit content
-tabContent.CanvasSize = UDim2.new(0, 0, 0, tabContent.UIListLayout.AbsoluteContentSize.Y)
+tabContent.CanvasSize = UDim2.new(0, 0, 0, tabContent.layout.AbsoluteContentSize.Y)
 
 
 
