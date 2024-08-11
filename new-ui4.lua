@@ -673,7 +673,7 @@ end,
     dropdownList.Parent = tabContent
     dropdownList.Size = UDim2.new(0, 480, 0, #dropdownOptions.Items * 30)
     dropdownList.Position = UDim2.new(0, 0, 1, 0) -- Ensure this is correctly positioned
-    dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    dropdownList.BackgroundColor3 = Color3.fromRGB(40 ,40, 40)
     dropdownList.BorderSizePixel = 0
     dropdownList.Visible = false
 
