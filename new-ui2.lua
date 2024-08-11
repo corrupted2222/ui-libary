@@ -177,6 +177,7 @@ function UILib:CreateWindow(options)
             self.ToggleButton.Image = iconId
         else
             warn("ToggleButton is not defined")
+	end
         end)
 
 	
