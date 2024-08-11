@@ -627,15 +627,16 @@ end,
     local dropdownButton = Instance.new("TextButton")
     dropdownButton.Name = "DropdownButton"
     dropdownButton.Parent = dropdownFrame
-    dropdownButton.Size = UDim2.new(0, 120, 0, 30)  -- Fixed syntax error
+    dropdownButton.Size = UDim2.new(0, 120, 0, 30)
     dropdownButton.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
-    dropdownButton.Position = UDim2.new(0.9, 0, 0.113, 0)
+    dropdownButton.Position = UDim2.new(0.85, 0, 0.113, 0)
     dropdownButton.Text = ""
     dropdownButton.Font = Enum.Font.ArialBold
     dropdownButton.TextSize = 14
     dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     dropdownButton.BorderSizePixel = 0
     dropdownButton.TextTruncate = Enum.TextTruncate.AtEnd
+    dropdownButton.AutoButtonColor = false
 					
     local dropdownbuttoncorners = Instance.new("UICorner")
     dropdownbuttoncorners.CornerRadius = UDim.new(0, 4)
