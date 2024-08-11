@@ -503,9 +503,9 @@ end,
     slidercorners.CornerRadius = UDim.new(0, 4)
     slidercorners.Parent = slider
 
-local sliderpadding = Instance.new("UIPadding")
-sliderpadding.Parent = slider
-sliderpadding.PaddingLeft = UDim.new(0, 6)
+    local sliderpadding = Instance.new("UIPadding")
+    sliderpadding.Parent = slider
+    sliderpadding.PaddingLeft = UDim.new(0, 6)
 
     local sliderBar = Instance.new("Frame")
     sliderBar.Name = "SliderBar"
@@ -540,17 +540,16 @@ sliderpadding.PaddingLeft = UDim.new(0, 6)
     local valueBox = Instance.new("TextBox")
     valueBox.Parent = slider
     valueBox.Size = UDim2.new(0, 30, 0, 30)
-    valueBox.Position = UDim2.new(0.54, 0, 0.113, 0)
-    valueBox.BackgroundColor3 = Color3.fromRGB(65, 65,65)
-    valueBox.TextColor3 = Color3.fromRGB(255,255,255)
+    valueBox.Position = UDim2.new(0.51, 0, 0.113, 0)
+    valueBox.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    valueBox.TextColor3 = Color3.fromRGB(255, 255, 255)
     valueBox.TextSize = 14
     valueBox.Font = Enum.Font.ArialBold
     valueBox.Text = tostring(sliderOptions.Min or 0)
 
-	local valuecorners = Instance.new("UICorner")
-	valuecorners.CornerRadius = UDim.new(0, 4)
-        valuecorners.Parent = valueBox
-
+    local valuecorners = Instance.new("UICorner")
+    valuecorners.CornerRadius = UDim.new(0, 4)
+    valuecorners.Parent = valueBox
 
     local sliderValue = sliderOptions.Min or 0
     local maxValue = sliderOptions.Max or 100
@@ -591,8 +590,12 @@ sliderpadding.PaddingLeft = UDim.new(0, 6)
                 local relativePos = (clampedValue - sliderOptions.Min) / (maxValue - sliderOptions.Min)
                 updateSlider(relativePos)
             else
-                valueBox.Text = tostring(sliderValue)
+                valueBox.Text = "0"
+                updateSlider(0)
             end
+        elseif valueBox.Text == "" then
+            valueBox.Text = "0"
+            updateSlider(0)
         end
     end)
 
