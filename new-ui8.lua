@@ -546,7 +546,8 @@ end,
     valueBox.TextSize = 14
     valueBox.Font = Enum.Font.ArialBold
     valueBox.Text = tostring(sliderOptions.Min or 0)
-
+    valueBox.TextTruncate = Enum.TextTruncate.AtEnd
+					
     local valuecorners = Instance.new("UICorner")
     valuecorners.CornerRadius = UDim.new(0, 4)
     valuecorners.Parent = valueBox
@@ -628,12 +629,13 @@ end,
     dropdownButton.Parent = dropdownFrame
     dropdownButton.Size = UDim2.new(0, 120, 0, 30)  -- Fixed syntax error
     dropdownButton.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
-    dropdownButton.Position = UDim2.new(0.8, -90, 0.5, -5)
+    dropdownButton.Position = UDim2.new(0.9, 0, 0.113, 0)
     dropdownButton.Text = ""
     dropdownButton.Font = Enum.Font.ArialBold
     dropdownButton.TextSize = 14
     dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     dropdownButton.BorderSizePixel = 0
+    dropdownButton.TextTruncate = Enum.TextTruncate.AtEnd
 					
     local dropdownbuttoncorners = Instance.new("UICorner")
     dropdownbuttoncorners.CornerRadius = UDim.new(0, 4)
@@ -653,8 +655,7 @@ end,
 
     dropdownButton.MouseButton1Click:Connect(function()
         dropdownList.Visible = not dropdownList.Visible
-        dropdownList.Position = UDim2.new(0, 0, 1, 0)
-        -- Ensure `layout` is defined or replace with proper layout handling
+        dropdownList.Position = UDim2.new(0, 0, 1, 0
     end)
 
     for _, item in ipairs(dropdownOptions.Items) do
@@ -673,7 +674,6 @@ end,
             dropdownButton.Text = item
             dropdownOptions.Callback(item)
             dropdownList.Visible = false
-            -- Ensure `layout` is defined or replace with proper layout handling
         end)
     end
 end,
