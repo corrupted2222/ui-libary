@@ -181,6 +181,7 @@ end)
         tabContent.BorderSizePixel = 0
         tabContent.BackgroundTransparency = 1
         tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0)
+        tabContent.CanvasSize = UDim2.new(1, 0, 1, 0)  -- Default CanvasSize
 
         local layout = Instance.new("UIListLayout")
         layout.Parent = tabContent
@@ -189,11 +190,10 @@ end)
 
         local function updateScrolling()
             local contentSize = layout.AbsoluteContentSize
-            -- Ensure the CanvasSize is always larger or equal to the actual content size
             tabContent.CanvasSize = UDim2.new(0, contentSize.X, 0, contentSize.Y)
         end
 
-        -- Force initial update
+        -- Initial update
         updateScrolling()
 
         -- Connect update on property change
@@ -215,7 +215,6 @@ end)
     end)
 
     table.insert(tabs, { button = tabButton, content = tabContent })
-
             return {
                 AddLabel = function(self, labelOptions)
                     local label = Instance.new("TextLabel")
