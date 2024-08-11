@@ -170,14 +170,29 @@ end)
                tabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
                tabIcon.BackgroundTransparency = 1
 
-               local tabContent = Instance.new("Frame")
-               tabContent.Name = tabOptions.Title or "TabContent"
-               tabContent.Parent = MainFrame
-               tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
-               tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-               tabContent.BorderSizePixel = 0
-               tabContent.BackgroundTransparency = 1
-               tabContent.Visible = tabOptions.DefaultVisible or false
+local tabContent = Instance.new("ScrollingFrame")
+tabContent.Name = tabOptions.Title or "TabContent"
+tabContent.Parent = MainFrame
+tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
+tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+tabContent.BorderSizePixel = 0
+tabContent.BackgroundTransparency = 1
+tabContent.Visible = tabOptions.DefaultVisible or false
+
+-- Ensure the scroll bar is visible
+tabContent.ScrollBarThickness = 12
+tabContent.ScrollBarImageColor3 = Color3.fromRGB(100, 100, 100) -- Customize color if needed
+
+-- Function to resize and adjust the canvas size
+local function updateCanvasSize()
+    -- Wait for layout to finish
+    wait() 
+    tabContent.CanvasSize = UDim2.new(0, tabContent.UIListLayout.AbsoluteContentSize.X, 0, tabContent.UIListLayout.AbsoluteContentSize.Y)
+end
+
+-- Call updateCanvasSize after adding content
+updateCanvasSize()
+
 
                if tabOptions.EnableLayout then
                 local layout = Instance.new("UIListLayout")
