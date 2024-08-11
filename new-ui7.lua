@@ -681,6 +681,10 @@ end,
         itemButton.AutoButtonColor = false
         itemButton.TextXAlignment = Enum.TextXAlignment.Left
 
+	    local dropdownListCorners = Instance.new("UICorner")
+    dropdownListCorners.CornerRadius = UDim.new(0, 4)
+    dropdownListCorners.Parent = dropdownList
+
         local itemPadding = Instance.new("UIPadding")
         itemPadding.Parent = itemButton
         itemPadding.PaddingLeft = UDim.new(0, 6)
