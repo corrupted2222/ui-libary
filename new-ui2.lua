@@ -156,7 +156,7 @@ function UILib:CreateWindow(options)
         end
     end)
 
-            function window:SetToggleButtonImage(imageId)
+            function self:SetToggleButtonImage(imageId)
         local toggleButton = Instance.new("ImageButton")
         toggleButton.Size = UDim2.fromOffset(50, 50)
         toggleButton.Position = UDim2.fromScale(0.5, 0.5)
@@ -168,9 +168,12 @@ function UILib:CreateWindow(options)
         local isOpen = true
         toggleButton.MouseButton1Click:Connect(function()
             isOpen = not isOpen
-            window.Enabled = isOpen
+            MainFrame.Visible = isOpen
         end)
     end
+
+    return self
+end
 
 
 	
