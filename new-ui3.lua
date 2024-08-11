@@ -195,10 +195,8 @@ end)
 
             if contentSize.Y > frameSize.Y then
                 tabContent.CanvasSize = UDim2.new(0, 0, 0, contentSize.Y)
-                tabContent.ScrollBarVisibility = Enum.ScrollBarVisibility.Visible
             else
-                tabContent.CanvasSize = UDim2.new(0, 0, 1, 0) -- Fit content within frame
-                tabContent.ScrollBarVisibility = Enum.ScrollBarVisibility.Hidden
+                tabContent.CanvasSize = UDim2.new(0, 0, 0, frameSize.Y) -- Set canvas size to fit the frame
             end
         end
 
@@ -223,7 +221,6 @@ end)
     end)
 
     table.insert(tabs, { button = tabButton, content = tabContent })
-
 			
             return {
                 AddLabel = function(self, labelOptions)
