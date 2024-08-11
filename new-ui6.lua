@@ -13,37 +13,55 @@ function UILib:CreateWindow(options)
     MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
     MainFrame.Active = true
     local UserInputService = game:GetService("UserInputService")
-local frame = MainFrame, Header
-local dragging
-local dragInput
-local dragStart
-local startPos
-local function update(input)
+ local UserInputService = game:GetService("UserInputService")
+    local dragging
+    local dragInput
+    local dragStart
+    local startPos
+
+    local function update(input)
         local delta = input.Position - dragStart
-		frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-end
-frame.InputBegan:Connect(function(input)
+        local newPos = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        
+        if MainFrame then
+            MainFrame.Position = newPos
+        end
+        
+        if Header then
+            Header.Position = newPos
+        end
+    end
+
+    local function onInputBegan(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-			dragging = true
-			dragStart = input.Position
-			startPos = frame.Position
-                               input.Changed:Connect(function()
-				if input.UserInputState == Enum.UserInputState.End then
-					dragging = false
-				end
-			end)
-		end
-end)
-frame.InputChanged:Connect(function(input)
+            dragging = true
+            dragStart = input.Position
+            startPos = MainFrame.Position
+            
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end
+
+    local function onInputChanged(input)
         if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-			dragInput = input
-		end
-	end)
-UserInputService.InputChanged:Connect(function(input)
-		if input == dragInput and dragging then
-			update(input)
-		end
-end)
+            dragInput = input
+        end
+    end
+
+    MainFrame.InputBegan:Connect(onInputBegan)
+    MainFrame.InputChanged:Connect(onInputChanged)
+    Header.InputBegan:Connect(onInputBegan)
+    Header.InputChanged:Connect(onInputChanged)
+
+    UserInputService.InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            update(input)
+        end
+    end)
 
     local MainFrameCorners = Instance.new("UICorner")
     MainFrameCorners.CornerRadius = UDim.new(0, 4)
