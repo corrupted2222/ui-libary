@@ -602,7 +602,8 @@ end,
 
     updateSlider((sliderValue - sliderOptions.Min) / (maxValue - sliderOptions.Min))
 end,
-       AddDropdown = function(self, dropdownOptions)
+       why doesnt the dropdown list have corners when i open it??
+AddDropdown = function(self, dropdownOptions)
     local dropdownFrame = Instance.new("TextButton")
     dropdownFrame.Parent = tabContent
     dropdownFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
@@ -628,7 +629,7 @@ end,
     dropdownButton.Name = "DropdownButton"
     dropdownButton.Parent = dropdownFrame
     dropdownButton.Size = UDim2.new(0, 120, 0, 30)
-    dropdownButton.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(65, 65, 65)
+    dropdownButton.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(65,65,65)
     dropdownButton.Position = UDim2.new(0.74, 0, 0.113, 0)
     dropdownButton.Text = ""
     dropdownButton.Font = Enum.Font.ArialBold
@@ -641,18 +642,18 @@ end,
     local dropdownbuttoncorners = Instance.new("UICorner")
     dropdownbuttoncorners.CornerRadius = UDim.new(0, 4)
     dropdownbuttoncorners.Parent = dropdownButton
-
+					
     local dropdownList = Instance.new("Frame")
     dropdownList.Name = "DropdownList"
-    dropdownList.Parent = dropdownFrame -- Parent to dropdownFrame for proper positioning
+    dropdownList.Parent = tabContent
     dropdownList.Size = UDim2.new(0, 480, 0, #dropdownOptions.Items * 30)
     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     dropdownList.BorderSizePixel = 0
     dropdownList.Visible = false
 
-    local listcorners = Instance.new("UICorner")
-    listcorners.CornerRadius = UDim.new(0, 4)
-    listcorners.Parent = dropdownList -- Apply the corner radius to the dropdown list itself
+local dropdownListCorners = Instance.new("UICorner")
+    dropdownListCorners.CornerRadius = UDim.new(0, 4)
+    dropdownListCorners.Parent = dropdownList
 
     local listLayout = Instance.new("UIListLayout")
     listLayout.Parent = dropdownList
@@ -660,33 +661,34 @@ end,
 
     dropdownButton.MouseButton1Click:Connect(function()
         dropdownList.Visible = not dropdownList.Visible
-        dropdownList.Position = UDim2.new(0, 0, 1, 0) -- Correct position within the dropdownFrame
+        dropdownList.Position = UDim2.new(0, 0, 1, 0)
     end)
 
     for _, item in ipairs(dropdownOptions.Items) do
-        local itemButton = Instance.new("TextButton")
-        itemButton.Name = item
-        itemButton.Parent = dropdownList
-        itemButton.Size = UDim2.new(1, 0, 0, 30)
-        itemButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-        itemButton.Text = item
-        itemButton.Font = Enum.Font.ArialBold
-        itemButton.TextSize = 14
-        itemButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-        itemButton.BorderSizePixel = 0
-        itemButton.AutoButtonColor = false
-        itemButton.TextXAlignment = Enum.TextXAlignment.Left
+    local itemButton = Instance.new("TextButton")
+    itemButton.Name = item
+    itemButton.Parent = dropdownList
+    itemButton.Size = UDim2.new(1, 0, 0, 30)
+    itemButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    itemButton.Text = item
+    itemButton.Font = Enum.Font.ArialBold
+    itemButton.TextSize = 14
+    itemButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    itemButton.BorderSizePixel = 0
+    itemButton.AutoButtonColor = false
+    itemButton.TextXAlignment = Enum.TextXAlignment.Left
+    
+    local itemPadding = Instance.new("UIPadding")
+    itemPadding.Parent = itemButton
+    itemPadding.PaddingLeft = UDim.new(0, 6)
 
-        local itemPadding = Instance.new("UIPadding")
-        itemPadding.Parent = itemButton
-        itemPadding.PaddingLeft = UDim.new(0, 6)
+    itemButton.MouseButton1Click:Connect(function()
+        dropdownButton.Text = item
+        dropdownOptions.Callback(item)
+        dropdownList.Visible = false
+    end)
+end
 
-        itemButton.MouseButton1Click:Connect(function()
-            dropdownButton.Text = item
-            dropdownOptions.Callback(item)
-            dropdownList.Visible = false
-        end)
-    end
 end,
             }
         end,
