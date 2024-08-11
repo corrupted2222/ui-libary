@@ -464,7 +464,7 @@ end,
                     local tabToggleButtonStrok = Instance.new("UIStroke")
                     tabToggleButtonStrok.Parent = tabToggleButton
                     tabToggleButtonStrok.Thickness = 2
-                    tabToggleButtonStrok.Color = Color3.fromRGB(65,65,65)
+                    tabToggleButtonStrok.Color = Color3.fromRGB(25,25,25)
                     tabToggleButtonStrok.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
                     
                     local toggleState = false
@@ -650,6 +650,10 @@ end,
     dropdownList.BorderSizePixel = 0
     dropdownList.Visible = false
 
+    local listcorners = Instance.new("UICorner")
+    listcorners.CornerRadius = UDim.new(0, 4)
+    listcorners.Parent = dropdownButton
+
     local listLayout = Instance.new("UIListLayout")
     listLayout.Parent = dropdownList
     listLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -670,6 +674,7 @@ end,
         itemButton.TextSize = 14
         itemButton.TextColor3 = Color3.fromRGB(255, 255, 255)
         itemButton.BorderSizePixel = 0
+        itemButton.AutoButtonColor = false
 
         itemButton.MouseButton1Click:Connect(function()
             dropdownButton.Text = item
