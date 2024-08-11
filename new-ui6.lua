@@ -180,8 +180,6 @@ function UILib:CreateWindow(options)
         end
     end
 
-    return self
-
 	
     return {
             
