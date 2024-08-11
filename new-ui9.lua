@@ -156,7 +156,6 @@ function UILib:CreateWindow(options)
         end
     end)
 
-    local function createToggleButton()
             local ToggleButton = Instance.new("ImageButton")
     ToggleButton.Parent = ScreenGui
     ToggleButton.BackgroundTransparency = 1
