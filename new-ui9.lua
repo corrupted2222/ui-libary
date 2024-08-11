@@ -190,15 +190,12 @@ end)
 
         local function updateScrolling()
             local contentSize = layout.AbsoluteContentSize
-            local frameSizeY = tabContent.AbsoluteSize.Y
+            local frameSize = tabContent.AbsoluteSize
 
-            -- Set CanvasSize to fit content and hide scrollbar if not needed
-            if contentSize.Y > frameSizeY then
+            if contentSize.Y > frameSize.Y then
                 tabContent.CanvasSize = UDim2.new(0, 0, 0, contentSize.Y)
-                tabContent.ScrollBarVisibility = Enum.ScrollBarVisibility.Visible
             else
                 tabContent.CanvasSize = UDim2.new(0, 0, 1, 0) -- Fit content within frame
-                tabContent.ScrollBarVisibility = Enum.ScrollBarVisibility.Disabled
             end
         end
 
