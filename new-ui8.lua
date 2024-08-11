@@ -189,6 +189,7 @@ end)
 
         local function updateScrolling()
             local contentSize = layout.AbsoluteContentSize
+            -- Ensure the CanvasSize is always larger or equal to the actual content size
             tabContent.CanvasSize = UDim2.new(0, contentSize.X, 0, contentSize.Y)
         end
 
