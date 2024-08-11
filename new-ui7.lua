@@ -170,7 +170,7 @@ end)
                tabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
                tabIcon.BackgroundTransparency = 1
 
-local tabContent = Instance.new("ScrollingFrame")
+local tabContent = Instance.new("Frame")
                tabContent.Name = tabOptions.Title or "TabContent"
                tabContent.Parent = MainFrame
                tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
