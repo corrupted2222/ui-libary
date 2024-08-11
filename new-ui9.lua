@@ -200,8 +200,9 @@ tabContent.Size = UDim2.new(0, 480, 0, 294) -- Ensuring it fills the parent fram
 
 layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
     local contentSize = layout.AbsoluteContentSize
-    tabContent.CanvasSize = UDim2.new(0, contentSize.X, 0, contentSize.Y)
+    tabContent.CanvasSize = UDim2.new(0, 0, 0, contentSize.Y)
 end)
+
 
 else
     tabContent = Instance.new("Frame")
