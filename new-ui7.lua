@@ -13,9 +13,9 @@ function UILib:CreateWindow(options)
     MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
     MainFrame.Active = true
 
-local MainFrameCorners = Instance.new("UICorner")
-MainFrameCorners.CornerRadius = UDim.new(0, 4)
-MainFrameCorners.Parent = MainFrame
+    local MainFrameCorners = Instance.new("UICorner")
+    MainFrameCorners.CornerRadius = UDim.new(0, 4)
+    MainFrameCorners.Parent = MainFrame
 
     local Header = Instance.new("Frame")
     Header.Parent = MainFrame
@@ -26,16 +26,16 @@ MainFrameCorners.Parent = MainFrame
 
     local Title = Instance.new("TextLabel")
     Title.Text = options.Title or "Title"
-	Title.Font = Enum.Font.ArialBold
-Title.BackgroundTransparency = 1
-Title.TextXAlignment = Enum.TextXAlignment.Left
-Title.Parent = Header
-Title.BackgroundColor3 = Color3.fromRGB(40,40,40)
-Title.Size = UDim2.new(0, 200, 0, 36)
-Title.Position = UDim2.new(0.01, 0, 0, 0) 
-Title.TextColor3 = Color3.fromRGB(255,255,255)
-Title.TextSize = 17
-	
+    Title.Font = Enum.Font.ArialBold
+    Title.BackgroundTransparency = 1
+    Title.TextXAlignment = Enum.TextXAlignment.Left
+    Title.Parent = Header
+    Title.BackgroundColor3 = Color3.fromRGB(40,40,40)
+    Title.Size = UDim2.new(0, 200, 0, 36)
+    Title.Position = UDim2.new(0.01, 0, 0, 0)
+    Title.TextColor3 = Color3.fromRGB(255,255,255)
+    Title.TextSize = 17
+
     local TabsHolder = Instance.new("Frame")
     TabsHolder.Parent = MainFrame
     TabsHolder.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
@@ -156,7 +156,6 @@ Title.TextSize = 17
         end
     end)
 
-
     local function createToggleButton()
         local ToggleButton = Instance.new("ImageButton")
         ToggleButton.Parent = ScreenGui
@@ -164,7 +163,6 @@ Title.TextSize = 17
         ToggleButton.Size = UDim2.new(0, 50, 0, 50)
         ToggleButton.Position = UDim2.new(1, -60, 0.5, -25)
         ToggleButton.Image = "http://www.roblox.com/asset/?id=16803349493" -- Default icon
-        ToggleButton.ImageButton = true
         ToggleButton.AnchorPoint = Vector2.new(1, 0.5)
 
         ToggleButton.MouseButton1Click:Connect(function()
