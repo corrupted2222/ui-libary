@@ -187,8 +187,7 @@ end)
                 scrollingFrame.BackgroundTransparency = 1
                 scrollingFrame.ScrollBarThickness = 6
                 scrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
-                scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
-                scrollingFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+                scrollingFrame.ClipsDescendants = true
 
                 local layout = Instance.new("UIListLayout")
                 layout.Parent = scrollingFrame
@@ -196,7 +195,8 @@ end)
                 layout.Padding = UDim.new(0, 5)
 
                 local function updateScrolling()
-                    scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y)
+                    local contentSize = layout.AbsoluteContentSize
+                    scrollingFrame.CanvasSize = UDim2.new(0, contentSize.X, 0, contentSize.Y)
                 end
 
                 layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateScrolling)
@@ -208,6 +208,7 @@ end)
             end)
 
             table.insert(tabs, { button = tabButton, content = tabContent })
+
 
 
 
