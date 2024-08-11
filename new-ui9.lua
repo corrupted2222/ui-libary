@@ -117,7 +117,7 @@ function UILib:CreateWindow(options)
     TabsHolderFrame.Position = UDim2.new(0.15, 0, 0.023, 0)
     TabsHolderFrame.Size = UDim2.new(0, 44, 0, 292)
     TabsHolderFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
-    TabsHolderFrame.ScrollBarThickness = 0
+    TabsHolderFrame.ScrollBarThickness = 8
     TabsHolderFrame.BackgroundTransparency = 1
     TabsHolderFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
     TabsHolderFrame.Active = true
@@ -135,7 +135,7 @@ function UILib:CreateWindow(options)
     TabHolders.Position = UDim2.new(0.0192, 0, 0.023, 0)
     TabHolders.Size = UDim2.new(0, 480, 0, 294)
     TabHolders.CanvasSize = UDim2.new(0, 0, 0, 0)
-    TabHolders.ScrollBarThickness = 0
+    TabHolders.ScrollBarThickness = 8
     TabHolders.BackgroundTransparency = 1
     TabHolders.Active = true
     TabHolders.AutomaticCanvasSize = Enum.AutomaticSize.Y
