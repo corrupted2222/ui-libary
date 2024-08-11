@@ -16,7 +16,7 @@ function UILib:CreateWindow(options)
     local Header = Instance.new("Frame")
     Header.Parent = MainFrame
     Header.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    Header.Position = UDim2.new(0, 0, -0.15, 0)  -- Header position is relative to MainFrame
+    Header.Position = UDim2.new(0, 0, -0.15, 0)
     Header.Size = UDim2.new(0, 500, 0, 36)
     Header.Active = true
 
@@ -105,7 +105,8 @@ function UILib:CreateWindow(options)
         tab.content.Visible = true
         Title.Text = "Zygarde | " .. tab.title
     end
-    
+
+    -- Dragging functionality
     local dragging
     local dragInput
     local dragStart
@@ -115,7 +116,6 @@ function UILib:CreateWindow(options)
         local delta = input.Position - dragStart
         local newPos = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
         MainFrame.Position = newPos
-        Header.Position = UDim2.new(0, 0, -0.15, 0)  -- Ensure Header position updates
     end
 
     local function onInputBegan(input)
@@ -140,6 +140,8 @@ function UILib:CreateWindow(options)
 
     MainFrame.InputBegan:Connect(onInputBegan)
     MainFrame.InputChanged:Connect(onInputChanged)
+    Header.InputBegan:Connect(onInputBegan)
+    Header.InputChanged:Connect(onInputChanged)
 
     local UserInputService = game:GetService("UserInputService")
     UserInputService.InputChanged:Connect(function(input)
