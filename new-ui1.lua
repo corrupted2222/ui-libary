@@ -115,6 +115,7 @@ function UILib:CreateWindow(options)
         local delta = input.Position - dragStart
         local newPos = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
         MainFrame.Position = newPos
+        Header.Position = UDim2.new(0, 0, -0.15, 0)  -- Ensure Header position updates
     end
 
     local function onInputBegan(input)
@@ -122,7 +123,7 @@ function UILib:CreateWindow(options)
             dragging = true
             dragStart = input.Position
             startPos = MainFrame.Position
-            
+
             input.Changed:Connect(function()
                 if input.UserInputState == Enum.UserInputState.End then
                     dragging = false
