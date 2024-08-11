@@ -629,7 +629,7 @@ end,
     dropdownButton.Parent = dropdownFrame
     dropdownButton.Size = UDim2.new(0, 120, 0, 30)
     dropdownButton.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
-    dropdownButton.Position = UDim2.new(0.85, 0, 0.113, 0)
+    dropdownButton.Position = UDim2.new(0.81, 0, 0.113, 0)
     dropdownButton.Text = ""
     dropdownButton.Font = Enum.Font.ArialBold
     dropdownButton.TextSize = 14
