@@ -190,7 +190,7 @@ if tabOptions.EnableLayout then
 
     local function updateScrolling()
         local contentSize = layout.AbsoluteContentSize
-        tabContent.CanvasSize = UDim2.new(1, 0, 0, contentSize.Y) -- Updated CanvasSize
+        tabContent.CanvasSize = UDim2.new(1, 0, 0, contentSize.X) -- Updated CanvasSize
     end
 
     layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateScrolling)
