@@ -168,18 +168,25 @@ end)
     tabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
     tabIcon.BackgroundTransparency = 1
 
-    local tabContent = Instance.new("ScrollingFrame")
+    local tabContent
+    if tabOptions.EnableLayout then
+        tabContent = Instance.new("ScrollingFrame")
+        tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
+        tabContent.ScrollBarThickness = 6
+        tabContent.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
+        tabContent.ClipsDescendants = true
+        tabContent.AutomaticCanvasSize = Enum.AutomaticSize.Y
+    else
+        tabContent = Instance.new("Frame")
+        tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
+        tabContent.BackgroundTransparency = 1
+    end
+
     tabContent.Name = tabOptions.Title or "TabContent"
     tabContent.Parent = MainFrame
-    tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
     tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     tabContent.BorderSizePixel = 0
-    tabContent.BackgroundTransparency = 1
     tabContent.Visible = tabOptions.DefaultVisible or false
-    tabContent.ScrollBarThickness = 6
-    tabContent.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
-    tabContent.ClipsDescendants = true
-    tabContent.AutomaticCanvasSize = Enum.AutomaticSize.Y
 
     if tabOptions.EnableLayout then
         local layout = Instance.new("UIListLayout")
@@ -204,7 +211,6 @@ end)
     end)
 
     table.insert(tabs, { button = tabButton, content = tabContent })
-
 
             return {
                 AddLabel = function(self, labelOptions)
