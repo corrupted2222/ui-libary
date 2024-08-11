@@ -540,7 +540,7 @@ end,
     local valueBox = Instance.new("TextBox")
     valueBox.Parent = slider
     valueBox.Size = UDim2.new(0, 30, 0, 30)
-    valueBox.Position = UDim2.new(0.44, 0, 0.113, 0)
+    valueBox.Position = UDim2.new(0.45, 0, 0.113, 0)
     valueBox.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
     valueBox.TextColor3 = Color3.fromRGB(255, 255, 255)
     valueBox.TextSize = 14
