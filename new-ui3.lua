@@ -13,6 +13,10 @@ function UILib:CreateWindow(options)
     MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
     MainFrame.Active = true
 
+local MainFrame = Instance.new("Frame")
+MainFrameCorners.CornerRadius = UDim.new(0, 4)
+MainFrameCorners.Parent = MainFrame
+
     local Header = Instance.new("Frame")
     Header.Parent = MainFrame
     Header.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
@@ -21,15 +25,17 @@ function UILib:CreateWindow(options)
     Header.Active = true
 
     local Title = Instance.new("TextLabel")
-    Title.Parent = Header
-    Title.BackgroundTransparency = 1
     Title.Text = options.title or "Title"
-    Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Title.TextSize = 24
-    Title.Size = UDim2.new(1, 0, 1, 0)
-    Title.TextStrokeTransparency = 0.8
-    Title.TextXAlignment = Enum.TextXAlignment.Center
-
+	Title.Font = Enum.Font.ArialBold
+Title.BackgroundTransparency = 1
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.Parent = Header
+Title.BackgroundColor3 = Color3.fromRGB(40,40,40)
+Title.Size = UDim2.new(0, 200, 0, 36)
+Title.Position = UDim2.new(0.01, 0, 0, 0) 
+Title.TextColor3 = Color3.fromRGB(255,255,255)
+Title.TextSize = 17
+	
     local TabsHolder = Instance.new("Frame")
     TabsHolder.Parent = MainFrame
     TabsHolder.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
