@@ -145,12 +145,11 @@ end)
     end
     
     return {
-            AddTab = function(self, tabOptions)
+             AddTab = function(self, tabOptions)
         local tabButton = Instance.new("TextButton")
         tabButton.Name = tabOptions.Title or "Tab"
         tabButton.Parent = TabsHolderFrame
         tabButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-        tabButton.Position = UDim2.new(0, 0, 0, 0)
         tabButton.Size = UDim2.new(0, 126, 0, 34)
         tabButton.Text = ""
         tabButton.TextSize = 14 
@@ -165,7 +164,6 @@ end)
         local tabIcon = Instance.new("ImageLabel")
         tabIcon.Parent = tabButton
         tabIcon.Size = UDim2.new(0, 30, 0, 30)
-        tabIcon.Name = tabOptions.Title or "Tab"
         tabIcon.Position = UDim2.new(0.1, 0, 0.1, 0)
         tabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
         tabIcon.BackgroundTransparency = 1
@@ -187,7 +185,7 @@ end)
             scrollingFrame.BackgroundTransparency = 1
             scrollingFrame.ScrollBarThickness = 6
             scrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
-            scrollingFrame.ClipsDescendants = false  -- Set to false to avoid clipping issues
+            scrollingFrame.ClipsDescendants = true
 
             local layout = Instance.new("UIListLayout")
             layout.Parent = scrollingFrame
@@ -199,8 +197,11 @@ end)
                 scrollingFrame.CanvasSize = UDim2.new(0, contentSize.X, 0, contentSize.Y)
             end
 
-            layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateScrolling)
+            -- Force initial update
             updateScrolling()
+
+            -- Connect update on property change
+            layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateScrolling)
         end
 
         tabButton.MouseButton1Click:Connect(function()
