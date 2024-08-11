@@ -13,7 +13,6 @@ function UILib:CreateWindow(options)
     MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
     MainFrame.Active = true
     local UserInputService = game:GetService("UserInputService")
- local UserInputService = game:GetService("UserInputService")
     local dragging
     local dragInput
     local dragStart
