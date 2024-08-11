@@ -190,13 +190,12 @@ end)
 
         local function updateScrolling()
             local contentSize = layout.AbsoluteContentSize
-            local frameSize = tabContent.Size
+            local frameSizeY = tabContent.Size.Y.Offset
 
-            -- Show scrollbar only if content exceeds the frame's size
-            if contentSize.Y > frameSize.Y then
+            if contentSize.Y > frameSizeY then
                 tabContent.CanvasSize = UDim2.new(0, 0, 0, contentSize.Y)
             else
-                tabContent.CanvasSize = UDim2.new(0, 0, 0, frameSize.Y)
+                tabContent.CanvasSize = UDim2.new(0, 0, 1, 0)
             end
         end
 
