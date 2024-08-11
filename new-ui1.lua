@@ -163,7 +163,7 @@ function UILib:CreateWindow(options)
         toggleButton.AnchorPoint = Vector2.new(0.5, 0.5)
         toggleButton.Image = imageId
         toggleButton.BackgroundTransparency = 1
-        toggleButton.Parent = game.Players.LocalPlayer.PlayerGui
+        toggleButton.Parent = ScreenGui
 
         local isOpen = true
         toggleButton.MouseButton1Click:Connect(function()
