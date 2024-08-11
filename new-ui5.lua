@@ -602,7 +602,7 @@ end,
 
     updateSlider((sliderValue - sliderOptions.Min) / (maxValue - sliderOptions.Min))
 end,
-AddDropdown = function(self, dropdownOptions)
+		AddDropdown = function(self, dropdownOptions)
     local dropdownFrame = Instance.new("TextButton")
     dropdownFrame.Parent = tabContent
     dropdownFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
@@ -613,7 +613,6 @@ AddDropdown = function(self, dropdownOptions)
     dropdownFrame.Font = Enum.Font.ArialBold
     dropdownFrame.TextColor3 = Color3.fromRGB(255, 255, 255)
     dropdownFrame.AutoButtonColor = false
-    dropdownFrame.Active = false
     dropdownFrame.TextXAlignment = Enum.TextXAlignment.Left
 
     local dropdowncorners = Instance.new("UICorner")
@@ -628,7 +627,7 @@ AddDropdown = function(self, dropdownOptions)
     dropdownButton.Name = "DropdownButton"
     dropdownButton.Parent = dropdownFrame
     dropdownButton.Size = UDim2.new(0, 120, 0, 30)
-    dropdownButton.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(65,65,65)
+    dropdownButton.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(65, 65, 65)
     dropdownButton.Position = UDim2.new(0.74, 0, 0.113, 0)
     dropdownButton.Text = ""
     dropdownButton.Font = Enum.Font.ArialBold
@@ -641,16 +640,17 @@ AddDropdown = function(self, dropdownOptions)
     local dropdownbuttoncorners = Instance.new("UICorner")
     dropdownbuttoncorners.CornerRadius = UDim.new(0, 4)
     dropdownbuttoncorners.Parent = dropdownButton
-					
+                    
     local dropdownList = Instance.new("Frame")
     dropdownList.Name = "DropdownList"
     dropdownList.Parent = tabContent
     dropdownList.Size = UDim2.new(0, 480, 0, #dropdownOptions.Items * 30)
+    dropdownList.Position = UDim2.new(0, 0, 1, 0) -- Ensure this is correctly positioned
     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     dropdownList.BorderSizePixel = 0
     dropdownList.Visible = false
 
-local dropdownListCorners = Instance.new("UICorner")
+    local dropdownListCorners = Instance.new("UICorner")
     dropdownListCorners.CornerRadius = UDim.new(0, 4)
     dropdownListCorners.Parent = dropdownList
 
@@ -660,34 +660,34 @@ local dropdownListCorners = Instance.new("UICorner")
 
     dropdownButton.MouseButton1Click:Connect(function()
         dropdownList.Visible = not dropdownList.Visible
-        dropdownList.Position = UDim2.new(0, 0, 1, 0)
     end)
 
     for _, item in ipairs(dropdownOptions.Items) do
-    local itemButton = Instance.new("TextButton")
-    itemButton.Name = item
-    itemButton.Parent = dropdownList
-    itemButton.Size = UDim2.new(1, 0, 0, 30)
-    itemButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    itemButton.Text = item
-    itemButton.Font = Enum.Font.ArialBold
-    itemButton.TextSize = 14
-    itemButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    itemButton.BorderSizePixel = 0
-    itemButton.AutoButtonColor = false
-    itemButton.TextXAlignment = Enum.TextXAlignment.Left
-    
-    local itemPadding = Instance.new("UIPadding")
-    itemPadding.Parent = itemButton
-    itemPadding.PaddingLeft = UDim.new(0, 6)
+        local itemButton = Instance.new("TextButton")
+        itemButton.Name = item
+        itemButton.Parent = dropdownList
+        itemButton.Size = UDim2.new(1, 0, 0, 30)
+        itemButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+        itemButton.Text = item
+        itemButton.Font = Enum.Font.ArialBold
+        itemButton.TextSize = 14
+        itemButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        itemButton.BorderSizePixel = 0
+        itemButton.AutoButtonColor = false
+        itemButton.TextXAlignment = Enum.TextXAlignment.Left
 
-    itemButton.MouseButton1Click:Connect(function()
-        dropdownButton.Text = item
-        dropdownOptions.Callback(item)
-        dropdownList.Visible = false
-    end)
-end
+        local itemPadding = Instance.new("UIPadding")
+        itemPadding.Parent = itemButton
+        itemPadding.PaddingLeft = UDim.new(0, 6)
 
+        itemButton.MouseButton1Click:Connect(function()
+            dropdownButton.Text = item
+            if dropdownOptions.Callback then
+                dropdownOptions.Callback(item)
+            end
+            dropdownList.Visible = false
+        end)
+    end
 end,
             }
         end,
