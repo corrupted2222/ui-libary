@@ -638,10 +638,6 @@ end,
     dropdownButton.TextTruncate = Enum.TextTruncate.AtEnd
     dropdownButton.AutoButtonColor = false
 					
-    local dropdownbuttoncorners = Instance.new("UICorner")
-    dropdownbuttoncorners.CornerRadius = UDim.new(0, 4)
-    dropdownbuttoncorners.Parent = dropdownButton
-					
     local dropdownList = Instance.new("Frame")
     dropdownList.Name = "DropdownList"
     dropdownList.Parent = tabContent
@@ -664,29 +660,34 @@ end,
     end)
 
     for _, item in ipairs(dropdownOptions.Items) do
-        local itemButton = Instance.new("TextButton")
-        itemButton.Name = item
-        itemButton.Parent = dropdownList
-        itemButton.Size = UDim2.new(1, 0, 0, 30)
-        itemButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-        itemButton.Text = item
-        itemButton.Font = Enum.Font.ArialBold
-        itemButton.TextSize = 14
-        itemButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-        itemButton.BorderSizePixel = 0
-        itemButton.AutoButtonColor = false
-	itemButton.TextXAlignment = Enum.TextXAlignment.Left
+    local itemButton = Instance.new("TextButton")
+    itemButton.Name = item
+    itemButton.Parent = dropdownList
+    itemButton.Size = UDim2.new(1, 0, 0, 30)
+    itemButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    itemButton.Text = item
+    itemButton.Font = Enum.Font.ArialBold
+    itemButton.TextSize = 14
+    itemButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    itemButton.BorderSizePixel = 0
+    itemButton.AutoButtonColor = false
+    itemButton.TextXAlignment = Enum.TextXAlignment.Left
+    
+    local itemCorners = Instance.new("UICorner")
+    itemCorners.CornerRadius = UDim.new(0, 4)
+    itemCorners.Parent = itemButton
+    
+    local itemPadding = Instance.new("UIPadding")
+    itemPadding.Parent = itemButton
+    itemPadding.PaddingLeft = UDim.new(0, 6)
 
-local itempadding = Instance.new("UIPadding")
-    itempadding.Parent = itemButton
-    itempadding.PaddingLeft = UDim.new(0, 6)
+    itemButton.MouseButton1Click:Connect(function()
+        dropdownButton.Text = item
+        dropdownOptions.Callback(item)
+        dropdownList.Visible = false
+    end)
+end
 
-        itemButton.MouseButton1Click:Connect(function()
-            dropdownButton.Text = item
-            dropdownOptions.Callback(item)
-            dropdownList.Visible = false
-        end)
-    end
 end,
             }
         end,
