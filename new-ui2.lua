@@ -145,7 +145,7 @@ end)
     end
     
     return {
-               AddTab = function(self, tabOptions)
+            AddTab = function(self, tabOptions)
         local tabButton = Instance.new("TextButton")
         tabButton.Name = tabOptions.Title or "Tab"
         tabButton.Parent = TabsHolderFrame
