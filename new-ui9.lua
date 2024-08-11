@@ -9,7 +9,7 @@ function UILib:CreateWindow(options)
     local MainFrame = Instance.new("Frame")
 MainFrame.Parent = ScreenGui
 MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-MainFrame.Position = UDim2.new(0.5, -250, 0.5, -150)
+MainFrame.Position = UDim2.new(0.177, 0, 0.04, 0)
 MainFrame.Size = UDim2.new(0, 500, 0, 300)
 MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 MainFrame.Active = true
