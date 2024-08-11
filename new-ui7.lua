@@ -12,6 +12,12 @@ function UILib:CreateWindow(options)
     MainFrame.Size = UDim2.new(0, 500, 0, 300)
     MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
     MainFrame.Active = true
+MainFrame.Draggable = true
+local UserInputService = game:GetService("UserInputService")
+
+if UserInputService.TouchEnabled then
+	MainFrame.Position = UDim2.new(0.177, 0,0.04, 0)
+end
 
 local ToggleButton = Instance.new("ImageButton")
 ToggleButton.Parent = ScreenGui
