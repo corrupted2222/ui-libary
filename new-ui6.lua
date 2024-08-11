@@ -645,14 +645,19 @@ end,
     dropdownList.Name = "DropdownList"
     dropdownList.Parent = tabContent
     dropdownList.Size = UDim2.new(0, 480, 0, #dropdownOptions.Items * 30)
-    dropdownList.Position = UDim2.new(0, 0, 1, 0) -- Ensure this is correctly positioned
+    dropdownList.Position = UDim2.new(0, 0, 1, 0)
     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     dropdownList.BorderSizePixel = 0
-    dropdownList.Visible = false
+    
+    -- Set Visible to true temporarily to apply UICorner properly
+    dropdownList.Visible = true
 
     local dropdownListCorners = Instance.new("UICorner")
     dropdownListCorners.CornerRadius = UDim.new(0, 4)
     dropdownListCorners.Parent = dropdownList
+
+    -- Set Visible back to false
+    dropdownList.Visible = false
 
     local listLayout = Instance.new("UIListLayout")
     listLayout.Parent = dropdownList
