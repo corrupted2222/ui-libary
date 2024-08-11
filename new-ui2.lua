@@ -174,8 +174,8 @@ end)
 if tabOptions.EnableLayout then
     tabContent = Instance.new("ScrollingFrame")
     tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0) -- Ensuring it starts from the top-left
-tabContent.Size = UDim2.new(0, 480, 0, 294) -- Ensuring it fills the parent frame
-    tabContent.ScrollBarThickness = 6
+tabContent.Size = UDim2.new(0, 480, 0, 297) -- Ensuring it fills the parent frame
+    tabContent.ScrollBarThickness = 3
     tabContent.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
     tabContent.ClipsDescendants = true
     tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
