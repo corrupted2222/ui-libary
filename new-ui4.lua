@@ -156,7 +156,8 @@ function UILib:CreateWindow(options)
         end
     end)
 
-            function self:SetToggleButtonImage(imageId)
+            function self:SetToggleButtonImage(options)
+        local imageId = options.Image or "rbxassetid://123456789" -- default image if none provided
         local toggleButton = Instance.new("ImageButton")
         toggleButton.Size = UDim2.fromOffset(50, 50)
         toggleButton.Position = UDim2.fromScale(0.5, 0.5)
@@ -171,7 +172,6 @@ function UILib:CreateWindow(options)
             MainFrame.Visible = isOpen
         end)
     end
-
 
 	
     return {
