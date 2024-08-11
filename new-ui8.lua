@@ -12,59 +12,6 @@ function UILib:CreateWindow(options)
     MainFrame.Size = UDim2.new(0, 500, 0, 300)
     MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
     MainFrame.Active = true
-    local UserInputService = game:GetService("UserInputService")
-    local dragging
-    local dragInput
-    local dragStart
-    local startPos
-
-    local function update(input)
-        local delta = input.Position - dragStart
-        local newPos = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-        
-        if MainFrame then
-            MainFrame.Position = newPos
-        end
-        
-        if Header then
-            Header.Position = newPos
-        end
-    end
-
-    local function onInputBegan(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-            dragging = true
-            dragStart = input.Position
-            startPos = MainFrame.Position
-            
-            input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.End then
-                    dragging = false
-                end
-            end)
-        end
-    end
-
-    local function onInputChanged(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-            dragInput = input
-        end
-    end
-
-    MainFrame.InputBegan:Connect(onInputBegan)
-    MainFrame.InputChanged:Connect(onInputChanged)
-    Header.InputBegan:Connect(onInputBegan)
-    Header.InputChanged:Connect(onInputChanged)
-
-    UserInputService.InputChanged:Connect(function(input)
-        if input == dragInput and dragging then
-            update(input)
-        end
-    end)
-
-    local MainFrameCorners = Instance.new("UICorner")
-    MainFrameCorners.CornerRadius = UDim.new(0, 4)
-    MainFrameCorners.Parent = MainFrame
 
     local Header = Instance.new("Frame")
     Header.Parent = MainFrame
@@ -161,6 +108,55 @@ function UILib:CreateWindow(options)
         Title.Text = "Zygarde | " .. tab.title
     end
     
+    local dragging
+    local dragInput
+    local dragStart
+    local startPos
+
+    local function update(input)
+        local delta = input.Position - dragStart
+        local newPos = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        
+        if MainFrame then
+            MainFrame.Position = newPos
+        end
+        
+        if Header then
+            Header.Position = newPos
+        end
+    end
+
+    local function onInputBegan(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = MainFrame.Position
+            
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end
+
+    local function onInputChanged(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            dragInput = input
+        end
+    end
+
+    MainFrame.InputBegan:Connect(onInputBegan)
+    MainFrame.InputChanged:Connect(onInputChanged)
+    Header.InputBegan:Connect(onInputBegan)
+    Header.InputChanged:Connect(onInputChanged)
+
+    local UserInputService = game:GetService("UserInputService")
+    UserInputService.InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            update(input)
+        end
+    end)
     return {
             
    AddTab = function(self, tabOptions)
