@@ -540,7 +540,7 @@ sliderpadding.PaddingLeft = UDim.new(0, 6)
     local valueBox = Instance.new("TextBox")
     valueBox.Parent = slider
     valueBox.Size = UDim2.new(0, 30, 0, 30)
-    valueBox.Position = UDim2.new(0.73, 0, 0.113, 0)
+    valueBox.Position = UDim2.new(0.65, 0, 0.113, 0)
     valueBox.BackgroundColor3 = Color3.fromRGB(65, 65,65)
     valueBox.TextColor3 = Color3.fromRGB(255,255,255)
     valueBox.TextSize = 14
@@ -551,11 +551,6 @@ sliderpadding.PaddingLeft = UDim.new(0, 6)
 	valuecorners.CornerRadius = UDim.new(0, 4)
         valuecorners.Parent = valueBox
 
-        local valuestoke = Instance.new("UIStroke")
-        valuestoke.Parent = valueBox
-        valuestoke.Thickness = 2
-        valuestoke.Color = Color3.fromRGB(25,25,25)
-        valuestoke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
     local sliderValue = sliderOptions.Min or 0
     local maxValue = sliderOptions.Max or 100
