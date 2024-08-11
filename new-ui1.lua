@@ -204,7 +204,7 @@ end)
 
 else
     tabContent = Instance.new("Frame")
-    tabContent.Size = tabOptions.ContentSize or UDim2.new(0, 480, 0, 297)
+    tabContent.Size = tabOptions.ContentSize or UDim2.new(0, 480, 0, 310)
     tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     tabContent.BorderSizePixel = 0
     tabContent.BackgroundTransparency = 1
