@@ -464,7 +464,7 @@ end,
                     local tabToggleButtonStrok = Instance.new("UIStroke")
                     tabToggleButtonStrok.Parent = tabToggleButton
                     tabToggleButtonStrok.Thickness = 2
-                    tabToggleButtonStrok.Color = Color3.fromRGB(25,25,25)
+                    tabToggleButtonStrok.Color = Color3.fromRGB(65,65,65)
                     tabToggleButtonStrok.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
                     
                     local toggleState = false
@@ -628,8 +628,8 @@ end,
     dropdownButton.Name = "DropdownButton"
     dropdownButton.Parent = dropdownFrame
     dropdownButton.Size = UDim2.new(0, 120, 0, 30)
-    dropdownButton.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
-    dropdownButton.Position = UDim2.new(0.7, 0, 0.113, 0)
+    dropdownButton.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(65,65,65)
+    dropdownButton.Position = UDim2.new(0.74, 0, 0.113, 0)
     dropdownButton.Text = ""
     dropdownButton.Font = Enum.Font.ArialBold
     dropdownButton.TextSize = 14
@@ -645,7 +645,7 @@ end,
     local dropdownList = Instance.new("Frame")
     dropdownList.Name = "DropdownList"
     dropdownList.Parent = tabContent
-    dropdownList.Size = UDim2.new(0, 200, 0, #dropdownOptions.Items * 30)
+    dropdownList.Size = UDim2.new(0, 480, 0, #dropdownOptions.Items * 30)
     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     dropdownList.BorderSizePixel = 0
     dropdownList.Visible = false
