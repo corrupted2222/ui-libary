@@ -178,7 +178,7 @@ function UILib:CreateWindow(options)
         else
             warn("ToggleButton is not defined")
 	end
-        end)
+        end
 
 	
     return {
