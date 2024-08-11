@@ -182,6 +182,7 @@ if tabOptions.EnableLayout then
     tabContent.BackgroundTransparency = 1
     tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0)
     tabContent.CanvasSize = UDim2.new(0, 0, 0, 0)
+    tabContent.AutomaticCanvasSize = Enum.AutomaticSize.Y
 
     -- Ensuring it fits within the MainFrame and does not overflow
     tabContent.Parent = MainFrame
