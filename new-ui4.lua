@@ -193,11 +193,12 @@ end)
                 scrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
                 scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
 
-                tabContent.Size = UDim2.new(1, 0, 1, 0)
+                -- Move the content into the scrolling frame
+                tabContent.Parent = scrollingFrame
 
                 local function updateScrolling()
                     scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y)
-                    scrollingFrame.CanvasPosition = Vector2.new(0, scrollingFrame.CanvasSize.Y - scrollingFrame.AbsoluteWindowSize.Y)
+                    scrollingFrame:ScrollToBottom()
                 end
 
                 layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateScrolling)
@@ -209,6 +210,7 @@ end)
             end)
 
             table.insert(tabs, { button = tabButton, content = tabContent })
+
 
 
             return {
