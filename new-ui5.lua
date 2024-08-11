@@ -9,7 +9,7 @@ function UILib:CreateWindow(options)
     local MainFrame = Instance.new("Frame")
 MainFrame.Parent = ScreenGui
 MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-MainFrame.Position = UDim2.new(0.177, 0, 0.04, 0)
+MainFrame.Position = UDim2.new(0.5, -100, 0.5, -70)
 MainFrame.Size = UDim2.new(0, 500, 0, 300)
 MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 MainFrame.Active = true
@@ -17,7 +17,7 @@ MainFrame.Draggable = true
 
 -- Check if the device is mobile and adjust the position
 if UserInputService.TouchEnabled then
-    MainFrame.Position = UDim2.new(0.58, 0, 0.5, 0)
+    MainFrame.Position = UDim2.new(0.55, 0, 0.5, 0)
 MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 end
 	
