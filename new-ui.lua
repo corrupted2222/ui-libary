@@ -15,7 +15,6 @@ MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 MainFrame.Active = true
 MainFrame.Draggable = true
 
--- Check if the device is mobile and adjust the position
 if UserInputService.TouchEnabled then
     MainFrame.Position = UDim2.new(0.55, 0, 0.5, 0)
 MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -138,7 +137,6 @@ end)
         Title.Text = "Zygarde | " .. tab.title
     end
 
-    -- Dragging functionality
     local dragging
     local dragInput
     local dragStart
@@ -370,25 +368,25 @@ end)
     local listLayout = Instance.new("UIListLayout")
     listLayout.Parent = creditsList
     listLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    listLayout.Padding = UDim.new(0, 5)  -- Add padding between elements
+    listLayout.Padding = UDim.new(0, 5)  
 
     for _, credit in pairs(creditsOptions) do
         local NewFrame = Instance.new("Frame")
         NewFrame.Parent = creditsList
         NewFrame.BackgroundTransparency = 0
-        NewFrame.Size = UDim2.new(1, 0, 0, 60)  -- Adjusted height to fit the icon
+        NewFrame.Size = UDim2.new(1, 0, 0, 60)  
         NewFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 
         local creditIcon = Instance.new("ImageLabel")
         creditIcon.Parent = NewFrame
         creditIcon.Size = UDim2.new(0, 45, 0, 45)
-        creditIcon.Position = UDim2.new(0, 10, 0.5, -22.5)  -- Centered vertically
+        creditIcon.Position = UDim2.new(0, 10, 0.5, -22.5)  
         creditIcon.Image = credit.Icon or ""
         creditIcon.BackgroundTransparency = 1
 
         local creditName = Instance.new("TextLabel")
         creditName.Parent = NewFrame
-        creditName.Size = UDim2.new(1, -60, 1, 0)  -- Adjusted to fit within the frame
+        creditName.Size = UDim2.new(1, -60, 1, 0)
         creditName.Position = UDim2.new(0, 60, 0, 0)
         creditName.BackgroundTransparency = 1
         creditName.Text = credit.Name or ""
@@ -707,7 +705,7 @@ end,
     dropdownList.Name = "DropdownList"
     dropdownList.Parent = tabContent
     dropdownList.Size = UDim2.new(0, 480, 0, #dropdownOptions.Items * 30)
-    dropdownList.Position = UDim2.new(0, 0, 1, 0) -- Ensure this is correctly positioned
+    dropdownList.Position = UDim2.new(0, 0, 1, 0)
     dropdownList.BackgroundColor3 = Color3.fromRGB(40 ,40, 40)
     dropdownList.BorderSizePixel = 0
     dropdownList.Visible = false
