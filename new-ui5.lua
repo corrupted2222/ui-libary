@@ -601,6 +601,69 @@ end,
 
     updateSlider((sliderValue - sliderOptions.Min) / (maxValue - sliderOptions.Min))
 end,
+				AddDropdown = function(self, dropdownOptions)
+                        local dropdownFrame = Instance.new("TextButton")
+    dropdownFrame.Parent = tabContent
+    dropdownFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    dropdownFrame.Position = UDim2.new(0, 0, 0, 0)
+    dropdownFrame.Size = UDim2.new(0, 480, 0, 40)
+    dropdownFrame.Text = dropdownOptions.Title or "Dropdown"
+    dropdownFrame.TextSize = 16
+    dropdownFrame.Font = Enum.Font.ArialBold
+    dropdownFrame.TextColor3 = Color3.fromRGB(255, 255, 255)
+    dropdownFrame.AutoButtonColor = false
+    dropdownFrame.Active = false
+    dropdownFrame.TextXAlignment = Enum.TextXAlignment.Left
+
+                    local dropdownButton = Instance.new("TextButton")
+                    dropdownButton.Name = "DropdownButton"
+                    dropdownButton.Parent = dropdownFrame
+                    dropdownButton.Size = UDim2.new(0, 120, , 40)
+                    dropdownButton.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
+                    dropdownButton.Text = dropdownOptions.Title or "Dropdown"
+                    dropdownButton.Font = Enum.Font.ArialBold
+                    dropdownButton.TextSize = 14
+                    dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    dropdownButton.BorderSizePixel = 0
+
+                    local dropdownList = Instance.new("Frame")
+                    dropdownList.Name = "DropdownList"
+                    dropdownList.Parent = tabContent
+                    dropdownList.Size = UDim2.new(0, 200, 0, #dropdownOptions.Items * 30)
+                    dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+                    dropdownList.BorderSizePixel = 0
+                    dropdownList.Visible = false
+
+                    local listLayout = Instance.new("UIListLayout")
+                    listLayout.Parent = dropdownList
+                    listLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+                    dropdownButton.MouseButton1Click:Connect(function()
+                        dropdownList.Visible = not dropdownList.Visible
+                        dropdownList.Position = UDim2.new(0, 0, 1, 0)
+                        layout:ApplyLayout()
+                    end)
+
+                    for _, item in ipairs(dropdownOptions.Items) do
+                        local itemButton = Instance.new("TextButton")
+                        itemButton.Name = item
+                        itemButton.Parent = dropdownList
+                        itemButton.Size = UDim2.new(1, 0, 0, 30)
+                        itemButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+                        itemButton.Text = item
+                        itemButton.Font = Enum.Font.Arial
+                        itemButton.TextSize = 14
+                        itemButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                        itemButton.BorderSizePixel = 0
+
+                        itemButton.MouseButton1Click:Connect(function()
+                            dropdownButton.Text = item
+                            dropdownOptions.Callback(item)
+                            dropdownList.Visible = false
+                            layout:ApplyLayout()
+                        end)
+                    end
+                end,
             }
         end,
     }
