@@ -173,14 +173,14 @@ end)
     local tabContent
 if tabOptions.EnableLayout then
     tabContent = Instance.new("ScrollingFrame")
-    tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
+    tabContent.Position = UDim2.new(0, 0, 0, 0) -- Ensuring it starts from the top-left
+tabContent.Size = UDim2.new(1, 0, 1, 0) -- Ensuring it fills the parent frame
     tabContent.ScrollBarThickness = 6
     tabContent.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
     tabContent.ClipsDescendants = true
     tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     tabContent.BorderSizePixel = 0
     tabContent.BackgroundTransparency = 1
-    tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0)
     tabContent.CanvasSize = UDim2.new(0, 0, 0, 0)
     tabContent.AutomaticCanvasSize = Enum.AutomaticSize.Y
 
@@ -198,8 +198,11 @@ if tabOptions.EnableLayout then
         tabContent.CanvasSize = UDim2.new(0, 0, 0, contentSize.Y)
     end
 
-    layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateScrolling)
-    updateScrolling()
+layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+    local contentSize = layout.AbsoluteContentSize
+    tabContent.CanvasSize = UDim2.new(0, contentSize.X, 0, contentSize.Y)
+end)
+
 else
     tabContent = Instance.new("Frame")
     tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
