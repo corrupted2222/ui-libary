@@ -640,7 +640,7 @@ end,
 
     local dropdownbuttoncorners = Instance.new("UICorner")
     dropdownbuttoncorners.CornerRadius = UDim.new(0, 4)
-    dropdownbuttoncorners.Parent = dropdownFrame
+    dropdownbuttoncorners.Parent = dropdownButton
 					
     local dropdownList = Instance.new("Frame")
     dropdownList.Name = "DropdownList"
