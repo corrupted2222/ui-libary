@@ -180,7 +180,7 @@ tabContent.Size = UDim2.new(0, 490, 0, 290) -- Ensuring it fills the parent fram
     tabContent.ClipsDescendants = true
     tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
     tabContent.BorderSizePixel = 0
-    tabContent.BackgroundTransparency = 0
+    tabContent.BackgroundTransparency = 1
 
     -- Ensuring it fits within the MainFrame and does not overflow
     tabContent.Parent = MainFrame
