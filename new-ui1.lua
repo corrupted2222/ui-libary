@@ -117,7 +117,7 @@ function UILib:CreateWindow(options)
     TabsHolderFrame.Position = UDim2.new(0.15, 0, 0.023, 0)
     TabsHolderFrame.Size = UDim2.new(0, 44, 0, 292)
     TabsHolderFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
-    TabsHolderFrame.ScrollBarThickness = 8
+    TabsHolderFrame.ScrollBarThickness = 0
     TabsHolderFrame.BackgroundTransparency = 1
     TabsHolderFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
     TabsHolderFrame.Active = true
@@ -135,7 +135,7 @@ function UILib:CreateWindow(options)
     TabHolders.Position = UDim2.new(0.0192, 0, 0.023, 0)
     TabHolders.Size = UDim2.new(0, 480, 0, 294)
     TabHolders.CanvasSize = UDim2.new(0, 0, 0, 0)
-    TabHolders.ScrollBarThickness = 8
+    TabHolders.ScrollBarThickness = 0
     TabHolders.BackgroundTransparency = 1
     TabHolders.Active = true
     TabHolders.AutomaticCanvasSize = Enum.AutomaticSize.Y
@@ -154,13 +154,13 @@ function UILib:CreateWindow(options)
             local tabButton = Instance.new("TextButton")
             tabButton.Name = tabOptions.Title or "Tab"
             tabButton.Parent = TabsHolderFrame
-            tabButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+            tabButton.BackgroundColor3 = Color3.fromRGB(40,40,40)
             tabButton.Position = UDim2.new(0, 0, 0, 0)
-            tabButton.Size = UDim2.new(0, 126, 0, 34)
+            tabButton.Size = UDim2.new(0,126,0,34)
             tabButton.Text = ""
             tabButton.TextSize = 14
             tabButton.Font = Enum.Font.ArialBold
-            tabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            tabButton.TextColor3 = Color3.fromRGB(255,255,255)
             tabButton.AutoButtonColor = false
 
             local tabButtonCorners = Instance.new("UICorner")
@@ -175,7 +175,7 @@ function UILib:CreateWindow(options)
             tabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
             tabIcon.BackgroundTransparency = 1
 
-            local tabContent = Instance.new("ScrollingFrame")
+            local tabContent = Instance.new("Frame")
             tabContent.Name = tabOptions.Title or "TabContent"
             tabContent.Parent = MainFrame
             tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
@@ -183,19 +183,24 @@ function UILib:CreateWindow(options)
             tabContent.BorderSizePixel = 0
             tabContent.BackgroundTransparency = 1
             tabContent.Visible = tabOptions.DefaultVisible or false
-            tabContent.ScrollBarThickness = 8
-            tabContent.AutomaticCanvasSize = Enum.AutomaticSize.Y
 
             if tabOptions.EnableLayout then
+                local scrollFrame = Instance.new("ScrollingFrame")
+                scrollFrame.Parent = tabContent
+                scrollFrame.Size = UDim2.new(1, 0, 1, 0)
+                scrollFrame.BackgroundTransparency = 1
+                scrollFrame.ScrollBarThickness = 6
+                scrollFrame.CanvasSize = UDim2.new(0, 0, 1, 0)
+                scrollFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+
                 local layout = Instance.new("UIListLayout")
-                layout.Parent = tabContent
+                layout.Parent = scrollFrame
                 layout.SortOrder = Enum.SortOrder.LayoutOrder
                 layout.Padding = UDim.new(0, 5)
+                
+                tabContent.Size = UDim2.new(1, 0, 1, 0)
+                tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0)
             end
-
-            local contentConstraint = Instance.new("UISizeConstraint")
-            contentConstraint.Parent = tabContent
-            contentConstraint.MaxSize = Vector2.new(480, 294)
 
             tabButton.MouseButton1Click:Connect(function()
                 switchTab({title = tabOptions.Title, content = tabContent})
