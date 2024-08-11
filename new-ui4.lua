@@ -13,6 +13,7 @@ function UILib:CreateWindow(options)
     MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
     MainFrame.Active = true
 
+local ToggleButton = Instance.new("ImageButton")
 ToggleButton.Parent = ScreenGui
 ToggleButton.Image = options.Icon or "rbxassetid://17376881029"
 ToggleButton.Position = UDim2.new(0.1, 0, 0.1, 0)
