@@ -172,15 +172,14 @@ function UILib:CreateWindow(options)
     self.ToggleButton = ToggleButton
 
     -- Update icon function
-    function self:SetToggleIcon(iconId)
-        if self.ToggleButton then
-            self.ToggleButton.Image = iconId
-        else
-            warn("ToggleButton is not defined")
-        end
-	end
-	return self
+function UILib:SetToggleIcon(iconId)
+    if self and self.ToggleButton then
+        self.ToggleButton.Image = iconId
+    else
+        warn("ToggleButton is not defined or self is not available")
+    end
 end
+
 
 	
     return {
