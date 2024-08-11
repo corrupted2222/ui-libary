@@ -177,7 +177,6 @@ end)
         tabContent.ScrollBarThickness = 6
         tabContent.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
         tabContent.ClipsDescendants = true
-        tabContent.AutomaticCanvasSize = Enum.AutomaticSize.Y
         tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
         tabContent.BorderSizePixel = 0
         tabContent.BackgroundTransparency = 1
