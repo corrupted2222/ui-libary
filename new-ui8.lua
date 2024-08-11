@@ -183,10 +183,12 @@ end)
                 local scrollingFrame = Instance.new("ScrollingFrame")
                 scrollingFrame.Parent = tabContent
                 scrollingFrame.Size = UDim2.new(1, 0, 1, 0)
+                scrollingFrame.Position = UDim2.new(0, 0, 0, 0)
                 scrollingFrame.BackgroundTransparency = 1
                 scrollingFrame.ScrollBarThickness = 6
                 scrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
                 scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+                scrollingFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
 
                 local layout = Instance.new("UIListLayout")
                 layout.Parent = scrollingFrame
