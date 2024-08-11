@@ -14,7 +14,7 @@ function UILib:CreateWindow(options)
     MainFrame.Active = true
 
 ToggleButton.Parent = ScreenGui
-ToggleButton.Image = options.Icon or "Title"
+ToggleButton.Image = options.Icon or "rbxassetid://17376881029"
 ToggleButton.Position = UDim2.new(0.1, 0, 0.1, 0)
 ToggleButton.Size = UDim2.new(0, 50, 0, 50)
 ToggleButton.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
