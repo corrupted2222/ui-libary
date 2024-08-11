@@ -145,7 +145,7 @@ end)
     end
     
     return {
-              AddTab = function(self, tabOptions)
+              ddTab = function(self, tabOptions)
             local tabButton = Instance.new("TextButton")
             tabButton.Name = tabOptions.Title or "Tab"
             tabButton.Parent = TabsHolderFrame
@@ -180,11 +180,6 @@ end)
             tabContent.Visible = tabOptions.DefaultVisible or false
 
             if tabOptions.EnableLayout then
-                local layout = Instance.new("UIListLayout")
-                layout.Parent = tabContent
-                layout.SortOrder = Enum.SortOrder.LayoutOrder
-                layout.Padding = UDim.new(0, 5)
-
                 local scrollingFrame = Instance.new("ScrollingFrame")
                 scrollingFrame.Parent = tabContent
                 scrollingFrame.Size = UDim2.new(1, 0, 1, 0)
@@ -193,8 +188,10 @@ end)
                 scrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
                 scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
 
-                -- Move the content into the scrolling frame
-                tabContent.Parent = scrollingFrame
+                local layout = Instance.new("UIListLayout")
+                layout.Parent = scrollingFrame
+                layout.SortOrder = Enum.SortOrder.LayoutOrder
+                layout.Padding = UDim.new(0, 5)
 
                 local function updateScrolling()
                     scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y)
