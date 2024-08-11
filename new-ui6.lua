@@ -171,48 +171,46 @@ end)
     tabIcon.BackgroundTransparency = 1
 
     local tabContent
-if tabOptions.EnableLayout then
-    tabContent = Instance.new("ScrollingFrame")
-    tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0) -- Ensuring it starts from the top-left
-tabContent.Size = UDim2.new(0, 490, 0, 290) -- Ensuring it fills the parent frame
-    tabContent.ScrollBarThickness = 3
-    tabContent.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
-    tabContent.ClipsDescendants = true
-    tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    tabContent.BorderSizePixel = 0
-    tabContent.BackgroundTransparency = 1
+    if tabOptions.EnableLayout then
+        tabContent = Instance.new("ScrollingFrame")
+        tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0)
+        tabContent.Size = UDim2.new(0, 490, 0, 290)
+        tabContent.ScrollBarThickness = 3
+        tabContent.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
+        tabContent.ClipsDescendants = true
+        tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        tabContent.BorderSizePixel = 0
+        tabContent.BackgroundTransparency = 1
+        tabContent.Parent = MainFrame
 
-    -- Ensuring it fits within the MainFrame and does not overflow
-    tabContent.Parent = MainFrame
-    tabContent.ClipsDescendants = true
+        local layout = Instance.new("UIListLayout")
+        layout.Parent = tabContent
+        layout.SortOrder = Enum.SortOrder.LayoutOrder
+        layout.Padding = UDim.new(0, 5)
 
-    local layout = Instance.new("UIListLayout")
-    layout.Parent = tabContent
-    layout.SortOrder = Enum.SortOrder.LayoutOrder
-    layout.Padding = UDim.new(0, 5)
+        local function updateScrolling()
+            local contentSize = layout.AbsoluteContentSize
+            local frameSize = tabContent.Size
 
-    local function updateScrolling()
-        local contentSize = layout.AbsoluteContentSize
-        tabContent.CanvasSize = UDim2.new(0, 0, 0, contentSize.Y)
+            -- Show scrollbar only if content exceeds the frame's size
+            if contentSize.Y > frameSize.Y then
+                tabContent.CanvasSize = UDim2.new(0, 0, 0, contentSize.Y)
+            else
+                tabContent.CanvasSize = UDim2.new(0, 0, 0, frameSize.Y)
+            end
+        end
+
+        layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateScrolling)
+        updateScrolling()
+
+    else
+        tabContent = Instance.new("Frame")
+        tabContent.Size = tabOptions.ContentSize or UDim2.new(0, 480, 0, 310)
+        tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        tabContent.BorderSizePixel = 0
+        tabContent.BackgroundTransparency = 1
+        tabContent.Parent = MainFrame
     end
-
-layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-    local contentSize = layout.AbsoluteContentSize
-    tabContent.CanvasSize = UDim2.new(0, 0, 0, contentSize.Y)
-end)
-
-
-else
-    tabContent = Instance.new("Frame")
-    tabContent.Size = tabOptions.ContentSize or UDim2.new(0, 480, 0, 310)
-    tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    tabContent.BorderSizePixel = 0
-    tabContent.BackgroundTransparency = 1
-    tabContent.Parent = MainFrame
-end
-
-
-
 
     tabContent.Name = tabOptions.Title or "TabContent"
     tabContent.Parent = MainFrame
