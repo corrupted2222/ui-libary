@@ -182,7 +182,6 @@ tabContent.Size = UDim2.new(0, 480, 0, 297) -- Ensuring it fills the parent fram
     tabContent.BorderSizePixel = 0
     tabContent.BackgroundTransparency = 0
     tabContent.CanvasSize = UDim2.new(0, 0, 0, 0)
-    tabContent.AutomaticCanvasSize = Enum.AutomaticSize.Y
 
     -- Ensuring it fits within the MainFrame and does not overflow
     tabContent.Parent = MainFrame
