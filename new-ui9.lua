@@ -16,21 +16,25 @@ function UILib:CreateWindow(options)
     local Header = Instance.new("Frame")
     Header.Parent = MainFrame
     Header.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    Header.Position = UDim2.new(0, 0, -0.15, 0)
+    Header.Position = UDim2.new(0, 0, -0.15, 0)  -- Header position is relative to MainFrame
     Header.Size = UDim2.new(0, 500, 0, 36)
     Header.Active = true
 
     local Title = Instance.new("TextLabel")
     Title.Parent = Header
-    Title.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    Title.Size = UDim2.new(0, 200, 0, 36)
-    Title.Position = UDim2.new(0.01, 0, 0, 0)
-    Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Title.TextSize = 17
-    Title.Text = options.Title or "Name Of UI"
-    Title.Font = Enum.Font.ArialBold
     Title.BackgroundTransparency = 1
-    Title.TextXAlignment = Enum.TextXAlignment.Left
+    Title.Text = options.title or "Title"
+    Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Title.TextSize = 24
+    Title.Size = UDim2.new(1, 0, 1, 0)
+    Title.TextStrokeTransparency = 0.8
+    Title.TextXAlignment = Enum.TextXAlignment.Center
+
+    local TabsHolder = Instance.new("Frame")
+    TabsHolder.Parent = MainFrame
+    TabsHolder.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+    TabsHolder.Position = UDim2.new(1.025, 0, 0, 0)
+    TabsHolder.Size = UDim2.new(0, 54, 0, 300)
 
     local GameTitle = Instance.new("TextLabel")
     GameTitle.Parent = Header
@@ -59,12 +63,6 @@ function UILib:CreateWindow(options)
     local HeaderCorners = Instance.new("UICorner")
     HeaderCorners.CornerRadius = UDim.new(0, 4)
     HeaderCorners.Parent = Header
-
-    local TabsHolder = Instance.new("Frame")
-    TabsHolder.Parent = MainFrame
-    TabsHolder.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    TabsHolder.Position = UDim2.new(1.025, 0, 0, 0)
-    TabsHolder.Size = UDim2.new(0, 54, 0, 300)
 
     local TabsHolderCorners = Instance.new("UICorner")
     TabsHolderCorners.CornerRadius = UDim.new(0, 4)
@@ -116,14 +114,7 @@ function UILib:CreateWindow(options)
     local function update(input)
         local delta = input.Position - dragStart
         local newPos = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-        
-        if MainFrame then
-            MainFrame.Position = newPos
-        end
-        
-        if Header then
-            Header.Position = newPos
-        end
+        MainFrame.Position = newPos
     end
 
     local function onInputBegan(input)
@@ -148,8 +139,6 @@ function UILib:CreateWindow(options)
 
     MainFrame.InputBegan:Connect(onInputBegan)
     MainFrame.InputChanged:Connect(onInputChanged)
-    Header.InputBegan:Connect(onInputBegan)
-    Header.InputChanged:Connect(onInputChanged)
 
     local UserInputService = game:GetService("UserInputService")
     UserInputService.InputChanged:Connect(function(input)
