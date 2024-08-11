@@ -181,7 +181,7 @@ if tabOptions.EnableLayout then
     tabContent.BorderSizePixel = 0
     tabContent.BackgroundTransparency = 1
     tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0)
-    tabContent.CanvasSize = UDim2.new(1, 0, 0, 0) -- Default CanvasSize
+    tabContent.CanvasSize = UDim2.new(0, 0, 0, 0) -- Default CanvasSize
 
     local layout = Instance.new("UIListLayout")
     layout.Parent = tabContent
@@ -190,7 +190,7 @@ if tabOptions.EnableLayout then
 
     local function updateScrolling()
         local contentSize = layout.AbsoluteContentSize
-        tabContent.CanvasSize = UDim2.new(1, 0, 0, contentSize.X) -- Updated CanvasSize
+        tabContent.CanvasSize = UDim2.new(0, 0, 0, contentSize.Y) -- Updated CanvasSize
     end
 
     layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateScrolling)
@@ -202,6 +202,7 @@ else
     tabContent.BorderSizePixel = 0
     tabContent.BackgroundTransparency = 1
 end
+
 
 
     tabContent.Name = tabOptions.Title or "TabContent"
