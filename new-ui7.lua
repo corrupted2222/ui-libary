@@ -601,7 +601,7 @@ end,
 
     updateSlider((sliderValue - sliderOptions.Min) / (maxValue - sliderOptions.Min))
 end,
-				AddDropdown = function(self, dropdownOptions)
+       AddDropdown = function(self, dropdownOptions)
     local dropdownFrame = Instance.new("TextButton")
     dropdownFrame.Parent = tabContent
     dropdownFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
@@ -615,17 +615,30 @@ end,
     dropdownFrame.Active = false
     dropdownFrame.TextXAlignment = Enum.TextXAlignment.Left
 
+    local dropdowncorners = Instance.new("UICorner")
+    dropdowncorners.CornerRadius = UDim.new(0, 4)
+    dropdowncorners.Parent = dropdownFrame
+
+    local dropdownpadding = Instance.new("UIPadding")
+    dropdownpadding.Parent = dropdownFrame
+    dropdownpadding.PaddingLeft = UDim.new(0, 6)
+
     local dropdownButton = Instance.new("TextButton")
     dropdownButton.Name = "DropdownButton"
     dropdownButton.Parent = dropdownFrame
-    dropdownButton.Size = UDim2.new(0, 120, 0, 40)  -- Fixed syntax error
+    dropdownButton.Size = UDim2.new(0, 120, 0, 30)  -- Fixed syntax error
     dropdownButton.BackgroundColor3 = dropdownOptions.Color or Color3.fromRGB(45, 45, 45)
-    dropdownButton.Text = dropdownOptions.Title or "Dropdown"
+    dropdownButton.Position = UDim2.new(0.8, -90, 0.5, -5)
+    dropdownButton.Text = ""
     dropdownButton.Font = Enum.Font.ArialBold
     dropdownButton.TextSize = 14
     dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     dropdownButton.BorderSizePixel = 0
-
+					
+    local dropdownbuttoncorners = Instance.new("UICorner")
+    dropdownbuttoncorners.CornerRadius = UDim.new(0, 4)
+    dropdownbuttoncorners.Parent = dropdownButton
+					
     local dropdownList = Instance.new("Frame")
     dropdownList.Name = "DropdownList"
     dropdownList.Parent = tabContent
