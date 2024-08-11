@@ -150,6 +150,7 @@ end)
     tabButton.Name = tabOptions.Title or "Tab"
     tabButton.Parent = TabsHolderFrame
     tabButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    tabButton.Position = UDim2.new(0, 0, 0, 0)
     tabButton.Size = UDim2.new(0, 126, 0, 34)
     tabButton.Text = ""
     tabButton.TextSize = 14 
@@ -164,6 +165,7 @@ end)
     local tabIcon = Instance.new("ImageLabel")
     tabIcon.Parent = tabButton
     tabIcon.Size = UDim2.new(0, 30, 0, 30)
+    tabIcon.Name = tabOptions.Title or "Tab"
     tabIcon.Position = UDim2.new(0.1, 0, 0.1, 0)
     tabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
     tabIcon.BackgroundTransparency = 1
@@ -176,19 +178,11 @@ end)
         tabContent.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
         tabContent.ClipsDescendants = true
         tabContent.AutomaticCanvasSize = Enum.AutomaticSize.Y
-    else
-        tabContent = Instance.new("Frame")
-        tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
+        tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        tabContent.BorderSizePixel = 0
         tabContent.BackgroundTransparency = 1
-    end
+        tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0)
 
-    tabContent.Name = tabOptions.Title or "TabContent"
-    tabContent.Parent = MainFrame
-    tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    tabContent.BorderSizePixel = 0
-    tabContent.Visible = tabOptions.DefaultVisible or false
-
-    if tabOptions.EnableLayout then
         local layout = Instance.new("UIListLayout")
         layout.Parent = tabContent
         layout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -204,7 +198,17 @@ end)
 
         -- Connect update on property change
         layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateScrolling)
+    else
+        tabContent = Instance.new("Frame")
+        tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
+        tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        tabContent.BorderSizePixel = 0
+        tabContent.BackgroundTransparency = 1
     end
+
+    tabContent.Name = tabOptions.Title or "TabContent"
+    tabContent.Parent = MainFrame
+    tabContent.Visible = tabOptions.DefaultVisible or false
 
     tabButton.MouseButton1Click:Connect(function()
         switchTab({title = tabOptions.Title, content = tabContent})
