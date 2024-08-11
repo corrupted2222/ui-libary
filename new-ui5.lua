@@ -25,7 +25,7 @@ MainFrameCorners.Parent = MainFrame
     Header.Active = true
 
     local Title = Instance.new("TextLabel")
-    Title.Text = options.title or "Title"
+    Title.Text = options.Title or "Title"
 	Title.Font = Enum.Font.ArialBold
 Title.BackgroundTransparency = 1
 Title.TextXAlignment = Enum.TextXAlignment.Left
