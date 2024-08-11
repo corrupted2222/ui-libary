@@ -15,6 +15,25 @@ function UILib:CreateWindow(options)
     window.Active = true
     window.Draggable = true
 
+    local isVisible = true
+    local toggleButton = Instance.new("ImageButton")
+    toggleButton.Name = "ToggleButton"
+    toggleButton.Parent = screenGui
+    toggleButton.Size = UDim2.new(0, 50, 0, 50)
+    toggleButton.Position = UDim2.new(0.9, 0, 0.05, 0)
+    toggleButton.BackgroundTransparency = 1
+    toggleButton.Image = options.Icon or "" -- Placeholder for icon URL
+
+    toggleButton.MouseButton1Click:Connect(function()
+        isVisible = not isVisible
+        window.Visible = isVisible
+        if isVisible then
+            toggleButton.Image = options.IconOpen or ""
+        else
+            toggleButton.Image = options.IconClose or ""
+        end
+    end)
+
     local titleLabel = Instance.new("TextLabel")
     titleLabel.Parent = window
     titleLabel.Size = UDim2.new(1, 0, 0, 40)
