@@ -602,7 +602,6 @@ end,
 
     updateSlider((sliderValue - sliderOptions.Min) / (maxValue - sliderOptions.Min))
 end,
-       why doesnt the dropdown list have corners when i open it??
 AddDropdown = function(self, dropdownOptions)
     local dropdownFrame = Instance.new("TextButton")
     dropdownFrame.Parent = tabContent
