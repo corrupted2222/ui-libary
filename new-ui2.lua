@@ -145,7 +145,8 @@ end)
     end
     
     return {
-             AddTab = function(self, tabOptions)
+            
+   AddTab = function(self, tabOptions)
     local tabButton = Instance.new("TextButton")
     tabButton.Name = tabOptions.Title or "Tab"
     tabButton.Parent = TabsHolderFrame
@@ -194,8 +195,10 @@ end)
 
             if contentSize.Y > frameSize.Y then
                 tabContent.CanvasSize = UDim2.new(0, 0, 0, contentSize.Y)
+                tabContent.ScrollBarVisibility = Enum.ScrollBarVisibility.Visible
             else
                 tabContent.CanvasSize = UDim2.new(0, 0, 1, 0) -- Fit content within frame
+                tabContent.ScrollBarVisibility = Enum.ScrollBarVisibility.Hidden
             end
         end
 
@@ -220,6 +223,8 @@ end)
     end)
 
     table.insert(tabs, { button = tabButton, content = tabContent })
+
+			
             return {
                 AddLabel = function(self, labelOptions)
                     local label = Instance.new("TextLabel")
