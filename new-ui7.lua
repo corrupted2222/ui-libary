@@ -145,7 +145,7 @@ end)
     end
     
     return {
-              AddTab = function(self, tabOptions)
+               AddTab = function(self, tabOptions)
             local tabButton = Instance.new("TextButton")
             tabButton.Name = tabOptions.Title or "Tab"
             tabButton.Parent = TabsHolderFrame
@@ -195,7 +195,6 @@ end)
 
                 local function updateScrolling()
                     scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y)
-                    scrollingFrame:ScrollToBottom()
                 end
 
                 layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateScrolling)
