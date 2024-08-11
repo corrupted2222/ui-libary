@@ -156,29 +156,21 @@ function UILib:CreateWindow(options)
         end
     end)
 
-            local ToggleButton = Instance.new("ImageButton")
-    ToggleButton.Parent = ScreenGui
-    ToggleButton.BackgroundTransparency = 1
-    ToggleButton.Size = UDim2.new(0, 50, 0, 50)
-    ToggleButton.Position = UDim2.new(1, -60, 0.5, -25)
-    ToggleButton.Image = "http://www.roblox.com/asset/?id=16803349493" -- Default icon
-    ToggleButton.AnchorPoint = Vector2.new(1, 0.5)
+            function window:SetToggleButtonImage(imageId)
+        local toggleButton = Instance.new("ImageButton")
+        toggleButton.Size = UDim2.fromOffset(50, 50)
+        toggleButton.Position = UDim2.fromScale(0.5, 0.5)
+        toggleButton.AnchorPoint = Vector2.new(0.5, 0.5)
+        toggleButton.Image = imageId
+        toggleButton.BackgroundTransparency = 1
+        toggleButton.Parent = game.Players.LocalPlayer.PlayerGui
 
-    ToggleButton.MouseButton1Click:Connect(function()
-        MainFrame.Visible = not MainFrame.Visible
-    end)
-
-    -- Store reference to ToggleButton
-    self.ToggleButton = ToggleButton
-
-    -- Update icon function
-function UILib:SetToggleIcon(iconId)
-    if self and self.ToggleButton then
-        self.ToggleButton.Image = iconId
-    else
-        warn("ToggleButton is not defined or self is not available")
+        local isOpen = true
+        toggleButton.MouseButton1Click:Connect(function()
+            isOpen = not isOpen
+            window.Enabled = isOpen
+        end)
     end
-end
 
 
 	
