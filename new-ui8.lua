@@ -637,6 +637,10 @@ end,
     dropdownButton.BorderSizePixel = 0
     dropdownButton.TextTruncate = Enum.TextTruncate.AtEnd
     dropdownButton.AutoButtonColor = false
+
+    local dropdownbuttoncorners = Instance.new("UICorner")
+    dropdownbuttoncorners.CornerRadius = UDim.new(0, 4)
+    dropdownbuttoncorners.Parent = dropdownFrame
 					
     local dropdownList = Instance.new("Frame")
     dropdownList.Name = "DropdownList"
@@ -645,10 +649,6 @@ end,
     dropdownList.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     dropdownList.BorderSizePixel = 0
     dropdownList.Visible = false
-
-    local listcorners = Instance.new("UICorner")
-    listcorners.CornerRadius = UDim.new(0, 4)
-    listcorners.Parent = dropdownList
 
     local listLayout = Instance.new("UIListLayout")
     listLayout.Parent = dropdownList
