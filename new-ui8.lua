@@ -655,7 +655,7 @@ end,
 
     dropdownButton.MouseButton1Click:Connect(function()
         dropdownList.Visible = not dropdownList.Visible
-        dropdownList.Position = UDim2.new(0, 0, 1, 0
+        dropdownList.Position = UDim2.new(0, 0, 1, 0)
     end)
 
     for _, item in ipairs(dropdownOptions.Items) do
