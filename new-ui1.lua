@@ -156,23 +156,6 @@ function UILib:CreateWindow(options)
         end
     end)
 
-            function SetToggleButtonImage(options)
-        local imageId = options.Image or "rbxassetid://123456789" -- default image if none provided
-        local toggleButton = Instance.new("ImageButton")
-        toggleButton.Size = UDim2.fromOffset(50, 50)
-        toggleButton.Position = UDim2.fromScale(0.5, 0.5)
-        toggleButton.AnchorPoint = Vector2.new(0.5, 0.5)
-        toggleButton.Image = imageId
-        toggleButton.BackgroundTransparency = 1
-        toggleButton.Parent = ScreenGui
-
-        local isOpen = true
-        toggleButton.MouseButton1Click:Connect(function()
-            isOpen = not isOpen
-            MainFrame.Visible = isOpen
-        end)
-    end
-
 
 	
     return {
