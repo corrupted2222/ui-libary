@@ -675,7 +675,7 @@ end,
     
     local itemCorners = Instance.new("UICorner")
     itemCorners.CornerRadius = UDim.new(0, 4)
-    itemCorners.Parent = itemButton
+    itemCorners.Parent = dropdownList
     
     local itemPadding = Instance.new("UIPadding")
     itemPadding.Parent = itemButton
