@@ -13,7 +13,7 @@ function UILib:CreateWindow(options)
     MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
     MainFrame.Active = true
 
-local MainFrame = Instance.new("Frame")
+local MainFrameCorners = Instance.new("UICorner")
 MainFrameCorners.CornerRadius = UDim.new(0, 4)
 MainFrameCorners.Parent = MainFrame
 
