@@ -19,7 +19,7 @@ ToggleButton.Image = options.Icon or "rbxassetid://17376881029"
 ToggleButton.Position = UDim2.new(0.1, 0, 0.1, 0)
 ToggleButton.Size = UDim2.new(0, 50, 0, 50)
 ToggleButton.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
-ToggleButton.BackgroundTransparency = 0 
+ToggleButton.BackgroundTransparency = 1
 ToggleButton.BorderSizePixel = 0
 ToggleButton.Active = true
 ToggleButton.Draggable = true
@@ -27,7 +27,10 @@ ToggleButton.MouseButton1Click:Connect(function()
     MainFrame.Visible = not MainFrame.Visible
 end)
 
-
+    local ToggleButtoncorners = Instance.new("UICorner")
+    ToggleButtoncorners.CornerRadius = UDim.new(0, 4)
+    ToggleButtoncorners.Parent = ToggleButton
+	
     local MainFrameCorners = Instance.new("UICorner")
     MainFrameCorners.CornerRadius = UDim.new(0, 4)
     MainFrameCorners.Parent = MainFrame
