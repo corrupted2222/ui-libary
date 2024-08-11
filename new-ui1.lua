@@ -146,68 +146,68 @@ end)
     
     return {
                AddTab = function(self, tabOptions)
-            local tabButton = Instance.new("TextButton")
-            tabButton.Name = tabOptions.Title or "Tab"
-            tabButton.Parent = TabsHolderFrame
-            tabButton.BackgroundColor3 = Color3.fromRGB(40,40,40)
-            tabButton.Position = UDim2.new(0, 0, 0, 0)
-            tabButton.Size = UDim2.new(0,126,0,34)
-            tabButton.Text = ""
-            tabButton.TextSize = 14 
-            tabButton.Font = Enum.Font.ArialBold 
-            tabButton.TextColor3 = Color3.fromRGB(255,255,255)
-            tabButton.AutoButtonColor = false
+        local tabButton = Instance.new("TextButton")
+        tabButton.Name = tabOptions.Title or "Tab"
+        tabButton.Parent = TabsHolderFrame
+        tabButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        tabButton.Position = UDim2.new(0, 0, 0, 0)
+        tabButton.Size = UDim2.new(0, 126, 0, 34)
+        tabButton.Text = ""
+        tabButton.TextSize = 14 
+        tabButton.Font = Enum.Font.ArialBold 
+        tabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        tabButton.AutoButtonColor = false
 
-            local tabButtonCorners = Instance.new("UICorner")
-            tabButtonCorners.CornerRadius = UDim.new(0, 4)
-            tabButtonCorners.Parent = tabButton
+        local tabButtonCorners = Instance.new("UICorner")
+        tabButtonCorners.CornerRadius = UDim.new(0, 4)
+        tabButtonCorners.Parent = tabButton
 
-            local tabIcon = Instance.new("ImageLabel")
-            tabIcon.Parent = tabButton
-            tabIcon.Size = UDim2.new(0, 30, 0, 30)
-            tabIcon.Name = tabOptions.Title or "Tab"
-            tabIcon.Position = UDim2.new(0.1, 0, 0.1, 0)
-            tabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
-            tabIcon.BackgroundTransparency = 1
+        local tabIcon = Instance.new("ImageLabel")
+        tabIcon.Parent = tabButton
+        tabIcon.Size = UDim2.new(0, 30, 0, 30)
+        tabIcon.Name = tabOptions.Title or "Tab"
+        tabIcon.Position = UDim2.new(0.1, 0, 0.1, 0)
+        tabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
+        tabIcon.BackgroundTransparency = 1
 
-            local tabContent = Instance.new("Frame")
-            tabContent.Name = tabOptions.Title or "TabContent"
-            tabContent.Parent = MainFrame
-            tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
-            tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-            tabContent.BorderSizePixel = 0
-            tabContent.BackgroundTransparency = 1
-            tabContent.Visible = tabOptions.DefaultVisible or false
+        local tabContent = Instance.new("Frame")
+        tabContent.Name = tabOptions.Title or "TabContent"
+        tabContent.Parent = MainFrame
+        tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
+        tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        tabContent.BorderSizePixel = 0
+        tabContent.BackgroundTransparency = 1
+        tabContent.Visible = tabOptions.DefaultVisible or false
 
-            if tabOptions.EnableLayout then
-                local scrollingFrame = Instance.new("ScrollingFrame")
-                scrollingFrame.Parent = tabContent
-                scrollingFrame.Size = UDim2.new(1, 0, 1, 0)
-                scrollingFrame.Position = UDim2.new(0, 0, 0, 0)
-                scrollingFrame.BackgroundTransparency = 1
-                scrollingFrame.ScrollBarThickness = 6
-                scrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
-                scrollingFrame.ClipsDescendants = true
+        if tabOptions.EnableLayout then
+            local scrollingFrame = Instance.new("ScrollingFrame")
+            scrollingFrame.Parent = tabContent
+            scrollingFrame.Size = UDim2.new(1, 0, 1, 0)
+            scrollingFrame.Position = UDim2.new(0, 0, 0, 0)
+            scrollingFrame.BackgroundTransparency = 1
+            scrollingFrame.ScrollBarThickness = 6
+            scrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
+            scrollingFrame.ClipsDescendants = false  -- Set to false to avoid clipping issues
 
-                local layout = Instance.new("UIListLayout")
-                layout.Parent = scrollingFrame
-                layout.SortOrder = Enum.SortOrder.LayoutOrder
-                layout.Padding = UDim.new(0, 5)
+            local layout = Instance.new("UIListLayout")
+            layout.Parent = scrollingFrame
+            layout.SortOrder = Enum.SortOrder.LayoutOrder
+            layout.Padding = UDim.new(0, 5)
 
-                local function updateScrolling()
-                    local contentSize = layout.AbsoluteContentSize
-                    scrollingFrame.CanvasSize = UDim2.new(0, contentSize.X, 0, contentSize.Y)
-                end
-
-                layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateScrolling)
-                updateScrolling()
+            local function updateScrolling()
+                local contentSize = layout.AbsoluteContentSize
+                scrollingFrame.CanvasSize = UDim2.new(0, contentSize.X, 0, contentSize.Y)
             end
 
-            tabButton.MouseButton1Click:Connect(function()
-                switchTab({title = tabOptions.Title, content = tabContent})
-            end)
+            layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateScrolling)
+            updateScrolling()
+        end
 
-            table.insert(tabs, { button = tabButton, content = tabContent })
+        tabButton.MouseButton1Click:Connect(function()
+            switchTab({title = tabOptions.Title, content = tabContent})
+        end)
+
+        table.insert(tabs, { button = tabButton, content = tabContent })
 
 
 
