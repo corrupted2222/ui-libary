@@ -168,17 +168,19 @@ function UILib:CreateWindow(options)
         MainFrame.Visible = not MainFrame.Visible
     end)
 
-    self.ToggleButton = ToggleButton -- Store reference to ToggleButton
+    -- Store reference to ToggleButton
+    self.ToggleButton = ToggleButton
 
     -- Update icon function
-    function UILib:SetToggleIcon(iconId)
-        print("Setting toggle icon to: " .. iconId)
+    function self:SetToggleIcon(iconId)
         if self.ToggleButton then
             self.ToggleButton.Image = iconId
         else
             warn("ToggleButton is not defined")
-	end
         end
+    end
+
+    return self
 
 	
     return {
