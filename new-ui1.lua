@@ -17,7 +17,8 @@ MainFrame.Draggable = true
 
 -- Check if the device is mobile and adjust the position
 if UserInputService.TouchEnabled then
-    MainFrame.Position = UDim2.new(0.177, 0, 0.04, 0)
+    MainFrame.Position = UDim2.new(0.1, 0, 0.5, 0)
+MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 end
 	
 local ToggleButton = Instance.new("ImageButton")
