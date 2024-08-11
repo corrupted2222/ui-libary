@@ -172,9 +172,6 @@ function UILib:CreateWindow(options)
         end)
     end
 
-    return self
-end
-
 
 	
     return {
