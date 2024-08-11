@@ -12,38 +12,43 @@ function UILib:CreateWindow(options)
     MainFrame.Size = UDim2.new(0, 500, 0, 300)
     MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
     MainFrame.Active = true
+
     local UserInputService = game:GetService("UserInputService")
-local frame = MainFrame
-local dragging
-local dragInput
-local dragStart
-local startPos
-local function update(input)
+    local frame = MainFrame
+    local dragging
+    local dragInput
+    local dragStart
+    local startPos
+
+    local function update(input)
         local delta = input.Position - dragStart
-		frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-end
-frame.InputBegan:Connect(function(input)
+        frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+
+    frame.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-			dragging = true
-			dragStart = input.Position
-			startPos = frame.Position
-                               input.Changed:Connect(function()
-				if input.UserInputState == Enum.UserInputState.End then
-					dragging = false
-				end
-			end)
-		end
-end)
-frame.InputChanged:Connect(function(input)
+            dragging = true
+            dragStart = input.Position
+            startPos = frame.Position
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+
+    frame.InputChanged:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-			dragInput = input
-		end
-	end)
-UserInputService.InputChanged:Connect(function(input)
-		if input == dragInput and dragging then
-			update(input)
-		end
-end)
+            dragInput = input
+        end
+    end)
+
+    UserInputService.InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            update(input)
+        end
+    end)
 
     local MainFrameCorners = Instance.new("UICorner")
     MainFrameCorners.CornerRadius = UDim.new(0, 4)
@@ -143,56 +148,60 @@ end)
         tab.content.Visible = true
         Title.Text = "Zygarde | " .. tab.title
     end
-    
+
     return {
-       AddTab = function(self, tabOptions)
-               local tabButton = Instance.new("TextButton")
-               tabButton.Name = tabOptions.Title or "Tab"
-               tabButton.Parent = TabsHolderFrame
-               tabButton.BackgroundColor3 = Color3.fromRGB(40,40,40)
-               tabButton.Position = UDim2.new(0, 0, 0, 0)
-               tabButton.Size = UDim2.new(0,126,0,34)
-               tabButton.Text = ""
-               tabButton.TextSize = 14 
-               tabButton.Font = Enum.Font.ArialBold 
-               tabButton.TextColor3 = Color3.fromRGB(255,255,255)
-               tabButton.AutoButtonColor = false
+        AddTab = function(self, tabOptions)
+            local tabButton = Instance.new("TextButton")
+            tabButton.Name = tabOptions.Title or "Tab"
+            tabButton.Parent = TabsHolderFrame
+            tabButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+            tabButton.Position = UDim2.new(0, 0, 0, 0)
+            tabButton.Size = UDim2.new(0, 126, 0, 34)
+            tabButton.Text = ""
+            tabButton.TextSize = 14
+            tabButton.Font = Enum.Font.ArialBold
+            tabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            tabButton.AutoButtonColor = false
 
-               local tabButtonCorners = Instance.new("UICorner")
-               tabButtonCorners.CornerRadius = UDim.new(0, 4)
-               tabButtonCorners.Parent = tabButton
+            local tabButtonCorners = Instance.new("UICorner")
+            tabButtonCorners.CornerRadius = UDim.new(0, 4)
+            tabButtonCorners.Parent = tabButton
 
-               local tabIcon = Instance.new("ImageLabel")
-               tabIcon.Parent = tabButton
-               tabIcon.Size = UDim2.new(0, 30, 0, 30)
-               tabIcon.Name = tabOptions.Title or "Tab"
-               tabIcon.Position = UDim2.new(0.1, 0, 0.1, 0)
-               tabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
-               tabIcon.BackgroundTransparency = 1
+            local tabIcon = Instance.new("ImageLabel")
+            tabIcon.Parent = tabButton
+            tabIcon.Size = UDim2.new(0, 30, 0, 30)
+            tabIcon.Name = tabOptions.Title or "Tab"
+            tabIcon.Position = UDim2.new(0.1, 0, 0.1, 0)
+            tabIcon.Image = tabOptions.Icon or "http://www.roblox.com/asset/?id=16803349493"
+            tabIcon.BackgroundTransparency = 1
 
-local tabContent = Instance.new("Frame")
-               tabContent.Name = tabOptions.Title or "TabContent"
-               tabContent.Parent = MainFrame
-               tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
-               tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-               tabContent.BorderSizePixel = 0
-               tabContent.BackgroundTransparency = 1
-               tabContent.Visible = tabOptions.DefaultVisible or false
+            local tabContent = Instance.new("ScrollingFrame")
+            tabContent.Name = tabOptions.Title or "TabContent"
+            tabContent.Parent = MainFrame
+            tabContent.Size = tabOptions.ContentSize or UDim2.new(1, 0, 1, 0)
+            tabContent.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+            tabContent.BorderSizePixel = 0
+            tabContent.BackgroundTransparency = 1
+            tabContent.Visible = tabOptions.DefaultVisible or false
+            tabContent.ScrollBarThickness = 8
+            tabContent.AutomaticCanvasSize = Enum.AutomaticSize.Y
 
-               if tabOptions.EnableLayout then
+            if tabOptions.EnableLayout then
                 local layout = Instance.new("UIListLayout")
                 layout.Parent = tabContent
                 layout.SortOrder = Enum.SortOrder.LayoutOrder
                 layout.Padding = UDim.new(0, 5)
+            end
 
-                   tabContent.Position = UDim2.new(0.0192, 0, 0.023, 0)
-               end
+            local contentConstraint = Instance.new("UISizeConstraint")
+            contentConstraint.Parent = tabContent
+            contentConstraint.MaxSize = Vector2.new(480, 294)
 
-               tabButton.MouseButton1Click:Connect(function()
-                   switchTab({title = tabOptions.Title, content = tabContent})
-               end)
+            tabButton.MouseButton1Click:Connect(function()
+                switchTab({title = tabOptions.Title, content = tabContent})
+            end)
 
-               table.insert(tabs, { button = tabButton, content = tabContent })
+            table.insert(tabs, { button = tabButton, content = tabContent })
 
 
             return {
