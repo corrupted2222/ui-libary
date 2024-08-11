@@ -652,7 +652,7 @@ end,
 
     local listcorners = Instance.new("UICorner")
     listcorners.CornerRadius = UDim.new(0, 4)
-    listcorners.Parent = dropdownButton
+    listcorners.Parent = dropdownList
 
     local listLayout = Instance.new("UIListLayout")
     listLayout.Parent = dropdownList
@@ -670,11 +670,16 @@ end,
         itemButton.Size = UDim2.new(1, 0, 0, 30)
         itemButton.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
         itemButton.Text = item
-        itemButton.Font = Enum.Font.Arial
+        itemButton.Font = Enum.Font.ArialBold
         itemButton.TextSize = 14
         itemButton.TextColor3 = Color3.fromRGB(255, 255, 255)
         itemButton.BorderSizePixel = 0
         itemButton.AutoButtonColor = false
+	itemButton.TextXAlignment = Enum.TextXAlignment.Left
+
+local itempadding = Instance.new("UIPadding")
+    itempadding.Parent = itemButton
+    itempadding.PaddingLeft = UDim.new(0, 6)
 
         itemButton.MouseButton1Click:Connect(function()
             dropdownButton.Text = item
