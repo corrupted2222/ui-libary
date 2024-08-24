@@ -319,3 +319,5 @@ function SearcherUILibrary:AddScript(tab, config)
 
     return ScriptFrame
 end
+
+return SearcherUILibrary
