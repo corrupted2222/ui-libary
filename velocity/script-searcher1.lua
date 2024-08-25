@@ -340,8 +340,6 @@ end)
             config.Callback()
         end
     end)
-        TabupdateScrolling()
-    updateContentScrolling()
 
     return ScriptFrame
 
