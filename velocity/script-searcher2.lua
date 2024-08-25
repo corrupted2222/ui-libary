@@ -169,7 +169,7 @@ function SearcherUILibrary:AddTab(window, config)
     TabFrame.Name = "TabFrame"
     TabFrame.ScrollBarThickness = 4
     TabFrame.ScrollBarImageColor3 = Color3.fromRGB(60, 60, 60)
-    TabFrame.ScrollingEnabled = false
+    TabFrame.ScrollingEnabled = true  -- Enable scrolling by default
     TabFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
 
     local ListLayout = Instance.new("UIListLayout", TabFrame)
@@ -185,92 +185,63 @@ function SearcherUILibrary:AddTab(window, config)
     
     local TabButton = Instance.new("ImageButton", TabFrame)
     TabButton.Size = UDim2.new(0, 135, 0, 30)
-    TabButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    TabButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
     TabButton.BorderSizePixel = 0
-    TabButton.Image = config.Icon or ""
-    TabButton.ImageColor3 = Color3.fromRGB(89, 89, 89) 
-    TabButton.ImageTransparency = 0.23
-    TabButton.BackgroundTransparency = 1
 
-    local tweenService = game:GetService("TweenService")
-local hoverTweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
-local hoverColorTween = tweenService:Create(TabButton, hoverTweenInfo, {ImageColor3 = Color3.fromRGB(197, 197, 197)})
-local normalColorTween = tweenService:Create(TabButton, hoverTweenInfo, {ImageColor3 = Color3.fromRGB(89, 89, 89)})
+    local tabCorners = Instance.new("UICorner")
+    tabCorners.CornerRadius = UDim.new(0, 3)
+    tabCorners.Parent = TabButton
 
-TabButton.MouseEnter:Connect(function()
-    hoverColorTween:Play()
-end)
-
-TabButton.MouseLeave:Connect(function()
-    normalColorTween:Play()
-end)
-        
-    local tabButtonCorners = Instance.new("UICorner")
-    tabButtonCorners.CornerRadius = UDim.new(0, 3)
-    tabButtonCorners.Parent = TabButton
-
-    local TabLabel = Instance.new("TextLabel")
+    local TabLabel = Instance.new("TextLabel", TabButton)
     TabLabel.Size = UDim2.new(0, 135, 0, 30)
-    TabLabel.Text = config.Game or "Untitled"
+    TabLabel.Position = UDim2.new(0, 0, 0, 0)
     TabLabel.Font = Enum.Font.ArialBold
-    TabLabel.TextSize = 14
+    TabLabel.TextSize = 15
     TabLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     TabLabel.BackgroundTransparency = 1
-    TabLabel.Parent = TabButton
-    TabLabel.TextXAlignment = Enum.TextXAlignment.Left
-    TabLabel.TextYAlignment = Enum.TextYAlignment.Center
-    TabLabel.TextWrapped = true
+    TabLabel.BorderSizePixel = 0
+    TabLabel.Text = config.Title or "Tab"
 
-    local TextLabelPadding = Instance.new("UIPadding")
-    TextLabelPadding.Parent = TabLabel
-    TextLabelPadding.PaddingLeft = UDim.new(0, 5)
-    
-    -- Create ContentFrame
     local ContentFrame = Instance.new("ScrollingFrame", window.MainFrame)
-    ContentFrame.Size = UDim2.new(0, 444, 0, 317)
-    ContentFrame.Position = UDim2.new(0.26, 0, 0.084, 0)
-    ContentFrame.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    ContentFrame.Size = UDim2.new(0, 442, 0, 278)
+    ContentFrame.Position = UDim2.new(0.25, 6, 0.072, 1)
+    ContentFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
     ContentFrame.BorderSizePixel = 0
+    ContentFrame.Visible = false
+    ContentFrame.Name = "ContentFrame"
     ContentFrame.ScrollBarThickness = 4
     ContentFrame.ScrollBarImageColor3 = Color3.fromRGB(60, 60, 60)
-    ContentFrame.ScrollingEnabled = false
+    ContentFrame.ScrollingEnabled = true  -- Enable scrolling by default
     ContentFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
-    ContentFrame.Name = "ContentFrame"
-    ContentFrame.Visible = false
-    ContentFrame.BackgroundTransparency = 1
 
     local ContentLayout = Instance.new("UIListLayout", ContentFrame)
     ContentLayout.SortOrder = Enum.SortOrder.LayoutOrder
     ContentLayout.Padding = UDim.new(0, 5)
 
-    local function updateContentScrolling()
+    local function ContentupdateScrolling()
         ContentFrame.CanvasSize = UDim2.new(0, 0, 0, ContentLayout.AbsoluteContentSize.Y)
         ContentFrame.ScrollingEnabled = ContentFrame.CanvasSize.Y.Offset > ContentFrame.AbsoluteSize.Y
     end
 
+    ContentLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(ContentupdateScrolling)
 
+    local Corners = Instance.new("UICorner")
+    Corners.CornerRadius = UDim.new(0, 4)
+    Corners.Parent = ContentFrame
 
     TabButton.MouseButton1Click:Connect(function()
-        for _, child in ipairs(window.MainFrame:GetChildren()) do
-            if child:IsA("ScrollingFrame") and child.Name == "ContentFrame" then
-                child.Visible = false
+        for _, v in pairs(window.MainFrame:GetChildren()) do
+            if v:IsA("ScrollingFrame") and v.Name == "ContentFrame" then
+                v.Visible = false
             end
         end
         ContentFrame.Visible = true
     end)
 
-    window.Tabs[config.Game or "Untitled"] = {
+    table.insert(window.Tabs, {
         Button = TabButton,
-        Frame = ContentFrame,
-    }
-
-    updateContentScrolling()
-    TabupdateScrolling()
-
-    return {
-        ContentFrame = ContentFrame,
-        TabButton = TabButton,
-    }
+        Content = ContentFrame,
+    })
 end
 
 
