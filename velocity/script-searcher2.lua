@@ -176,13 +176,13 @@ function SearcherUILibrary:AddTab(window, config)
     ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
     ListLayout.Padding = UDim.new(0, 5)
 
-    local function TabupdateScrolling()
+    local function updateScrolling()
         TabFrame.CanvasSize = UDim2.new(0, 0, 0, ListLayout.AbsoluteContentSize.Y)
         TabFrame.ScrollingEnabled = TabFrame.CanvasSize.Y.Offset > TabFrame.AbsoluteSize.Y
     end
 
-    ListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(TabupdateScrolling)
-    TabupdateScrolling()
+    ListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateScrolling)
+    updateScrolling()
 
     local TabButton = Instance.new("ImageButton", TabFrame)
     TabButton.Size = UDim2.new(0, 135, 0, 30)
@@ -249,8 +249,7 @@ end)
         ContentFrame.ScrollingEnabled = ContentFrame.CanvasSize.Y.Offset > ContentFrame.AbsoluteSize.Y
     end
 
-    ContentLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateContentScrolling)
-    updateContentScrolling()
+
 
     TabButton.MouseButton1Click:Connect(function()
         for _, child in ipairs(window.MainFrame:GetChildren()) do
