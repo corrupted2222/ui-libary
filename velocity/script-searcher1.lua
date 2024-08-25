@@ -167,8 +167,9 @@ function SearcherUILibrary:AddTab(window, config)
     TabFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
     TabFrame.BorderSizePixel = 0
     TabFrame.Name = "TabFrame"
+    TabFrame.ScrollBarThickness = 4
     TabFrame.ScrollBarImageColor3 = Color3.fromRGB(60, 60, 60)
-    TabFrame.ScrollingEnabled = true
+    TabFrame.ScrollingEnabled = false
     TabFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
 
     local ListLayout = Instance.new("UIListLayout", TabFrame)
@@ -344,4 +345,4 @@ end)
     return ScriptFrame
 end
 
-return SearcherUILibraryw
+return SearcherUILibrar
