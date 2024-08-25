@@ -191,6 +191,19 @@ function SearcherUILibrary:AddTab(window, config)
     TabButton.ImageColor3 = Color3.fromRGB(89, 89, 89) 
     TabButton.ImageTransparency = 0.23
     TabButton.BackgroundTransparency = 1
+
+    local tweenService = game:GetService("TweenService")
+local hoverTweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
+local hoverColorTween = tweenService:Create(TabButton, hoverTweenInfo, {ImageColor3 = Color3.fromRGB(197, 197, 197)})
+local normalColorTween = tweenService:Create(TabButton, hoverTweenInfo, {ImageColor3 = Color3.fromRGB(89, 89, 89)})
+
+TabButton.MouseEnter:Connect(function()
+    hoverColorTween:Play()
+end)
+
+TabButton.MouseLeave:Connect(function()
+    normalColorTween:Play()
+end)
         
     local tabButtonCorners = Instance.new("UICorner")
     tabButtonCorners.CornerRadius = UDim.new(0, 3)
@@ -299,6 +312,19 @@ function SearcherUILibrary:AddScript(tab, config)
     ExecuteButton.BorderSizePixel = 0
     ExecuteButton.AutoButtonColor = false
     ExecuteButton.TextWrapped = true
+
+        local tweenService = game:GetService("TweenService")
+local hoverTweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
+local hoverColorTween = tweenService:Create(ExecuteButton, hoverTweenInfo, {BackgroundColor3 = Color3.fromRGB(45,45,45)})
+local normalColorTween = tweenService:Create(ExecuteButton, hoverTweenInfo, {BackgroundColor3 = Color3.fromRGB(25,25,25)})
+
+ExecuteButton.MouseEnter:Connect(function()
+    hoverColorTween:Play()
+end)
+
+ExecuteButton.MouseLeave:Connect(function()
+    normalColorTween:Play()
+end)
 
     local ExecuteButtonCorners = Instance.new("UICorner")
     ExecuteButtonCorners.CornerRadius = UDim.new(0, 3)
