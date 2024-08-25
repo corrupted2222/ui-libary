@@ -340,12 +340,11 @@ end)
             config.Callback()
         end
     end)
-
+        TabupdateScrolling()
+    updateContentScrolling()
 
     return ScriptFrame
 
-        TabupdateScrolling()
-    updateContentScrolling()
 end
 
 return SearcherUILibrary
