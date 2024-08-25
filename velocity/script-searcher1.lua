@@ -169,6 +169,7 @@ function SearcherUILibrary:AddTab(window, config)
     TabFrame.Name = "TabFrame"
     TabFrame.ScrollBarThickness = 4
     TabFrame.ScrollBarImageColor3 = Color3.fromRGB(60, 60, 60)
+    TabFrame.ScrollingEnabled = true
     TabFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
 
     local ListLayout = Instance.new("UIListLayout", TabFrame)
@@ -242,13 +243,10 @@ end)
     ContentLayout.SortOrder = Enum.SortOrder.LayoutOrder
     ContentLayout.Padding = UDim.new(0, 5)
 
-local function TabupdateScrolling()
-    wait(0.1) -- Ensure that everything is fully initialized
-    local contentHeight = ListLayout.AbsoluteContentSize.Y
-    TabFrame.CanvasSize = UDim2.new(0, 0, 0, contentHeight)
-    TabFrame.ScrollingEnabled = contentHeight > TabFrame.AbsoluteSize.Y
-end
-
+    local function updateContentScrolling()
+        ContentFrame.CanvasSize = UDim2.new(0, 0, 0, ContentLayout.AbsoluteContentSize.Y)
+        ContentFrame.ScrollingEnabled = ContentFrame.CanvasSize.Y.Offset > ContentFrame.AbsoluteSize.Y
+    end
 
 
 
@@ -274,7 +272,6 @@ end
         TabButton = TabButton,
     }
 end
-
 
 function SearcherUILibrary:AddScript(tab, config)
     local ContentFrame = tab.ContentFrame
