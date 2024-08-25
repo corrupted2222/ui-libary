@@ -343,6 +343,9 @@ end)
 
 
     return ScriptFrame
+
+        TabupdateScrolling()
+    updateContentScrolling()
 end
 
 return SearcherUILibrary
