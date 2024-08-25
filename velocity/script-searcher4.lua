@@ -263,7 +263,7 @@ end)
         Frame = ContentFrame,
     }
 
-    updateScrolling()
+    updateContentScrolling()
 
     return {
         ContentFrame = ContentFrame,
