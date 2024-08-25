@@ -225,6 +225,7 @@ end)
     TextLabelPadding.Parent = TabLabel
     TextLabelPadding.PaddingLeft = UDim.new(0, 5)
 
+    updateContentScrolling()
     -- Create ContentFrame
     local ContentFrame = Instance.new("ScrollingFrame", window.MainFrame)
     ContentFrame.Size = UDim2.new(0, 444, 0, 317)
