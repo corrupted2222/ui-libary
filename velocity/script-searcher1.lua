@@ -181,8 +181,6 @@ function SearcherUILibrary:AddTab(window, config)
         TabFrame.ScrollingEnabled = TabFrame.CanvasSize.Y.Offset > TabFrame.AbsoluteSize.Y
     end
 
-    ListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateScrolling)
-    updateScrolling()
 
     local TabButton = Instance.new("ImageButton", TabFrame)
     TabButton.Size = UDim2.new(0, 135, 0, 30)
