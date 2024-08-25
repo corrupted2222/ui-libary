@@ -176,12 +176,13 @@ function SearcherUILibrary:AddTab(window, config)
     ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
     ListLayout.Padding = UDim.new(0, 5)
 
-    local function updateScrolling()
+    local function TabupdateScrolling()
         TabFrame.CanvasSize = UDim2.new(0, 0, 0, ListLayout.AbsoluteContentSize.Y)
         TabFrame.ScrollingEnabled = TabFrame.CanvasSize.Y.Offset > TabFrame.AbsoluteSize.Y
     end
 
-
+    ListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(TabupdateScrolling)
+    
     local TabButton = Instance.new("ImageButton", TabFrame)
     TabButton.Size = UDim2.new(0, 135, 0, 30)
     TabButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
@@ -264,6 +265,7 @@ end)
     }
 
     updateContentScrolling()
+    TabupdateScrolling()
 
     return {
         ContentFrame = ContentFrame,
@@ -339,7 +341,6 @@ end)
         end
     end)
 
-    updateScrolling()
 
     return ScriptFrame
 end
