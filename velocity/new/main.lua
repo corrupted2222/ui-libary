@@ -9,7 +9,7 @@ function SearcherUILibrary:CreateWindow(config)
     MainFrame.Position = UDim2.new(0.2, 0, 0.2, 0)
     MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
     MainFrame.BorderSizePixel = 0
-    MainFrame.Visible = false
+    MainFrame.Visible = true
 
     local UserInputService = game:GetService("UserInputService")
 local frame = MainFrame
