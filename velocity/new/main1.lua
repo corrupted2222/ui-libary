@@ -660,35 +660,35 @@ function SearcherUILibrary:AddToggle(tab, config)
     local isOn = false
 
     local function toggle()
-    isOn = not isOn
-    if isOn then
-        toggleCircle:TweenPosition(UDim2.new(1, -22, 0, 2.5), Enum.EasingDirection.Out, Enum.EasingStyle.Sine, 0.2, true)
-        toggleFrame.BackgroundColor3 = Color3.fromRGB(6, 201, 255)  
-        toggleFrame.BackgroundTransparency = 0.4
-        toggleCircle.BackgroundColor3 = Color3.fromRGB(6, 201, 255) 
-    else
-        toggleCircle:TweenPosition(UDim2.new(0, 2, 0, 2.5), Enum.EasingDirection.Out, Enum.EasingStyle.Sine, 0.2, true)
-        toggleFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-        toggleFrame.BackgroundTransparency = 0 -- Reset transparency when off
-        toggleCircle.BackgroundColor3 = Color3.fromRGB(80, 80, 80) -- Reset circle color when off
-    end
+        isOn = not isOn
+        if isOn then
+            toggleCircle:TweenPosition(UDim2.new(1, -22, 0, 2.5), Enum.EasingDirection.Out, Enum.EasingStyle.Sine, 0.2, true)
+            toggleFrame.BackgroundColor3 = Color3.fromRGB(6, 201, 255)  
+            toggleFrame.BackgroundTransparency = 0.4
+            toggleCircle.BackgroundColor3 = Color3.fromRGB(6, 201, 255) 
+        else
+            toggleCircle:TweenPosition(UDim2.new(0, 2, 0, 2.5), Enum.EasingDirection.Out, Enum.EasingStyle.Sine, 0.2, true)
+            toggleFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+            toggleFrame.BackgroundTransparency = 0
+            toggleCircle.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+        end
 
-    -- Call the callback function and pass the toggle state
-    if config.Callback then
-        config.Callback(isOn)
+        -- Call the callback function and pass the toggle state
+        if config.Callback then
+            config.Callback(isOn)
+        end
     end
-end
-
 
     -- Connect the toggle function to the toggle button
     toggleFrame.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             toggle()
         end
     end)
 
-    return frame
+    return ToggleFrame
 end
+
 
 function SearcherUILibrary:AddSlider(tab, config)
     local ContentFrame = tab.ContentFrame
